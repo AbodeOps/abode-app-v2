@@ -15,7 +15,7 @@
 
 				<BaseLink textColor="text-primary" :route="ROUTES.AUTH_USER_REGISTER">Sign Up Instead</BaseLink>
 			</div>
-			<BaseButton class="mt-5 w-full bg-orange">Login</BaseButton>
+			<BaseButton class="mt-5 w-full bg-orange" @click="login">Login</BaseButton>
 			<div class="mt-5 flex justify-center">
 				<BaseLink textColor="text-primary" :route="ROUTES.AUTH_PASSWORD_FORGOT">Forgot Password</BaseLink>
 			</div>
@@ -30,4 +30,11 @@ import BaseButton from '@/components/common/BaseButton.vue';
 import BaseCheckbox from '@/components/common/BaseCheckbox.vue';
 import BaseLink from '@/components/common/BaseLink.vue';
 import { ROUTES } from '@/router/routes';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const login = () => {
+	router.push({ name: ROUTES.USER_DASHBOARD });
+};
 </script>

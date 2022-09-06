@@ -4,7 +4,7 @@
 			<div>
 				<div class="text-3xl text-white">Reset Password</div>
 				<div class="mt-3 mb-10 text-lg text-white">Let's get you back on track</div>
-				<BaseLink textColor="text-white" :route="ROUTES.AUTH_USER_REGISTER">Login Instead</BaseLink>
+				<BaseLink textColor="text-white" :route="ROUTES.AUTH_LOGIN">Login Instead</BaseLink>
 			</div>
 		</template>
 		<template #form>

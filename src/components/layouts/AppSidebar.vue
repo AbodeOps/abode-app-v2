@@ -40,7 +40,7 @@
 									@click="toggleSidebar(false)"
 								>
 									<span class="sr-only">Close sidebar</span>
-									<XIcon class="h-6 w-6 text-white" aria-hidden="true" />
+									<XMarkIcon class="h-6 w-6 text-white" aria-hidden="true" />
 								</button>
 							</div>
 						</TransitionChild>
@@ -126,7 +126,7 @@
 
 <script setup lang="ts">
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue';
-import { XIcon } from '@heroicons/vue/outline';
+import { XMarkIcon } from '@heroicons/vue/20/solid';
 import { LogoutIcon } from '@/components/icons/AllIcons';
 import LogoWithText from '@/components/logos/LogoWithText.vue';
 import { computed } from 'vue';
