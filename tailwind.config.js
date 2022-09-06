@@ -10,15 +10,24 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
+				sans: ['BR Firma', ...defaultTheme.fontFamily.sans],
 			},
 			colors: {
+				background: {
+					DEFAULT: '#F5FAFB',
+				},
+				primary: {
+					DEFAULT: '#0693A5',
+					10: '#F5FAFB',
+					30: '#DEF0F2',
+				},
 				black: {
 					DEFAULT: '#231F20',
 				},
 				gray: {
 					10: '#F9FAFB',
 					20: '#F2F4F7',
+					25: '#EEEEEE',
 					30: '#E4E7EC',
 					40: '#D0D5DD',
 					50: '#98A2B3',

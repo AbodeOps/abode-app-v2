@@ -1,45 +1,30 @@
 <template>
-	<div class="flex flex-col flex-1 h-full">
-		<div class="sticky top-0 z-10 flex flex-shrink-0 bg-white">
-			<AuthNavbar class="w-full" />
-		</div>
-
-		<main class="flex-1 bg-white md:bg-transparent">
-			<RouterView v-slot="{ Component }">
-				<transition name="fastfade" mode="out-in">
-					<component :is="Component" />
-				</transition>
-			</RouterView>
-		</main>
-
-		<footer class="bg-white">
-			<div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
-				<div class="flex justify-center space-x-4 text-micro text-green md:order-2">
-					<button @click="openIntercom()" class="hover:text-green-90">
-						<span class="sr-only">Help & Support</span>
-						Help & Support
-					</button>
-					<span class="text-gray-40">&bull;</span>
-					<a :href="termsConditionUrl" target="_blank" class="hover:text-green-90">
-						<span class="sr-only">Terms & Conditions</span>
-						Terms & Conditions
-					</a>
-					<span class="text-gray-40">&bull;</span>
-					<a :href="privacyPolicyUrl" target="_blank" class="hover:text-green-90">
-						<span class="sr-only">Privacy Policy</span>
-						Privacy Policy
-					</a>
+	<div class="auth-banner flex h-full flex-1 flex-col justify-center bg-gray-800 p-10">
+		<div class="flex w-full items-center">
+			<div class="flex w-1/2 justify-center">
+				<slot name="title" />
+			</div>
+			<div class="w-1/2 rounded-lg bg-white py-8">
+				<div class="px-8">
+					<LogoWithText class="mb-5 w-[15%]" />
 				</div>
-				<div class="mt-8 md:order-1 md:mt-0">
-					<p class="text-center text-gray-400 text-micro">&copy; 2022. GigBridge UK. All Rights Reserved.</p>
+				<div class="max-h-[30em] min-h-[25em] overflow-y-scroll px-8">
+					<slot name="form" />
 				</div>
 			</div>
-		</footer>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { helpSupportUrl, termsConditionUrl, privacyPolicyUrl } from '@/config/app';
-import { openIntercom } from '@/helpers/functions';
-import AuthNavbar from './AuthNavbar.vue';
+import LogoWithText from '../logos/LogoWithText.vue';
 </script>
+
+<style scoped>
+.auth-banner {
+	background-image: linear-gradient(0deg, rgba(28, 22, 25, 0.3), rgba(48, 38, 44, 0.3)), url('@/assets/images/login-banner.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+</style>

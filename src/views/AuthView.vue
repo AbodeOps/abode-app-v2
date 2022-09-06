@@ -1,5 +1,6 @@
 <template>
-	<AuthLayout />
+	<router-view></router-view>
+	<!-- <AuthLayout /> -->
 </template>
 
 <script setup lang="ts">

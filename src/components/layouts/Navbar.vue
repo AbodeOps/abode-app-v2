@@ -1,17 +1,17 @@
 <template>
 	<header>
-		<Disclosure as="nav" class="border-b bg-white" v-slot="{ open }">
+		<Disclosure as="nav" class="bg-background" v-slot="{ open }">
 			<div class="max-w-7xls mx-auto px-4 py-3 sm:px-6 lg:px-8">
-				<div class="relative flex h-16 items-center justify-between">
-					<div class="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
-						<div class="flex w-full flex-shrink-0 items-center justify-between md:justify-start">
+				<div class="relative flex h-16 items-center">
+					<div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
+						<div class="flex w-full flex-shrink-0 items-center justify-center">
 							<!-- <ChevronLeftIcon class="w-8 h-8 cursor-pointer md:hidden" @click="router.back()"/> -->
 							<Logo class="h-8 w-8 cursor-pointer md:hidden" @click="goToLink" />
-							<h4 class="text-header6 md:text-header4 font-bold">{{ pageTitle }}</h4>
+							<h4 class="text-header6 md:text-md text-center font-light uppercase tracking-[0.2em]">{{ pageTitle }}</h4>
 
 							<Menu as="div" class="relative">
 								<div>
-									<MenuButton v-if="user" class="flex items-center rounded-sm text-sm focus:outline-none md:hidden">
+									<MenuButton class="flex items-center rounded-sm text-sm focus:outline-none md:hidden">
 										<span class="sr-only">Open user menu</span>
 
 										<div
@@ -63,19 +63,18 @@
 						</div>
 					</div>
 					<div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-						<!-- <button
+						<button
 							type="button"
-							@click="gotoRoute(isWorker ? ROUTES.WORKER_NOTIFICATIONS : ROUTES.COMPANY_NOTIFICATIONS)"
-							class="relative p-2 bg-white border rounded-full shadow-lg border-gray-30 text-gray-90 hover:text-gray-80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-80"
+							class="relative text-gray-90 hover:text-gray-80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-80"
 						>
 							<span class="sr-only">View notifications</span>
-							<NotificationIcon class="h-7 w-7" aria-hidden="true" />
-							<div class="absolute top-0 right-0 px-2 py-1 text-xs text-white rounded-full bg-red">2</div>
-						</button> -->
+							<NotificationsIcon class="h-8 w-8" aria-hidden="true" />
+							<div class="text-caption absolute bottom-0 right-0 h-4 w-4 rounded-full bg-red text-xs text-white">2</div>
+						</button>
 
 						<Menu as="div" class="relative ml-3">
 							<div>
-								<MenuButton v-if="user" class="ml-6 hidden items-center rounded-sm text-sm focus:outline-none md:flex">
+								<MenuButton class="ml-6 hidden items-center rounded-sm text-sm focus:outline-none md:flex">
 									<span class="sr-only">Open user menu</span>
 
 									<div
@@ -83,8 +82,6 @@
 									>
 										{{ 'EA' }}
 									</div>
-									<span class="text-micro ml-3 font-medium">{{ 'Eleazer Ade' }}</span>
-									<ChevronDownIcon class="ml-2 h-5 w-5" />
 								</MenuButton>
 							</div>
 							<transition
@@ -140,7 +137,7 @@ import { useAuthStore } from '@/stores/auth';
 import Logo from '@/components/logos/Logo.vue';
 import { Disclosure, Menu, MenuItem, MenuItems, MenuButton } from '@headlessui/vue';
 import { useRoute, useRouter } from 'vue-router';
-import { LogoutIcon, ChevronLeftIcon } from '@/components/icons/AllIcons';
+import { LogoutIcon, NotificationsIcon } from '@/components/icons/AllIcons';
 // import NotificationIcon from '../icons/NotificationIcon.vue';
 import ProfileIcon from '../icons/ProfileIcon.vue';
 import { ChevronDownIcon } from '@heroicons/vue/outline';

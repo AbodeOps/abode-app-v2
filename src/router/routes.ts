@@ -94,4 +94,59 @@ export default [
 			},
 		],
 	},
+	{
+		path: '/main',
+		name: 'user.main',
+		component: () => import('@/views/UserView.vue'),
+		children: [
+			{
+				path: 'dashboard',
+				name: ROUTES.USER_DASHBOARD,
+				meta: {
+					title: 'Dashboard',
+				},
+				component: () => import('@/views/user/Dashboard.vue'),
+			},
+			{
+				path: 'wallet',
+				name: ROUTES.USER_WALLET,
+				meta: {
+					title: 'Wallet',
+				},
+				component: () => import('@/views/user/Wallet.vue'),
+			},
+			{
+				path: 'assets',
+				name: ROUTES.USER_ASSETS,
+				meta: {
+					title: 'Assets',
+				},
+				component: () => import('@/views/user/Assets.vue'),
+			},
+			{
+				path: 'asset-market',
+				name: ROUTES.USER_ASSET_MARKET,
+				meta: {
+					title: 'Asset Market',
+				},
+				component: () => import('@/views/user/AssetMarket.vue'),
+			},
+			{
+				path: 'referrals',
+				name: ROUTES.USER_REFERRALS,
+				meta: {
+					title: 'Referrals',
+				},
+				component: () => import('@/views/user/Referrals.vue'),
+			},
+			{
+				path: 'profile',
+				name: ROUTES.USER_PROFILE,
+				meta: {
+					title: 'Dashboard',
+				},
+				component: () => import('@/views/user/Profile.vue'),
+			},
+		],
+	},
 ] as RouteRecordRaw[];

@@ -1,34 +1,11 @@
 <template>
-	<BaseLabel :labelFor="id" :required="required" :text="label" v-if="label" />
-	<div class="relative inline-block w-full">
-		<input
-			ref="baseInput"
-			:name="name"
-			v-bind="$attrs"
-			:type="inputType"
-			:value="value"
-			@input="changePageTitle($event)"
-			class="text-caption w-full rounded-lg border border-gray-50 bg-gray-10 py-3 px-3 outline-none focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-transparent disabled:cursor-not-allowed disabled:border-gray-50 disabled:bg-gray-30 disabled:text-gray-70"
-		/>
-
-		<button
-			type="button"
-			class="absolute top-0 bottom-0 right-0 my-auto h-full rounded-r-lg px-2"
-			v-if="type == 'password'"
-			@click="showPassword = !showPassword"
-		>
-			<EyeOffIcon v-if="showPassword" class="h-5 w-5 text-gray-50" />
-			<EyeIcon v-else class="h-5 w-5 text-gray-50" />
-		</button>
-		<!-- eslint-disable-next-line -->
-		<button
-			type="button"
-			class="absolute top-0 bottom-0 right-0 my-auto h-full rounded-r-lg px-2"
-			v-if="type == 'date'"
-			@click="showPicker()"
-		>
-			<CalendarIcon class="h-5 w-5 text-gray-50" />
-		</button>
+	<div>
+		<div class="relative mt-1 mb-5 border-b border-gray-300 focus-within:border-indigo-600">
+			<input
+				class="block w-full rounded-tr-xl rounded-tl-xl border-0 border-b border-transparent bg-gray-25 py-4 px-5 text-xs outline-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
+				v-bind="$attrs"
+			/>
+		</div>
 	</div>
 	<HelpText type="error" :text="errorMessage" v-if="errorMessage" class="mt-1" />
 </template>
@@ -39,8 +16,7 @@ import type { HTMLInputTypeAttribute } from '@/types.js';
 import { computed, type PropType, ref, toRef } from 'vue';
 import { useField } from 'vee-validate';
 import HelpText from '@/components/common/HelpText.vue';
-import BaseLabel from './BaseLabel.vue';
-import { CalendarIcon } from '@/components/icons/AllIcons';
+// import BaseLabel from './BaseLabel.vue';
 
 const baseInput = ref<HTMLInputElement | null>(null);
 

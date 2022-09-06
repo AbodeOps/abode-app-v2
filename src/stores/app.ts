@@ -1,17 +1,19 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
-import { HomeIcon, JobsIcon, ProfileIcon, HelpIcon } from '@/components/icons/AllIcons';
+import { AssetsIcon, AssetMarketIcon, DashboardIcon, ProfileIcon, ReferralsIcon, WalletIcon } from '@/components/icons/AllIcons';
+import { ROUTES } from '@/router/routes';
+import { shallowRef } from 'vue';
 
 export const useAppStore = defineStore({
-	id: 'auth',
+	id: 'app',
 	persist: true,
 	state: () => ({
 		navigation: [
-			{ name: 'Dashboard', routeName: ROUTES.USER_DASHBOARD, icon: JobsIcon },
-			{ name: 'Wallet', routeName: ROUTES.USER_WALLET, icon: ProfileIcon },
-			{ name: 'Assets', routeName: ROUTES.USER_ASSETS, icon: ProfileIcon },
-			{ name: 'Asset Market', routeName: ROUTES.USER_ASSET_MARKET, icon: ProfileIcon },
-			{ name: 'Referrals', routeName: ROUTES.USER_REFERRALS, icon: ProfileIcon },
-			{ name: 'Profile', routeName: ROUTES.USER_PROFILE, icon: ProfileIcon },
+			{ name: 'Dashboard', routeName: ROUTES.USER_DASHBOARD, icon: shallowRef(DashboardIcon) },
+			{ name: 'Wallet', routeName: ROUTES.USER_WALLET, icon: shallowRef(WalletIcon) },
+			{ name: 'Assets', routeName: ROUTES.USER_ASSETS, icon: shallowRef(AssetsIcon) },
+			{ name: 'Asset Market', routeName: ROUTES.USER_ASSET_MARKET, icon: shallowRef(AssetMarketIcon) },
+			{ name: 'Referrals', routeName: ROUTES.USER_REFERRALS, icon: shallowRef(ReferralsIcon) },
+			{ name: 'Profile', routeName: ROUTES.USER_PROFILE, icon: shallowRef(ProfileIcon) },
 		],
 	}),
 });

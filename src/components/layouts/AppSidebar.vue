@@ -48,16 +48,6 @@
 							<LogoWithText class="mx-auto w-[70%]" />
 						</div>
 
-						<button
-							v-if="isCompany && user"
-							class="mx-4 mt-4 flex items-center rounded-md border border-green p-3 text-sm focus:outline-none"
-						>
-							<div class="text-body flex h-10 w-10 items-center justify-center rounded-full bg-green font-medium text-white">
-								{{ isCompany ? user.companyInitials : user.initials }}
-							</div>
-							<span class="text-micro ml-3 truncate font-medium">{{ user.company_name }}</span>
-						</button>
-
 						<div class="mt-6 h-0 flex-1 overflow-y-auto">
 							<nav class="space-y-1 px-2">
 								<RouterLink
@@ -95,20 +85,10 @@
 	<!-- Static sidebar for desktop -->
 	<div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
 		<!-- Sidebar component, swap this element with another sidebar if you like -->
-		<div class="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
+		<div class="flex flex-grow flex-col overflow-y-auto bg-background pt-5">
 			<div class="flex flex-shrink-0 items-center px-4 py-4">
 				<LogoWithText class="mx-auto w-[70%]" />
 			</div>
-
-			<button
-				v-if="isCompany && user"
-				class="mx-4 mt-3 flex items-center rounded-md border border-green p-3 text-sm focus:outline-none"
-			>
-				<div class="text-body flex h-10 w-10 items-center justify-center rounded-full bg-green font-medium text-white">
-					{{ isCompany ? user.companyInitials : user.initials }}
-				</div>
-				<span class="text-micro ml-3 truncate font-medium">{{ user.company_name }}</span>
-			</button>
 
 			<div class="mt-6 flex flex-grow flex-col">
 				<nav class="flex-1 space-y-2 px-4 pb-4">
@@ -117,14 +97,28 @@
 						:key="item.name"
 						:to="{ name: item.routeName }"
 						:class="[
-							isCurrentRoute(item.routeName) ? 'bg-green-15 text-black' : 'text-gray-90 hover:bg-green-10 hover:text-gray-90',
-							'text-caption group flex items-center rounded-md px-2 py-2 text-sm',
+							isCurrentRoute(item.routeName)
+								? 'bg-primary-30 font-bold text-black'
+								: 'text-gray-70 hover:bg-green-10 hover:text-gray-90',
+							'text-caption font-sm group flex items-center rounded-full px-4 py-3',
 						]"
 					>
-						<component :is="item.icon" :class="['mr-3 h-6 w-6 flex-shrink-0 text-gray-90']" aria-hidden="true" />
+						<component
+							:isActive="isCurrentRoute(item.routeName)"
+							:is="item.icon"
+							:class="['mr-3 h-6 w-6 flex-shrink-0 text-gray-90']"
+							aria-hidden="true"
+						/>
 						{{ item.name }}
 					</RouterLink>
 				</nav>
+
+				<div class="space-y-6 px-4 pb-12">
+					<button class="text-caption group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-90">
+						<LogoutIcon class="mr-3 h-6 w-6 flex-shrink-0 text-gray-90" aria-hidden="true" />
+						Logout
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -133,12 +127,10 @@
 <script setup lang="ts">
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue';
 import { XIcon } from '@heroicons/vue/outline';
+import { LogoutIcon } from '@/components/icons/AllIcons';
 import LogoWithText from '@/components/logos/LogoWithText.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { ROUTES } from '@/router/routes';
-import { HomeIcon, JobsIcon, ProfileIcon, HelpIcon } from '../icons/AllIcons';
-import { useAuthStore } from '@/stores/auth';
 import { useAppStore } from '@/stores/app';
 
 const props = defineProps({
@@ -156,7 +148,6 @@ const props = defineProps({
 	},
 });
 
-const user = useAuthStore().currentUser;
 const appStore = useAppStore();
 
 const navigation = appStore.navigation;

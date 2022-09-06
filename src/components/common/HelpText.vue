@@ -1,12 +1,12 @@
 <template>
 	<div class="flex items-start" :class="color" v-if="text">
-		<InfoCircleIcon class="mr-1 h-4 w-4 flex-shrink-0" />
+		<!-- <InfoCircleIcon class="mr-1 h-4 w-4 flex-shrink-0" /> -->
 		<span class="text-caption text-xs">{{ text }}</span>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { InfoCircleIcon } from '@/components/icons/AllIcons';
+// import { InfoCircleIcon } from '@/components/icons/AllIcons';
 import { computed } from 'vue';
 const props = defineProps({
 	type: {

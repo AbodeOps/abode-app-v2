@@ -1,5 +1,5 @@
 <template>
-	<div class="h-full">
+	<div class="h-full bg-none">
 		<RouterView v-slot="{ Component }">
 			<transition name="fade" mode="out-in">
 				<component :is="Component" />
@@ -13,61 +13,59 @@ import { RouterView } from 'vue-router';
 </script>
 
 <style>
-.mosha__toast{
+.mosha__toast {
 	/* padding: 0 !important; */
 	min-height: auto !important;
 	min-width: auto !important;
 	padding: 12px 16px 12px 12px !important;
 	border-radius: 4px !important;
-	
 }
-.mosha__toast.success{
-	background-color: #F2FFFB !important;
-	border: 1px solid #00956B !important;
+.mosha__toast.success {
+	background-color: #f2fffb !important;
+	border: 1px solid #00956b !important;
 	/* color: #00956B !important; */
 }
 
-.mosha__toast.success .mosha__toast__content__text{
-	color: #00956B !important;
+.mosha__toast.success .mosha__toast__content__text {
+	color: #00956b !important;
 }
 
 .mosha__toast.success .mosha__toast__close-icon::before {
-	color: #00956B !important;
+	color: #00956b !important;
 }
 
-.mosha__toast.danger{
-	background-color: #FEECE6 !important;
-	border: 1px solid #F54624 !important;
+.mosha__toast.danger {
+	background-color: #feece6 !important;
+	border: 1px solid #f54624 !important;
 	/* color: #00956B !important; */
 }
 
 .mosha__toast.danger .mosha__toast__close-icon::before {
-	color: #F54624 !important;
+	color: #f54624 !important;
 }
 
-.mosha__toast.danger .mosha__toast__content__text{
-	color: #F54624 !important;
+.mosha__toast.danger .mosha__toast__content__text {
+	color: #f54624 !important;
 }
 
-.mosha__toast.info{
-	background-color: #E0EFFF !important;
-	border: 1px solid #006ADC !important;
+.mosha__toast.info {
+	background-color: #e0efff !important;
+	border: 1px solid #006adc !important;
 	/* color: #00956B !important; */
 }
 
 .mosha__toast.info .mosha__toast__close-icon::before {
-	color: #006ADC !important;
+	color: #006adc !important;
 }
 
-.mosha__toast.info .mosha__toast__content__text{
-	color: #006ADC !important;
+.mosha__toast.info .mosha__toast__content__text {
+	color: #006adc !important;
 }
 
-
-.mosha__toast__content-wrapper > .mosha__icon{
+.mosha__toast__content-wrapper > .mosha__icon {
 	display: none;
 }
-.mosha__toast__content__text{
+.mosha__toast__content__text {
 	font-weight: 400 !important;
 }
 .mosha__toast__close-icon::before {

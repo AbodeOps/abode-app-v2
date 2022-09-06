@@ -15,10 +15,8 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { ROUTES } from '@/router/routes';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { HomeIcon, JobsIcon, ProfileIcon } from '../icons/AllIcons';
 import { useAppStore } from '@/stores/app';
 
 const props = defineProps({
