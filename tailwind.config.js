@@ -19,6 +19,7 @@ module.exports = {
 				primary: {
 					DEFAULT: '#0693A5',
 					10: '#F5FAFB',
+					20: '#E0F4F8',
 					30: '#DEF0F2',
 				},
 				black: {
@@ -26,6 +27,7 @@ module.exports = {
 				},
 				gray: {
 					10: '#F9FAFB',
+					15: '#F4F4F4',
 					20: '#F2F4F7',
 					25: '#EEEEEE',
 					30: '#E4E7EC',
@@ -52,6 +54,7 @@ module.exports = {
 				orange: {
 					DEFAULT: '#FD7448',
 					10: '#FFF7F5',
+					15: '#FDEEE8',
 					20: '#FEECE6',
 					30: '#FCDBD0',
 				},

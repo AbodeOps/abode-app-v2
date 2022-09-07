@@ -4,7 +4,7 @@
 			<span class="mr-1 text-gray-80">Howdy,</span>
 			<span class="font-bold">Gideon</span>
 		</div>
-		<div class="-mt-8 grid grid-cols-4 gap-4">
+		<div class="-mt-3 grid grid-cols-4 gap-4">
 			<div>
 				<SubscriptionCard class="h-[344px] w-[100%]" />
 			</div>

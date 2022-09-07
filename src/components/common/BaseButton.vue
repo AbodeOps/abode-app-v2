@@ -2,8 +2,8 @@
 	<button
 		:disabled="loading || disabled"
 		type="button"
-		class="text-body relative inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50"
-		:class="[styles]"
+		class="text-body relative inline-flex items-center justify-center rounded-full px-4 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50"
+		:class="[styles, outlined ? '' : 'border border-transparent']"
 	>
 		<slot></slot>
 		<span class="absolute inset-y-0 right-4 flex items-center" v-if="loading">
@@ -18,6 +18,10 @@ import { computed } from '@vue/runtime-core';
 
 const props = defineProps({
 	loading: {
+		type: Boolean,
+		default: false,
+	},
+	outlined: {
 		type: Boolean,
 		default: false,
 	},
