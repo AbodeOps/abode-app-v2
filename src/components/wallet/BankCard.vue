@@ -15,7 +15,7 @@
 					<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
 						<BaseTable :headers="headers" :items="items">
 							<template #cell(actions)>
-								<DeleteIcon class="h-4 w-4 text-black" />
+								<DeleteIcon class="h-4 w-4 cursor-pointer text-black" />
 							</template>
 						</BaseTable>
 					</div>

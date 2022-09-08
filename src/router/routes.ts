@@ -96,7 +96,6 @@ export default [
 	},
 	{
 		path: '/main',
-		name: 'user.main',
 		component: () => import('@/views/UserView.vue'),
 		children: [
 			{

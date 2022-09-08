@@ -15,7 +15,7 @@
 		<tbody class="divide-y divide-gray-200 bg-white">
 			<tr v-for="(item, idx) in items" :key="idx">
 				<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" v-for="(header, ix) in headers" :key="ix">
-					<slot :name="`cell(${header.key})`">
+					<slot :name="`cell(${header.key})`" v-bind="item">
 						{{ getItem(item, header) }}
 					</slot>
 				</td>
