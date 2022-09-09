@@ -1,4 +1,3 @@
-import type { UserModel } from './../models/UserModel';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 
@@ -53,57 +52,4 @@ export function relativeTimeFromElapsed(elapsed: number): string {
 		}
 	}
 	return '';
-}
-
-export function setupIntercom(user: UserModel) {
-	if (window.Intercom) {
-		window.Intercom('update', {
-			app_id: 'oj9nvgww',
-			email: user.email,
-			name: user.fullName,
-			full_name: user.fullName,
-			user_id: user.id,
-			created_at: user.created_at.getTime(),
-			date_joined: formatDate(user.created_at, 'd-MMM-yyyy'),
-			role: user.role,
-			company_name: user.company_name,
-		});
-	}
-}
-
-export function bootIntercom(user: UserModel | undefined = undefined) {
-	if (window.Intercom) {
-		if (user) {
-			window.Intercom('boot', {
-				app_id: 'oj9nvgww',
-				email: user.email,
-				name: user.fullName,
-				full_name: user.fullName,
-				user_id: user.id,
-				created_at: user.created_at.getTime(),
-				date_joined: formatDate(user.created_at, 'd-MMM-yyyy'),
-				role: user.role,
-				company_name: user.company_name,
-			});
-		} else {
-			window.Intercom('boot', { app_id: 'oj9nvgww' });
-		}
-	}
-}
-
-export function tearDownIntercom() {
-	if (window.Intercom) {
-		window.Intercom('shutdown');
-	}
-}
-
-export function rebootIntercom(user: UserModel | undefined = undefined) {
-	tearDownIntercom();
-	bootIntercom(user);
-}
-
-export function openIntercom() {
-	if (window.Intercom) {
-		window.Intercom('show');
-	}
 }
