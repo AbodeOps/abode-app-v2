@@ -1,4 +1,3 @@
-import { setupIntercom } from '@/helpers/functions';
 import toast from '@/helpers/toast';
 import { useAuthStore } from '@/stores/auth';
 import type { RouteLocation } from 'vue-router';
@@ -8,7 +7,6 @@ export const mustBeLoggedIn = (_: RouteLocation, __: RouteLocation, next: Functi
 	const authStore = useAuthStore();
 	if (authStore.isLoggedIn) {
 		const user = authStore.currentUser;
-		if (user) setupIntercom(user);
 
 		return next();
 	}
