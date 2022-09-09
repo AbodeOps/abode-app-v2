@@ -5,7 +5,7 @@ export const useAuthStore = defineStore({
 	id: 'auth',
 	persist: true,
 	state: () => ({
-		user: null as UserModel | null,
+		user: null,
 		token: null as String | null,
 	}),
 	getters: {

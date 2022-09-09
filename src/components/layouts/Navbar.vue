@@ -140,7 +140,6 @@ import { useRoute, useRouter } from 'vue-router';
 import { LogoutIcon, NotificationsIcon } from '@/components/icons/AllIcons';
 // import NotificationIcon from '../icons/NotificationIcon.vue';
 import ProfileIcon from '../icons/ProfileIcon.vue';
-import { ChevronDownIcon } from '@heroicons/vue/outline';
 
 const route = useRoute();
 const router = useRouter();
