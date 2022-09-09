@@ -1,6 +1,6 @@
 <template>
 	<TransitionRoot as="template" :show="isOpen">
-		<Dialog as="div" class="animated-modal relative z-10">
+		<Dialog as="div" class="animated-modal relative z-30">
 			<TransitionChild
 				as="template"
 				enter="ease-out duration-300"

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="w-full">
 		<div class="relative mt-1 mb-5 border-b border-gray-300 focus-within:border-indigo-600">
 			<input
 				class="block w-full rounded-tr-xl rounded-tl-xl border-0 border-b border-transparent bg-gray-25 py-4 px-5 text-xs outline-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { EyeIcon, EyeOffIcon } from '@heroicons/vue/outline';
 import type { HTMLInputTypeAttribute } from '@/types.js';
 import { computed, type PropType, ref, toRef } from 'vue';
 import { useField } from 'vee-validate';

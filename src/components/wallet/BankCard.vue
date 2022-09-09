@@ -3,7 +3,13 @@
 		<div class="flex items-center justify-between border-b border-gray-25 px-8 pt-4 pb-3">
 			<div class="text-md">Bank</div>
 
-			<BaseButton class="flex items-center border border-orange" bg-color="transparent" text-color="orange" outlined>
+			<BaseButton
+				@click="isOpen = true"
+				class="flex items-center border border-orange"
+				bg-color="transparent"
+				text-color="orange"
+				outlined
+			>
 				<PlusIcon class="mr-2 mb-1 h-4 w-4 text-orange" />
 				Add New Bank
 			</BaseButton>
@@ -22,6 +28,8 @@
 				</div>
 			</div>
 		</div>
+
+		<AddBankModal :isOpen="isOpen" @closed="isOpen = false" />
 	</div>
 </template>
 
@@ -30,6 +38,9 @@ import { ref } from 'vue';
 import BaseTable from '@/components/common/BaseTable.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 import { DeleteIcon, PlusIcon } from '@/components/icons/AllIcons';
+import AddBankModal from './AddBankModal.vue';
+
+const isOpen = ref(false);
 
 const headers = ref([
 	{ label: 'Name', key: 'name' },

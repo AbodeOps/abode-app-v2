@@ -18,6 +18,8 @@ export const ROUTES = {
 	USER_DASHBOARD: 'user-dashboard',
 	USER_WALLET: 'user-wallet',
 	USER_ASSETS: 'user-assets',
+	USER_ASSETS_DETAILS: 'user-assets-details',
+	USER_SUBSCRIPTIONS_DETAILS: 'user-subscriptions-details',
 	USER_ASSET_MARKET: 'user-asset-market',
 	USER_REFERRALS: 'user-referrals',
 	USER_PROFILE: 'user-profile',
@@ -121,6 +123,22 @@ export default [
 					title: 'Assets',
 				},
 				component: () => import('@/views/user/Assets.vue'),
+			},
+			{
+				path: 'assets/:id',
+				name: ROUTES.USER_ASSETS_DETAILS,
+				meta: {
+					title: 'Assets',
+				},
+				component: () => import('@/views/user/ViewAsset.vue'),
+			},
+			{
+				path: 'subscriptions/:id',
+				name: ROUTES.USER_SUBSCRIPTIONS_DETAILS,
+				meta: {
+					title: 'Assets',
+				},
+				component: () => import('@/views/user/ViewSubscription.vue'),
 			},
 			{
 				path: 'asset-market',

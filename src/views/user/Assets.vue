@@ -26,8 +26,11 @@
 				</BaseMenu>
 			</div>
 		</div>
-		<div class="grid grid-cols-3 gap-10">
+		<div class="grid grid-cols-3 gap-10" v-if="activeTab === 'available-offers'">
 			<AssetCard v-for="i in 12" :key="i" />
+		</div>
+		<div class="grid grid-cols-3 gap-10" v-if="activeTab === 'subscriptions'">
+			<AssetCard subscribed v-for="i in 12" :key="i" />
 		</div>
 	</div>
 </template>
