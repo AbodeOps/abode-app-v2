@@ -54,6 +54,8 @@ const props = defineProps({
 const { bgColor, textColor, hoverColor, focusColor, disabledColor } = props;
 
 const styles = computed<string>(() => {
-	return `transition-colors bg-${bgColor} text-${textColor} hover:bg-${hoverColor} focus:ring-${focusColor} disabled:bg-${disabledColor}`;
+	return `transition-colors bg-${bgColor} ${
+		textColor ? `text-${textColor}` : ''
+	}  hover:bg-${hoverColor} focus:ring-${focusColor} disabled:bg-${disabledColor}`;
 });
 </script>

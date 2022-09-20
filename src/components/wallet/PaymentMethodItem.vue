@@ -7,7 +7,7 @@
 
 		<div class="ml-4 w-full text-left">
 			<div class="text-xl font-semibold text-primary">{{ item.label }}</div>
-			<div class="text-sm text-gray-80">{{ item.description }}</div>
+			<div class="text-sm text-gray-80" v-html="item.description" />
 		</div>
 
 		<div class="flex h-5 w-5 justify-end">
