@@ -1,11 +1,13 @@
 <template>
-	<AssetCard
-		subscribed
-		v-for="subscription in subscriptions"
-		:subscription="subscription"
-		:asset="subscription.project"
-		:key="subscription.id"
-	/>
+	<div class="grid grid-cols-1 gap-10 md:grid-cols-3">
+		<AssetCard
+			subscribed
+			v-for="subscription in subscriptions"
+			:subscription="subscription"
+			:asset="subscription.project"
+			:key="subscription.id"
+		/>
+	</div>
 </template>
 
 <script lang="ts" setup>

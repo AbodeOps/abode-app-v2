@@ -1,25 +1,27 @@
 <template>
 	<div class="px-4 md:px-12">
 		<div class="mb-10 flex items-center justify-between">
-			<div class="flex items-start">
-				<span
-					class="cursor-pointer rounded-full px-4 py-1 text-xs"
-					:class="{ 'bg-primary text-white': activeTab === tab.key }"
-					v-for="(tab, ix) in tabs"
-					:key="ix"
-					@click="activeTab = tab.key"
-				>
-					{{ tab.label }}
-				</span>
-			</div>
+			<BaseTabs :tabs="tabs" :activeTab="activeTab" @change="activeTab = $event" />
 		</div>
 
-		<h1>Profile</h1>
+		<div v-if="activeTab === 'account'">
+			<Account />
+		</div>
+		<div v-if="activeTab === 'next-of-kin'">
+			<NextOfKin />
+		</div>
+		<div v-if="activeTab === 'security'">
+			<Security />
+		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import BaseTabs from '@/components/common/BaseTabs.vue';
+import Account from '../../components/profile/Account.vue';
+import NextOfKin from '../../components/profile/NextOfKin.vue';
+import Security from '../../components/profile/Security.vue';
 
 const tabs = ref([
 	{

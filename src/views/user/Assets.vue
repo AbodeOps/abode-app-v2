@@ -16,10 +16,10 @@
 				</BaseMenu>
 			</div>
 		</div>
-		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-if="activeTab === 'available-offers'">
+		<div v-if="activeTab === 'available-offers'">
 			<AssetList />
 		</div>
-		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-if="activeTab === 'subscriptions'">
+		<div v-if="activeTab === 'subscriptions'">
 			<SubscriptionList />
 		</div>
 	</div>

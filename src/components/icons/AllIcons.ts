@@ -1,6 +1,7 @@
 // Arrange alphabetically for quicker context
 import ArrowCircleLeftIcon from '../icons/ArrowCircleLeftIcon.vue';
 import ArrowDownLeftIcon from '../icons/ArrowDownLeftIcon.vue';
+import ArrowRightIcon from '../icons/ArrowRightIcon.vue';
 import ArrowUpRightIcon from '../icons/ArrowUpRightIcon.vue';
 import AssetsIcon from '../icons/AssetsIcon.vue';
 import AssetMarketIcon from '../icons/AssetMarketIcon.vue';
@@ -27,6 +28,7 @@ import NotificationsIcon from '../icons/NotificationsIcon.vue';
 import PlusIcon from '../icons/PlusIcon.vue';
 import ProfileIcon from '../icons/ProfileIcon.vue';
 import Profile2Icon from '../icons/Profile2Icon.vue';
+import ProfileAddIcon from '../icons/ProfileAddIcon.vue';
 import ReceiptIcon from '../icons/ReceiptIcon.vue';
 import ReferralsIcon from '../icons/ReferralsIcon.vue';
 import SortIcon from '../icons/SortIcon.vue';
@@ -40,6 +42,7 @@ import WhatsappIcon from '../icons/WhatsappIcon.vue';
 export {
 	ArrowCircleLeftIcon,
 	ArrowDownLeftIcon,
+	ArrowRightIcon,
 	ArrowUpRightIcon,
 	AssetsIcon,
 	AssetMarketIcon,
@@ -66,6 +69,7 @@ export {
 	PlusIcon,
 	ProfileIcon,
 	Profile2Icon,
+	ProfileAddIcon,
 	ReceiptIcon,
 	ReferralsIcon,
 	SortIcon,

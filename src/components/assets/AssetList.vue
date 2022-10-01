@@ -1,5 +1,7 @@
 <template>
-	<AssetCard v-for="asset in assets" :asset="asset" :key="asset.id" />
+	<div class="grid grid-cols-1 gap-10 md:grid-cols-3">
+		<AssetCard v-for="asset in assets" :asset="asset" :key="asset.id" />
+	</div>
 </template>
 
 <script lang="ts" setup>
