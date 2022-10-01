@@ -139,14 +139,6 @@ const props = defineProps({
 		type: Boolean,
 		default: false,
 	},
-	isWorker: {
-		type: Boolean,
-		default: false,
-	},
-	isCompany: {
-		type: Boolean,
-		default: false,
-	},
 });
 
 const appStore = useAppStore();

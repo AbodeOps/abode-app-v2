@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<AppSidebar :sidebarOpen="sidebarOpen" @sidebar-toggle="toggleSidebar($event)" :isWorker="isWorker" :isCompany="isCompany" />
+		<AppSidebar :sidebarOpen="sidebarOpen" @sidebar-toggle="toggleSidebar($event)" />
 
 		<div class="flex h-screen flex-1 flex-col md:pl-64">
 			<div class="sticky top-0 z-10 flex flex-shrink-0 bg-background">
@@ -28,17 +28,6 @@ import { useRoute } from 'vue-router';
 import Navbar from '@/components/layouts/Navbar.vue';
 import AppSidebar from './AppSidebar.vue';
 import MobileBottomBar from './MobileBottomBar.vue';
-
-const props = defineProps({
-	isWorker: {
-		type: Boolean,
-		default: false,
-	},
-	isCompany: {
-		type: Boolean,
-		default: false,
-	},
-});
 
 const route = useRoute();
 

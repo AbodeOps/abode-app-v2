@@ -3,10 +3,10 @@
 		<div class="border-b border-gray-25 px-8 pt-4 pb-3 text-2xl">Activity Log</div>
 		<div class="flow-root px-8 py-5">
 			<ul role="list" class="-mb-8">
-				<li v-for="(event, eventIdx) in timeline" :key="event.id">
+				<li v-for="(event, eventIdx) in activityLogs" :key="event.id">
 					<div class="relative pb-8">
 						<span
-							v-if="eventIdx !== timeline.length - 1"
+							v-if="eventIdx !== activityLogs.length - 1"
 							class="border-left absolute top-4 left-2 -ml-px h-full w-0.5 bg-gray-200"
 							aria-hidden="true"
 						/>
@@ -17,11 +17,11 @@
 							<div class="-pt-1.5 flex min-w-0 flex-1">
 								<div>
 									<div class="whitespace-nowrap text-left text-sm text-gray-500">
-										<time :datetime="event.datetime">{{ event.date }}</time>
+										<time :datetime="event.created_at">{{ formatDate(event.created_at) }}</time>
 									</div>
 									<p class="text-sm text-gray-500">
-										{{ event.content }}
-										<a :href="event.href" class="font-medium text-gray-900">{{ event.target }}</a>
+										{{ event.description }}
+										<!-- <a :href="event.href" class="font-medium text-gray-900">{{ event.target }}</a> -->
 									</p>
 								</div>
 							</div>
@@ -34,7 +34,10 @@
 </template>
 
 <script lang="ts" setup>
+import { useAuthStore } from '@/stores/auth';
 import { CheckIcon, HandThumbUpIcon, UserIcon } from '@heroicons/vue/20/solid';
+import { storeToRefs } from 'pinia';
+import { formatDate } from '@/utils/helpers';
 
 const timeline = [
 	{
@@ -68,6 +71,8 @@ const timeline = [
 		iconBackground: 'bg-green-500',
 	},
 ];
+const authStore = useAuthStore();
+const { activityLogs } = storeToRefs(authStore);
 </script>
 
 <style scoped>

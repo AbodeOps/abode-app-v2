@@ -26,13 +26,16 @@
 
 									<Menu as="div" class="relative ml-3">
 										<div>
-											<MenuButton class="ml-6 hidden items-center rounded-sm text-sm focus:outline-none md:flex">
+											<MenuButton
+												v-if="user && user.client"
+												class="ml-6 hidden items-center rounded-sm text-sm focus:outline-none md:flex"
+											>
 												<span class="sr-only">Open user menu</span>
 
 												<div
 													class="text-body flex h-8 w-8 items-center justify-center rounded-full bg-green font-medium text-white"
 												>
-													{{ 'EA' }}
+													{{ user.client.firstName[0] }} {{ user.client.lastName[0] }}
 												</div>
 											</MenuButton>
 										</div>
@@ -77,7 +80,7 @@
 									</Menu>
 								</div>
 								<div class="flex">
-									<Menu as="div" class="relative">
+									<Menu as="div" class="relative" v-if="user && user.client">
 										<div>
 											<MenuButton class="flex items-center rounded-sm text-sm focus:outline-none md:hidden">
 												<span class="sr-only">Open user menu</span>
@@ -85,7 +88,7 @@
 												<div
 													class="text-body flex h-11 w-11 items-center justify-center rounded-full bg-green font-medium text-white"
 												>
-													{{ user.name[0] }}
+													{{ user.client.firstName[0] }} {{ user.client.lastName[0] }}
 												</div>
 											</MenuButton>
 										</div>
@@ -154,9 +157,7 @@ const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
 
-defineProps({});
-
-const user = computed<User>(() => authStore.user);
+const user = computed<User | null>(() => authStore.currentUser);
 
 const goToLink = () => {
 	router.push('/');

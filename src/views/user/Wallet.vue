@@ -8,11 +8,14 @@
 					<WithdrawCard class="h-[10rem] w-1/2 md:h-[12rem] md:w-full" />
 				</div>
 			</div>
-			<TransactionHistory />
+			<TransactionHistory class="hidden md:block" />
 		</div>
 		<div class="col-span-1 md:col-span-3">
 			<Insights />
 			<BankCard />
+		</div>
+		<div class="col-span-1">
+			<TransactionHistory class="block md:hidden" />
 		</div>
 	</div>
 </template>
@@ -24,4 +27,37 @@ import WithdrawCard from '@/components/wallet/WithdrawCard.vue';
 import TransactionHistory from '@/components/wallet/TransactionHistory.vue';
 import Insights from '@/components/wallet/Insights.vue';
 import BankCard from '@/components/wallet/BankCard.vue';
+import { useTransactionStore } from '@/stores/transactions';
+import { onMounted, ref } from 'vue';
+
+const isLoading = ref(false);
+
+const transactionStore = useTransactionStore();
+
+const fetchWalletBalance = async () => {
+	isLoading.value = true;
+	await transactionStore.fetchWallet().then(() => {
+		isLoading.value = false;
+	});
+};
+
+const fetchTransactions = async () => {
+	isLoading.value = true;
+	await transactionStore.fetchTransactions().then(() => {
+		isLoading.value = false;
+	});
+};
+
+const fetchBankAccounts = async () => {
+	isLoading.value = true;
+	await transactionStore.fetchBankAccounts().then(() => {
+		isLoading.value = false;
+	});
+};
+
+onMounted(() => {
+	fetchWalletBalance();
+	fetchTransactions();
+	fetchBankAccounts();
+});
 </script>

@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+import VueApexCharts from 'vue3-apexcharts';
 
 import App from './App.vue';
 import router from './router';
@@ -14,6 +15,7 @@ if (localStorage.getItem('token')) {
 }
 
 const app = createApp(App);
+app.use(VueApexCharts);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);

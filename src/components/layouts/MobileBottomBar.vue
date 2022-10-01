@@ -36,8 +36,6 @@ import { useRoute } from 'vue-router';
 import { useAppStore } from '@/stores/app';
 import { MoreVerticalIcon } from '@/components/icons/AllIcons';
 
-const props = defineProps({});
-
 const appStore = useAppStore();
 
 const navigation = appStore.navigation;

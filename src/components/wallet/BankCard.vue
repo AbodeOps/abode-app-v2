@@ -19,7 +19,7 @@
 			<div class="overflow-x-auto">
 				<div class="inline-block min-w-full py-2 align-middle md:px-4 lg:px-4">
 					<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
-						<BaseTable :headers="headers" :items="items">
+						<BaseTable :headers="headers" :items="bankAccounts">
 							<template #cell(actions)>
 								<DeleteIcon class="h-4 w-4 cursor-pointer text-black" />
 							</template>
@@ -39,6 +39,8 @@ import BaseTable from '@/components/common/BaseTable.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 import { DeleteIcon, PlusIcon } from '@/components/icons/AllIcons';
 import AddBankModal from './AddBankModal.vue';
+import { useTransactionStore } from '@/stores/transactions';
+import { storeToRefs } from 'pinia';
 
 const isOpen = ref(false);
 
@@ -49,21 +51,7 @@ const headers = ref([
 	{ label: '', key: 'actions' },
 ]);
 
-const items = ref([
-	{
-		name: 'John Doe',
-		bank: 'GT Bank',
-		number: '0018183423',
-	},
-	{
-		name: 'John Doe',
-		bank: 'GT Bank',
-		number: '0018183423',
-	},
-	{
-		name: 'John Doe',
-		bank: 'GT Bank',
-		number: '0018183423',
-	},
-]);
+const transactionStore = useTransactionStore();
+
+const { bankAccounts } = storeToRefs(transactionStore);
 </script>

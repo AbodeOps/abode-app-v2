@@ -8,7 +8,10 @@
 			<div class="overflow-x-auto">
 				<div class="inline-block min-w-full py-2 align-middle md:px-4 lg:px-4">
 					<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
-						<BaseTable :headers="headers" :items="items" />
+						<BaseTable :headers="headers" :items="referrals">
+							<template #cell(name)="item">{{ item.firstName }} {{ item.lastName }}</template>
+							<template #cell(date)="item">{{ formatDate(item.createdAt) }}</template>
+						</BaseTable>
 					</div>
 				</div>
 			</div>
@@ -21,56 +24,20 @@
 import { ref } from 'vue';
 import BaseTable from '@/components/common/BaseTable.vue';
 import BasePagination from '@/components/common/BasePagination.vue';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '@/stores/auth';
+import { formatDate, formatMoney } from '@/utils/helpers';
 
 const headers = ref([
 	{ label: 'Date', key: 'date' },
 	{ label: 'Name', key: 'name' },
-	{ label: 'Email Address', key: 'email' },
-	{ label: 'Phone Number', key: 'phone_number' },
-	{ label: 'status', key: 'status' },
-	{ label: 'Amount Earned', key: 'amount_earned' },
+	// { label: 'Email Address', key: 'email' },
+	{ label: 'Phone Number', key: 'phoneNumber' },
+	// { label: 'status', key: 'status' },
+	// { label: 'Amount Earned', key: 'amount_earned' },
 ]);
 
-const items = ref([
-	{
-		date: '2022-03-12',
-		name: 'John Doe',
-		email: 'ogunkolagideon@gmail.com',
-		phone_number: '08106744642',
-		status: 'Active',
-		amount_earned: 'N3,000',
-	},
-	{
-		date: '2022-03-12',
-		name: 'John Doe',
-		email: 'ogunkolagideon@gmail.com',
-		phone_number: '08106744642',
-		status: 'Inactive',
-		amount_earned: 'N3,000',
-	},
-	{
-		date: '2022-03-12',
-		name: 'John Doe',
-		email: 'ogunkolagideon@gmail.com',
-		phone_number: '08106744642',
-		status: 'Inactive',
-		amount_earned: 'N3,000',
-	},
-	{
-		date: '2022-03-12',
-		name: 'John Doe',
-		email: 'ogunkolagideon@gmail.com',
-		phone_number: '08106744642',
-		status: 'Active',
-		amount_earned: 'N3,000',
-	},
-	{
-		date: '2022-03-12',
-		name: 'John Doe',
-		email: 'ogunkolagideon@gmail.com',
-		phone_number: '08106744642',
-		status: 'Active',
-		amount_earned: 'N3,000',
-	},
-]);
+const authStore = useAuthStore();
+
+const { referrals } = storeToRefs(authStore);
 </script>

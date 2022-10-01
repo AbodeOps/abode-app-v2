@@ -6,7 +6,19 @@
 			<div class="overflow-x-auto">
 				<div class="inline-block min-w-full py-2 align-middle md:px-4 lg:px-4">
 					<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
-						<BaseTable :headers="headers" :items="items" show-pagination />
+						<BaseTable :headers="headers" :items="transactions" show-pagination>
+							<template #cell(createdAt)="item">
+								{{ formatDate(item.createdAt) }}
+							</template>
+							<template #cell(amount)="item">
+								{{ formatMoney(item.amount) }}
+							</template>
+							<template #cell(type)="item">
+								<div class="capitalize">
+									{{ item.type }}
+								</div>
+							</template>
+						</BaseTable>
 					</div>
 				</div>
 			</div>
@@ -17,32 +29,18 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import BaseTable from '@/components/common/BaseTable.vue';
+import { storeToRefs } from 'pinia';
+import { useTransactionStore } from '@/stores/transactions';
+import { formatDate, formatMoney } from '@/utils/helpers';
 
 const headers = ref([
-	{ label: 'Date', key: 'date' },
+	{ label: 'Date', key: 'createdAt' },
 	{ label: 'Type', key: 'type' },
 	{ label: 'Amount', key: 'amount' },
-	{ label: 'Status', key: 'status' },
+	{ label: 'Description', key: 'description' },
 ]);
 
-const items = ref([
-	{
-		date: '2022-03-08 18:50:51',
-		amount: 'N20,000',
-		type: 'WIthdrawal',
-		status: 'Approved',
-	},
-	{
-		date: '2022-03-08 18:50:51',
-		type: 'Deposit',
-		amount: 'N25,000',
-		status: 'Pending',
-	},
-	{
-		date: '2022-03-08 18:50:51',
-		type: 'WIthdrawal',
-		amount: 'N20,000',
-		status: 'Rejected',
-	},
-]);
+const transactionStore = useTransactionStore();
+
+const { transactions } = storeToRefs(transactionStore);
 </script>

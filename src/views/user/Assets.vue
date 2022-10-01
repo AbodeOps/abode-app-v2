@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-if="activeTab === 'available-offers'">
-			<AssetCard v-for="i in 12" :key="i" />
+			<AssetList />
 		</div>
 		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-if="activeTab === 'subscriptions'">
 			<AssetCard subscribed v-for="i in 12" :key="i" />
@@ -40,6 +40,7 @@ import AssetCard from '@/components/assets/AssetCard.vue';
 import { ref } from 'vue';
 import BaseMenu from '@/components/common/BaseMenu.vue';
 import { FilterIcon, SortIcon } from '@/components/icons/AllIcons';
+import AssetList from '@/components/assets/AssetList.vue';
 
 const tabs = ref([
 	{

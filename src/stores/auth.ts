@@ -1,18 +1,20 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { AuthService } from '@/services';
-import type { User } from '@/types';
+import type { User, ActivityLog, Client } from '@/types';
 
 export const useAuthStore = defineStore({
 	id: 'auth',
 	persist: true,
 	state: () => ({
-		user: {} as User,
+		user: null as User | null,
 		token: null as String | null,
+		activityLogs: [] as ActivityLog[],
+		referrals: [] as Client[],
 	}),
 	getters: {
 		isLoggedIn: (state) => !!state.token,
 		currentUser: (state) => {
-			return {};
+			return state.user || null;
 		},
 	},
 	actions: {
@@ -51,13 +53,24 @@ export const useAuthStore = defineStore({
 		},
 		async fetchActivityLogs() {
 			const res = await AuthService.fetchActivityLogs();
-
+			this.activityLogs = res.data;
 			return res;
 		},
 		async fetchProfile() {
 			const res = await AuthService.fetchProfile();
+			console.log(res);
+			const user = res.data;
+			this.user = {
+				...user,
+				client: {
+					...user.client,
+					firstName: user.client.first_name,
+					lastName: user.client.last_name,
+					phoneNumber: user.client.phone_number,
+					createdAt: user.client.created_at,
+				} as Client,
+			} as User;
 
-			this.user = res.data;
 			return res;
 		},
 		async editProfile(_, payload) {
@@ -67,6 +80,16 @@ export const useAuthStore = defineStore({
 		},
 		async fetchReferrals() {
 			const res = await AuthService.fetchReferrals();
+
+			this.referrals = res.data.map(
+				(referral) =>
+					({
+						firstName: referral.first_name,
+						lastName: referral.last_name,
+						phoneNumber: referral.phone_number,
+						createdAt: referral.created_at,
+					} as Client)
+			);
 
 			return res;
 		},
