@@ -1,14 +1,14 @@
 <template>
-	<div class="flex flex-col overflow-x-hidden">
+	<div class="h-full">
 		<div class="mb-4 px-4 text-2xl md:px-12">
 			<span class="mr-1 font-bold text-gray-80 opacity-40">Howdy,</span>
 			<span class="font-bold" v-if="user">{{ user.client ? user.client.firstName : '' }}</span>
 		</div>
-		<div class="flex w-screen overflow-x-scroll pl-4">
-			<SubscriptionCard class="mr-5 h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
-			<WalletCard class="mr-5 h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
-			<NetworthCard class="mr-5 h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
-			<CoyieldCard class="h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
+		<div class="z-50 flex w-screen overflow-x-scroll pl-4 md:pl-12" style="-webkit-overflow-scrolling: touch">
+			<SubscriptionCard class="mr-5 h-[230px] w-[250px] min-w-[250px] max-w-[250px]" />
+			<WalletCard class="mr-5 h-[230px] w-[250px] min-w-[250px] max-w-[250px]" />
+			<NetworthCard class="mr-5 h-[230px] w-[250px] min-w-[250px] max-w-[250px]" />
+			<CoyieldCard class="h-[230px] w-[250px] min-w-[250px] max-w-[250px]" />
 		</div>
 		<div class="mt-8 grid grid-cols-1 gap-4 px-4 md:grid-cols-7 md:px-12">
 			<Insights class="col-span-1 md:col-span-4" />

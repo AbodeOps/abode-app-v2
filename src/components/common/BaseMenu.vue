@@ -4,9 +4,16 @@
 		<div>
 			<MenuButton
 				v-if="!iconOnly"
-				class="inline-flex w-full justify-center rounded-md border border-black bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+				class="inline-flex w-full justify-center rounded-md bg-white py-2 text-sm font-medium text-gray-700 focus:outline-none"
+				:class="[
+					shortenOnMobile
+						? 'border border-transparent px-0 shadow-none hover:bg-transparent focus:ring-0 md:border-black md:px-4 md:shadow-sm md:hover:bg-gray-50 md:focus:ring-2'
+						: 'border border-black px-4 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100',
+				]"
 			>
-				{{ label }}
+				<span :class="[shortenOnMobile ? 'hidden md:block' : '']">
+					{{ label }}
+				</span>
 				<slot name="append-icon">
 					<ChevronDownIcon v-if="!hideCaret" class="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
 				</slot>
@@ -56,5 +63,6 @@ defineProps<{
 	label?: string;
 	hideCaret?: boolean;
 	iconOnly?: boolean;
+	shortenOnMobile?: boolean;
 }>();
 </script>

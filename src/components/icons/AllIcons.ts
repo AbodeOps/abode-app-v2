@@ -1,5 +1,7 @@
 // Arrange alphabetically for quicker context
 import ArrowCircleLeftIcon from '../icons/ArrowCircleLeftIcon.vue';
+import ArrowDownLeftIcon from '../icons/ArrowDownLeftIcon.vue';
+import ArrowUpRightIcon from '../icons/ArrowUpRightIcon.vue';
 import AssetsIcon from '../icons/AssetsIcon.vue';
 import AssetMarketIcon from '../icons/AssetMarketIcon.vue';
 import BankIcon from '../icons/BankIcon.vue';
@@ -37,6 +39,8 @@ import WhatsappIcon from '../icons/WhatsappIcon.vue';
 
 export {
 	ArrowCircleLeftIcon,
+	ArrowDownLeftIcon,
+	ArrowUpRightIcon,
 	AssetsIcon,
 	AssetMarketIcon,
 	BankIcon,

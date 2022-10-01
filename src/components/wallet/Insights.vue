@@ -1,26 +1,46 @@
 <template>
-	<div class="insight-card relative">
+	<div class="insight-card relative h-[300px] md:h-[450px]">
 		<div class="relative p-4">
-			<div class="absolute top-5 flex items-start">
-				<span
-					class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
-					:class="{ 'bg-primary text-white': activeTab === tab.key }"
-					v-for="(tab, ix) in tabs"
-					:key="ix"
-					@click="activeTab = tab.key"
-				>
-					{{ tab.label }}
-				</span>
+			<div class="">
+				<div class="flex w-full items-start">
+					<span
+						class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
+						:class="{ 'bg-primary text-white': activeTab === tab.key }"
+						v-for="(tab, ix) in tabs"
+						:key="ix"
+						@click="activeTab = tab.key"
+					>
+						{{ tab.label }}
+					</span>
+
+					<div class="ml-auto flex items-center" v-if="activeTab === 'outflow'">
+						<ArrowUpRightIcon class="mr-2 h-5 w-5 text-red" />
+						<div>
+							<div class="text-sm text-gray-50">Overall Outflow</div>
+							<div class="text-sm">{{ formattedOutflow }}</div>
+						</div>
+					</div>
+					<div class="ml-auto flex items-center" v-else>
+						<ArrowDownLeftIcon class="mr-2 h-5 w-5 text-green" />
+						<div>
+							<div class="text-sm text-gray-50">Overall Inflow</div>
+							<div class="text-sm">{{ formattedInflow }}</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="h-full w-full p-4">
+		<div class="-mt-16 h-full w-full p-4">
 			<apexchart width="100%" height="90%" :options="options" :series="series"></apexchart>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
+import { useTransactionStore } from '@/stores/transactions';
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
+import { ArrowUpRightIcon, ArrowDownLeftIcon } from '@/components/icons/AllIcons';
 
 const tabs = ref([
 	{
@@ -34,6 +54,10 @@ const tabs = ref([
 ]);
 
 const activeTab = ref(tabs.value[0].key);
+
+const transactionStore = useTransactionStore();
+
+const { formattedOutflow, formattedInflow } = storeToRefs(transactionStore);
 
 const series = [
 	{
@@ -107,7 +131,6 @@ var options = {
 <style scoped>
 .insight-card {
 	box-shadow: 0px 4px 16px rgba(30, 30, 30, 0.08);
-	height: 450px;
-	width: 100%;
+	position: relative !important;
 }
 </style>

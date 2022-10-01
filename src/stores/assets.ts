@@ -29,6 +29,8 @@ export const useAssetStore = defineStore({
 		async fetchSubscriptions() {
 			const res = await ProjectService.fetchFundedProjects();
 
+			this.subscriptions = res.data;
+
 			return res;
 		},
 

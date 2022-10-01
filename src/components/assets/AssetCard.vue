@@ -1,7 +1,12 @@
 <template>
 	<div @click="viewAsset" class="relative flex cursor-pointer flex-col rounded-lg border border-gray-20 p-8">
 		<div class="h-[10rem] w-full overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75 md:h-40">
-			<img :src="asset.image_url" :alt="'product-15'" class="h-full w-full object-cover object-top lg:h-full lg:w-full" />
+			<img
+				:src="asset.image_url"
+				:alt="'product-15'"
+				class="h-full w-full object-cover object-top lg:h-full lg:w-full"
+				@error="onImageFail"
+			/>
 		</div>
 		<div class="mt-6 text-xl font-semibold">{{ asset.name }}</div>
 		<div class="mb-6 mt-1 text-xs font-light text-gray-40">{{ asset.location }}</div>
@@ -76,5 +81,11 @@ const viewAsset = () => {
 			id: props.subscribed ? props.subscription?.id : props.asset.id,
 		},
 	});
+};
+
+const onImageFail = (event: Event) => {
+	if (event.target instanceof HTMLImageElement) {
+		event.target.src = 'https://api.abode.ng/storage/htsBVPzKXGLzBSplzRonHBz5ZV9AqNMBtZMCcw7I.jpg';
+	}
 };
 </script>

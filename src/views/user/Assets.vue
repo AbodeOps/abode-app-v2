@@ -14,14 +14,14 @@
 			</div>
 
 			<div class="flex items-center">
-				<BaseMenu label="Sort" class="mr-4" :items="['Ascending', 'Descending']">
+				<BaseMenu shortenOnMobile label="Sort" class="mr-4" :items="['Ascending', 'Descending']">
 					<template #append-icon>
-						<SortIcon class="ml-8 h-4 w-4 text-black" />
+						<SortIcon class="ml-0 h-4 w-4 text-black md:ml-8" />
 					</template>
 				</BaseMenu>
-				<BaseMenu label="Filter" :items="['Available', 'Sold Out', 'All']">
+				<BaseMenu shortenOnMobile label="Filter" :items="['Available', 'Sold Out', 'All']">
 					<template #append-icon>
-						<FilterIcon class="ml-8 h-4 w-4 text-black" />
+						<FilterIcon class="ml-0 h-4 w-4 text-black md:ml-8" />
 					</template>
 				</BaseMenu>
 			</div>

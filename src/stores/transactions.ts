@@ -20,6 +20,8 @@ export const useTransactionStore = defineStore({
 	getters: {
 		formattedBalance: (state) => formatMoney(state.balance),
 		formattedActualNetworth: (state) => formatMoney(state.actualNetWorth),
+		formattedOutflow: (state) => formatMoney(state.totalOutflow),
+		formattedInflow: (state) => formatMoney(state.totalInflow),
 	},
 	actions: {
 		async fetchTransactions() {
