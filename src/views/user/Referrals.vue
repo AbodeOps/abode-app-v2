@@ -4,15 +4,7 @@
 			<ReferralBanner class="col-span-1 md:col-span-4" />
 			<div class="col-span-1 my-5 md:col-span-3 md:my-0">
 				<div class="flex flex-row items-center justify-between md:flex-col md:items-start md:justify-start">
-					<div class="mr-4 md:mr-0">
-						<div class="text-xl font-semibold text-black">Tell your friends</div>
-						<div class="mt-2 flex md:mt-5">
-							<WhatsappIcon class="mr-4 h-6 w-6 cursor-pointer text-gray-90 md:h-8 md:w-8" />
-							<FacebookIcon class="mr-4 h-6 w-6 cursor-pointer text-gray-90 md:h-8 md:w-8" />
-							<InstagramIcon class="mr-4 h-6 w-6 cursor-pointer text-gray-90 md:h-8 md:w-8" />
-							<TwitterIcon class="h-6 w-6 cursor-pointer text-gray-90 md:h-8 md:w-8" />
-						</div>
-					</div>
+					<BaseShare class="mr-4 md:mr-0" />
 					<BaseButton
 						:loading="isCopied"
 						@click="copyLink"
@@ -38,6 +30,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import toast from '@/helpers/toast';
 import type { User } from '@/types';
+import BaseShare from '../../components/common/BaseShare.vue';
 
 const isLoading = ref(false);
 const isCopied = ref(false);

@@ -34,20 +34,32 @@
 			<BaseProgress :percentage="40" color="primary" class="mx-2 mb-2 h-4" />
 		</div>
 
-		<div class="mt-6">
+		<div class="mt-6 flex flex-col md:flex-row">
 			<BaseButton v-if="!subscribed" :disabled="!asset.status" class="bg-orange px-10 text-sm" @click="isOpen = true">
 				Subscribe
 			</BaseButton>
-			<BaseButton v-if="subscribed" class="mr-5 bg-orange px-10 text-sm" @click="isOpen = true">Sell my shares</BaseButton>
-			<BaseButton v-if="subscribed" class="mr-5 border border-gray-80 bg-white px-10 text-sm text-gray-80" @click="isOpen = true">
+			<BaseButton v-if="subscribed" class="mr-0 bg-orange px-10 text-sm md:mr-5" @click="isOpen = true">Sell my shares</BaseButton>
+			<BaseButton
+				v-if="subscribed"
+				bgColor="white"
+				outlined
+				class="mr-0 mt-5 border border-orange bg-white px-10 text-sm text-orange md:mr-5 md:mt-0"
+				@click="isOpen = true"
+			>
 				Buy more shares
 			</BaseButton>
-			<BaseButton v-if="subscribed" class="border border-gray-80 bg-white px-10 text-sm text-gray-80" @click="isOpen = true">
+			<BaseButton
+				v-if="subscribed"
+				bgColor="white"
+				outlined
+				class="mt-5 border border-gray-80 bg-white px-10 text-sm text-gray-80 md:mt-0"
+				@click="isOpen = true"
+			>
 				Initiate Vote to Sell
 			</BaseButton>
 		</div>
 
-		<SubscribeModal :isOpen="isOpen" @closed="isOpen = false" />
+		<SubscribeModal :asset="asset" :isOpen="isOpen" @closed="isOpen = false" />
 	</div>
 </template>
 
