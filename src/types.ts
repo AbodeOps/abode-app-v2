@@ -29,6 +29,15 @@ export interface LoginForm {
 	password: string;
 }
 
+export interface SignUpForm {
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
+	password: string;
+	confirmPassword: string;
+}
+
 export interface Client {
 	firstName: string;
 	lastName: string;
@@ -104,4 +113,9 @@ export interface PaymentMethod {
 	label: string;
 	description: string;
 	icon: any;
+}
+
+export interface WithdrawalForm {
+	amount: string;
+	bank: string;
 }

@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, shallowRef } from 'vue';
 import AnimatedModal from '@/components/common/AnimatedModal.vue';
 import { BankIcon, DebitCardIcon } from '@/components/icons/AllIcons';
 import PaymentMethodItem from '@/components/wallet/PaymentMethodItem.vue';
@@ -37,8 +37,13 @@ defineProps<{
 }>();
 
 const paymentMethods = ref([
-	{ key: 'bank-transfer', label: 'Bank Transfer', description: 'Transfer to any of our bank accounts', icon: BankIcon },
-	{ key: 'debit-card', label: 'Debit Card', description: 'Make payment with your visa or mastercard card.', icon: DebitCardIcon },
+	{ key: 'bank-transfer', label: 'Bank Transfer', description: 'Transfer to any of our bank accounts', icon: shallowRef(BankIcon) },
+	{
+		key: 'debit-card',
+		label: 'Debit Card',
+		description: 'Make payment with your visa or mastercard card.',
+		icon: shallowRef(DebitCardIcon),
+	},
 ]);
 
 const selectedMethod = ref();

@@ -11,6 +11,7 @@
 			/>
 		</div>
 	</div>
+	<div class="-mt-3 mb-3 text-xs text-gray-70" v-if="hint">{{ hint }}</div>
 	<HelpText type="error" :text="errorMessage" v-if="errorMessage" class="mt-1" />
 </template>
 
@@ -41,6 +42,10 @@ const props = defineProps({
 		default: 'name',
 	},
 	modelValue: {
+		type: String,
+		default: '',
+	},
+	hint: {
 		type: String,
 		default: '',
 	},

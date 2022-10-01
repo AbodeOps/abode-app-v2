@@ -1,36 +1,34 @@
 <template>
 	<div class="insight-card relative h-[300px] md:h-[450px]">
 		<div class="relative p-4">
-			<div class="">
-				<div class="flex w-full items-start">
-					<span
-						class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
-						:class="{ 'bg-primary text-white': activeTab === tab.key }"
-						v-for="(tab, ix) in tabs"
-						:key="ix"
-						@click="activeTab = tab.key"
-					>
-						{{ tab.label }}
-					</span>
+			<div class="flex w-full items-start">
+				<span
+					class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
+					:class="{ 'bg-primary text-white': activeTab === tab.key }"
+					v-for="(tab, ix) in tabs"
+					:key="ix"
+					@click="activeTab = tab.key"
+				>
+					{{ tab.label }}
+				</span>
 
-					<div class="ml-auto flex items-center" v-if="activeTab === 'outflow'">
-						<ArrowUpRightIcon class="mr-2 h-5 w-5 text-red" />
-						<div>
-							<div class="text-sm text-gray-50">Overall Outflow</div>
-							<div class="text-sm">{{ formattedOutflow }}</div>
-						</div>
+				<div class="ml-auto flex items-center" v-if="activeTab === 'outflow'">
+					<ArrowUpRightIcon class="mr-2 h-5 w-5 text-red" />
+					<div>
+						<div class="text-sm text-gray-50">Overall Outflow</div>
+						<div class="text-sm">{{ formattedOutflow }}</div>
 					</div>
-					<div class="ml-auto flex items-center" v-else>
-						<ArrowDownLeftIcon class="mr-2 h-5 w-5 text-green" />
-						<div>
-							<div class="text-sm text-gray-50">Overall Inflow</div>
-							<div class="text-sm">{{ formattedInflow }}</div>
-						</div>
+				</div>
+				<div class="ml-auto flex items-center" v-else>
+					<ArrowDownLeftIcon class="mr-2 h-5 w-5 text-green" />
+					<div>
+						<div class="text-sm text-gray-50">Overall Inflow</div>
+						<div class="text-sm">{{ formattedInflow }}</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="-mt-16 h-full w-full p-4">
+		<div class="-mt-10 h-full w-full p-4">
 			<apexchart width="100%" height="90%" :options="options" :series="series"></apexchart>
 		</div>
 	</div>
