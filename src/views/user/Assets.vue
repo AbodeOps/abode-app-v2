@@ -1,17 +1,7 @@
 <template>
 	<div class="px-4 md:px-12">
 		<div class="mb-10 flex items-center justify-between">
-			<div class="flex items-start">
-				<span
-					class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
-					:class="{ 'bg-primary text-white': activeTab === tab.key }"
-					v-for="(tab, ix) in tabs"
-					:key="ix"
-					@click="activeTab = tab.key"
-				>
-					{{ tab.label }}
-				</span>
-			</div>
+			<BaseTabs :tabs="tabs" :activeTab="activeTab" @change="activeTab = $event" />
 
 			<div class="flex items-center">
 				<BaseMenu shortenOnMobile label="Sort" class="mr-4" :items="['Ascending', 'Descending']">
@@ -41,6 +31,7 @@ import BaseMenu from '@/components/common/BaseMenu.vue';
 import { FilterIcon, SortIcon } from '@/components/icons/AllIcons';
 import AssetList from '@/components/assets/AssetList.vue';
 import SubscriptionList from '@/components/assets/SubscriptionList.vue';
+import BaseTabs from '@/components/common/BaseTabs.vue';
 
 const tabs = ref([
 	{

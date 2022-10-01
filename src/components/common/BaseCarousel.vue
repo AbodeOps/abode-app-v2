@@ -12,7 +12,7 @@
 				>
 					<!-- <span class="sr-only"> {{ image.name }} </span> -->
 					<span class="absolute inset-0 overflow-hidden rounded-md">
-						<img :src="image.src" alt="" class="h-full w-full object-cover object-center" />
+						<img :src="image.src" :alt="image.alt" class="h-full w-full object-cover object-center" @error="onImageFail" />
 					</span>
 					<span
 						:class="[
@@ -27,7 +27,12 @@
 
 		<TabPanels class="flex h-[300px] w-full">
 			<TabPanel class="w-full" v-for="(image, idx) in images" :key="idx">
-				<img :src="image.src" :alt="image.alt" class="h-full w-full object-cover object-center sm:rounded-lg" />
+				<img
+					:src="image.src"
+					:alt="image.alt"
+					class="h-full w-full object-cover object-center sm:rounded-lg"
+					@error="onImageFail"
+				/>
 			</TabPanel>
 		</TabPanels>
 	</TabGroup>
@@ -37,34 +42,47 @@
 import { ref } from 'vue';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
 
-const images = ref([
-	{
-		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
-		alt: 'new asset',
-	},
-	{
-		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-02.jpg',
-		alt: 'new asset',
-	},
-	{
-		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-03.jpg',
-		alt: 'new asset',
-	},
-	{
-		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-04.jpg',
-		alt: 'new asset',
-	},
-	{
-		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
-		alt: 'new asset',
-	},
-	{
-		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
-		alt: 'new asset',
-	},
-	{
-		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
-		alt: 'new asset',
-	},
-]);
+defineProps<{
+	images: {
+		src: string;
+		alt: string;
+	}[];
+}>();
+
+const onImageFail = (event: Event) => {
+	if (event.target instanceof HTMLImageElement) {
+		event.target.src = 'https://api.abode.ng/storage/htsBVPzKXGLzBSplzRonHBz5ZV9AqNMBtZMCcw7I.jpg';
+	}
+};
+
+// const images = ref([
+// 	{
+// 		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
+// 		alt: 'new asset',
+// 	},
+// 	{
+// 		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-02.jpg',
+// 		alt: 'new asset',
+// 	},
+// 	{
+// 		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-03.jpg',
+// 		alt: 'new asset',
+// 	},
+// 	{
+// 		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-04.jpg',
+// 		alt: 'new asset',
+// 	},
+// 	{
+// 		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
+// 		alt: 'new asset',
+// 	},
+// 	{
+// 		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
+// 		alt: 'new asset',
+// 	},
+// 	{
+// 		src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
+// 		alt: 'new asset',
+// 	},
+// ]);
 </script>

@@ -1,22 +1,20 @@
 <template>
-	<div>
-		<div class="insight-card relative">
-			<div class="relative p-4">
-				<div class="absolute top-5 flex items-start">
-					<span
-						class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
-						:class="{ 'bg-primary text-white': activeTab === tab.key }"
-						v-for="(tab, ix) in tabs"
-						:key="ix"
-						@click="activeTab = tab.key"
-					>
-						{{ tab.label }}
-					</span>
-				</div>
+	<div class="insight-card relative">
+		<div class="relative p-4">
+			<div class="absolute top-5 flex items-start">
+				<span
+					class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
+					:class="{ 'bg-primary text-white': activeTab === tab.key }"
+					v-for="(tab, ix) in tabs"
+					:key="ix"
+					@click="activeTab = tab.key"
+				>
+					{{ tab.label }}
+				</span>
 			</div>
-			<div class="h-full w-full p-4">
-				<apexchart width="100%" height="90%" :options="options" :series="series"></apexchart>
-			</div>
+		</div>
+		<div class="h-full w-full p-4">
+			<apexchart width="100%" height="90%" :options="options" :series="series"></apexchart>
 		</div>
 	</div>
 </template>

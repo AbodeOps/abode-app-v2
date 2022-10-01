@@ -1,42 +1,28 @@
 <template>
-	<div class="w-full rounded-lg border border-gray-40 p-8">
-		<div class="text-3xl font-bold">Homify Apartment, Lagos</div>
+	<div class="w-full rounded-lg border border-gray-40 p-6 md:p-8">
+		<div class="text-xl font-bold md:text-3xl">{{ asset.name }}</div>
+		<div class="text-md font-bold text-gray-50 md:text-xl">{{ asset.location }}</div>
 
-		<div class="mt-8 grid grid-cols-3 gap-4">
+		<div class="mt-4 grid grid-cols-2 gap-4 md:mt-8 md:grid-cols-3">
 			<div class="flex items-center">
-				<ReceiptIcon class="h-12 w-12 text-primary" />
-				<div class="ml-2">
-					<div class="font-semibold">N100,000</div>
-					<div class="mt-1 text-sm font-light text-gray-80">Per unit</div>
-				</div>
+				<ReceiptIcon class="mr-2 h-8 w-8 text-primary md:h-12 md:w-12" />
+				<AssetField :value="formatMoney(asset.unit_price)" :label="`Per ${asset.unit_measurement}`" />
 			</div>
 			<div class="flex items-center" v-if="!subscribed">
-				<CalendarIcon class="h-12 w-12 text-primary" />
-				<div class="ml-2">
-					<div class="font-semibold">8 Months</div>
-					<div class="mt-1 text-sm font-light text-gray-80">Holding Period</div>
-				</div>
+				<CalendarIcon class="mr-2 h-8 w-8 text-primary md:h-12 md:w-12" />
+				<AssetField :value="`${asset.max_duration} Months`" label="Holding Period" />
 			</div>
 			<div class="flex items-center" v-if="!subscribed">
-				<ElementPlusIcon class="h-12 w-12 text-primary" />
-				<div class="ml-2">
-					<div class="font-semibold">12</div>
-					<div class="mt-1 text-sm font-light text-gray-80">Available Units</div>
-				</div>
+				<ElementPlusIcon class="mr-2 h-8 w-8 text-primary md:h-12 md:w-12" />
+				<AssetField :value="`${asset.available_units}`" label="Available Units" />
 			</div>
 			<div class="flex items-center" v-if="subscribed">
-				<DiscountIcon class="h-12 w-12 text-primary" />
-				<div class="ml-2">
-					<div class="font-semibold">50% (N150,000)</div>
-					<div class="mt-1 text-sm font-light text-gray-80">Current Sales Value</div>
-				</div>
+				<DiscountIcon class="mr-2 h-8 w-8 text-primary md:h-12 md:w-12" />
+				<AssetField value="50% (N150,000)" label="Current Sales Value" />
 			</div>
 			<div class="flex items-center" v-if="subscribed">
-				<Profile2Icon class="h-12 w-12 text-primary" />
-				<div class="ml-2">
-					<div class="font-semibold">12</div>
-					<div class="mt-1 text-sm font-light text-gray-80">Co-Owners</div>
-				</div>
+				<Profile2Icon class="mr-2 h-8 w-8 text-primary md:h-12 md:w-12" />
+				<AssetField value="12" label="Co-Owners" />
 			</div>
 		</div>
 
@@ -49,7 +35,9 @@
 		</div>
 
 		<div class="mt-6">
-			<BaseButton v-if="!subscribed" class="bg-orange px-10 text-sm" @click="isOpen = true">Subscribe</BaseButton>
+			<BaseButton v-if="!subscribed" :disabled="!asset.status" class="bg-orange px-10 text-sm" @click="isOpen = true">
+				Subscribe
+			</BaseButton>
 			<BaseButton v-if="subscribed" class="mr-5 bg-orange px-10 text-sm" @click="isOpen = true">Sell my shares</BaseButton>
 			<BaseButton v-if="subscribed" class="mr-5 border border-gray-80 bg-white px-10 text-sm text-gray-80" @click="isOpen = true">
 				Buy more shares
@@ -69,8 +57,11 @@ import BaseButton from '@/components/common/BaseButton.vue';
 import BaseProgress from '@/components/common/BaseProgress.vue';
 import SubscribeModal from './SubscribeModal.vue';
 import { ref } from 'vue';
+import AssetField from './AssetField.vue';
+import type { Asset } from '@/types';
+import { formatMoney } from '@/utils/helpers';
 
-defineProps<{ subscribed?: boolean }>();
+defineProps<{ subscribed?: boolean; asset: Asset }>();
 
 const subscribe = () => {};
 const isOpen = ref(false);

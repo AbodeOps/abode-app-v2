@@ -52,6 +52,7 @@ export interface Asset {
 	id: number;
 	available_units: number;
 	banner: string;
+	description: string;
 	name: string;
 	image_url: string;
 	location: string;
@@ -60,6 +61,7 @@ export interface Asset {
 	unit_price: number;
 	max_duration: number;
 	status: boolean;
+	totalUnits: number;
 }
 
 export interface Subscription {
@@ -85,6 +87,11 @@ export interface Transaction {
 	createdAt: string;
 	description: string;
 	type: string;
+}
+
+export interface TabItem {
+	label: string;
+	key: string;
 }
 
 export interface OptionItem {

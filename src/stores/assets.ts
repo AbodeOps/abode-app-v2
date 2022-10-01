@@ -34,7 +34,7 @@ export const useAssetStore = defineStore({
 			return res;
 		},
 
-		async fetchProjectById(id: number) {
+		async fetchAssetById(id: number) {
 			const res = await ProjectService.fetchProjectById(id);
 
 			return res;

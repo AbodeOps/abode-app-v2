@@ -6,7 +6,7 @@
 					<div class="flex w-full flex-1 items-center md:items-stretch md:justify-start">
 						<div class="flex w-full items-center justify-between">
 							<!-- <ChevronLeftIcon class="w-8 h-8 cursor-pointer md:hidden" @click="router.back()"/> -->
-							<Logo class="h-8 w-8 cursor-pointer md:hidden" @click="goToLink" />
+							<Logo class="h-12 w-12 cursor-pointer md:hidden" @click="goToLink" />
 							<h4 class="text-header6 md:text-md w-full text-center font-light uppercase tracking-[0.2em]">
 								{{ pageTitle }}
 							</h4>
