@@ -1,6 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { AuthService } from '@/services';
-import type { User, ActivityLog, Client } from '@/types';
+import type { User, ActivityLog, Client, LoginForm } from '@/types';
 
 export const useAuthStore = defineStore({
 	id: 'auth',
@@ -18,12 +18,12 @@ export const useAuthStore = defineStore({
 		},
 	},
 	actions: {
-		async signup(_, payload) {
+		async signup(payload: any) {
 			const res = await AuthService.signup(payload);
 
 			return res;
 		},
-		async login({ loginId, password }) {
+		async login({ loginId, password }: LoginForm) {
 			const res = await AuthService.login({
 				loginId,
 				password,
@@ -37,14 +37,14 @@ export const useAuthStore = defineStore({
 			// commit('openSnackbar', res.message, { root: true });
 			return res;
 		},
-		async checkUsername(_, { username }) {
+		async checkUsername({ username }: { username: string }) {
 			const res = await AuthService.checkUsername({
 				username,
 			});
 
 			return res;
 		},
-		async resolveReferrer(_, { referrer }) {
+		async resolveReferrer({ referrer }: { referrer: string }) {
 			const res = await AuthService.resolveReferrer({
 				referrer,
 			});
@@ -73,7 +73,7 @@ export const useAuthStore = defineStore({
 
 			return res;
 		},
-		async editProfile(_, payload) {
+		async editProfile(payload: any) {
 			const res = await AuthService.editProfile(payload);
 
 			return res;
@@ -82,7 +82,7 @@ export const useAuthStore = defineStore({
 			const res = await AuthService.fetchReferrals();
 
 			this.referrals = res.data.map(
-				(referral) =>
+				(referral: any) =>
 					({
 						firstName: referral.first_name,
 						lastName: referral.last_name,
@@ -93,7 +93,7 @@ export const useAuthStore = defineStore({
 
 			return res;
 		},
-		async collectInterests(_, payload) {
+		async collectInterests(payload: any) {
 			const res = await AuthService.collectInterests(payload);
 
 			return res;

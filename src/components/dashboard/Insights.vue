@@ -38,16 +38,16 @@ const activeTab = ref(tabs.value[0].key);
 const series = [
 	{
 		name: 'Sales',
-		data: [4, 3, 10, 9, 29, 19, 22],
-		// , 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5],
+		data: [4, 3, 10, 9],
+		//  29,19,22 , 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5],
 	},
 ];
 var options = {
 	series: [
 		{
 			name: 'Sales',
-			data: [4, 3, 10, 9, 29, 19, 22],
-			// , 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5],
+			data: [4, 3, 10, 9],
+			//  29,19,22 , 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5],
 		},
 	],
 
@@ -83,12 +83,14 @@ var options = {
 		axisBorder: {
 			show: false,
 		},
-		categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000'],
+		categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000'],
 		labels: {
 			show: true,
-			formatter: function (value: any, timestamp: any, opts: any) {
-				return opts.dateFormatter(new Date(timestamp), 'MMM');
-			},
+			showDuplicates: false,
+			format: 'MMM',
+			// formatter: function (value: any, timestamp: any, opts: any) {
+			// 	return opts.dateFormatter(new Date(timestamp), 'MMM');
+			// },
 		},
 	},
 	title: {},
@@ -109,5 +111,9 @@ var options = {
 	box-shadow: 0px 4px 16px rgba(30, 30, 30, 0.08);
 	height: 300px;
 	width: 100%;
+}
+
+:deep() .apexcharts-text tspan {
+	text-transform: uppercase;
 }
 </style>

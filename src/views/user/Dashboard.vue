@@ -1,16 +1,16 @@
 <template>
-	<div class="flex flex-col">
-		<div class="mb-4 text-2xl">
+	<div class="flex flex-col overflow-x-hidden">
+		<div class="mb-4 px-4 text-2xl md:px-12">
 			<span class="mr-1 font-bold text-gray-80 opacity-40">Howdy,</span>
-			<span class="font-bold">{{ user.client.firstName }}</span>
+			<span class="font-bold" v-if="user">{{ user.client ? user.client.firstName : '' }}</span>
 		</div>
-		<div class="-ml-4 flex w-screen overflow-x-scroll px-4">
+		<div class="flex w-screen overflow-x-scroll pl-4">
 			<SubscriptionCard class="mr-5 h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
 			<WalletCard class="mr-5 h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
 			<NetworthCard class="mr-5 h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
 			<CoyieldCard class="h-[250px] w-[250px] min-w-[250px] max-w-[250px]" />
 		</div>
-		<div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-7">
+		<div class="mt-8 grid grid-cols-1 gap-4 px-4 md:grid-cols-7 md:px-12">
 			<Insights class="col-span-1 md:col-span-4" />
 			<ActivityLog class="col-span-1 md:col-span-3" />
 		</div>

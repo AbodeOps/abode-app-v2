@@ -8,7 +8,7 @@
 			</div>
 
 			<main
-				class="shadow-[0_-4px_-4px_36px_rgba(210, 229, 241, 0.3)] overflow-y-scroll rounded rounded-tl-3xl bg-white py-5 px-4 pb-32 md:mb-0 md:flex-1 md:px-12"
+				class="shadow-[0_-4px_-4px_36px_rgba(210, 229, 241, 0.3)] overflow-y-scroll rounded rounded-tl-3xl bg-white py-5 pb-32 md:mb-0 md:flex-1"
 			>
 				<RouterView v-slot="{ Component }">
 					<transition name="fastfade" mode="out-in">

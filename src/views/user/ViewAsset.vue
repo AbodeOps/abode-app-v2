@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-8 gap-10">
+	<div class="grid grid-cols-8 gap-10 px-4 md:px-12">
 		<div class="col-span-3">
 			<BaseCarousel />
 

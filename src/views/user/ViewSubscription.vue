@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="px-4 md:px-12">
 		<BaseGoBack />
 		<div class="grid grid-cols-8 gap-10">
 			<div class="col-span-3">

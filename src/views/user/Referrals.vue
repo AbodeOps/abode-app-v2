@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="px-4 md:px-12">
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-7 md:gap-10">
 			<ReferralBanner class="col-span-1 md:col-span-4" />
 			<div class="col-span-1 md:col-span-3">
@@ -58,7 +58,7 @@ const copyLink = async () => {
 
 	try {
 		await navigator.clipboard.writeText(
-			`Join the largest community of young people multiplying wealth through Real Estate Assets \nClick ${baseUrl}/signup?ref=${user.username} to enjoy amazing deals`
+			`Join the largest community of young people multiplying wealth through Real Estate Assets \nClick ${baseUrl}/signup?ref=${user.value?.username} to enjoy amazing deals`
 		);
 		isCopied.value = true;
 

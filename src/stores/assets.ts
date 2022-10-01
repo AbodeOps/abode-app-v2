@@ -32,43 +32,43 @@ export const useAssetStore = defineStore({
 			return res;
 		},
 
-		async fetchProjectById(_, id) {
+		async fetchProjectById(id: number) {
 			const res = await ProjectService.fetchProjectById(id);
 
 			return res;
 		},
 
-		async fetchSubscriptionById(_, id) {
+		async fetchSubscriptionById(id: number) {
 			const res = await ProjectService.fetchSubscriptionById(id);
 
 			return res;
 		},
 
-		async fetchOfferById(_, id) {
+		async fetchOfferById(id: number) {
 			const res = await ProjectService.fetchOfferById(id);
 
 			return res;
 		},
 
-		async fundProject(_, payload) {
+		async fundProject(payload: any) {
 			const res = await ProjectService.fundProject(payload);
 
 			return res;
 		},
 
-		async createOffer(_, payload) {
+		async createOffer(payload: any) {
 			const res = await ProjectService.createOffer(payload);
 
 			return res;
 		},
 
-		async createBid(_, payload) {
+		async createBid(payload: any) {
 			const res = await ProjectService.createBid(payload);
 
 			return res;
 		},
 
-		async fetchBids(_, { offerId }) {
+		async fetchBids({ offerId }: any) {
 			const res = await ProjectService.fetchBids(offerId);
 
 			return res;
@@ -80,7 +80,7 @@ export const useAssetStore = defineStore({
 			return res;
 		},
 
-		async sellAsGroup(_, { fundId, action }) {
+		async sellAsGroup({ fundId, action }: any) {
 			const res = await ProjectService.sellAsGroup({
 				id: fundId,
 				action,
@@ -89,7 +89,7 @@ export const useAssetStore = defineStore({
 			return res;
 		},
 
-		async acceptBid(_, { bidId }) {
+		async acceptBid({ bidId }: any) {
 			const res = await ProjectService.acceptBid({
 				id: bidId,
 			});
@@ -97,7 +97,7 @@ export const useAssetStore = defineStore({
 			return res;
 		},
 
-		async rejectBid(_, { bidId }) {
+		async rejectBid({ bidId }: any) {
 			const res = await ProjectService.rejectBid({
 				id: bidId,
 			});
@@ -105,7 +105,7 @@ export const useAssetStore = defineStore({
 			return res;
 		},
 
-		async payBid(_, payload) {
+		async payBid(payload: any) {
 			const res = await ProjectService.payBid(payload);
 
 			return res;

@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-1 gap-10 md:grid-cols-7">
+	<div class="grid grid-cols-1 gap-10 px-4 md:grid-cols-7 md:px-12">
 		<div class="col-span-1 md:col-span-4">
 			<div class="flex flex-col md:flex-row md:items-center">
 				<WalletCard class="w-full md:h-[18rem] md:w-[30rem]" />

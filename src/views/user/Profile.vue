@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="px-4 md:px-12">
 		<div class="mb-10 flex items-center justify-between">
 			<div class="flex items-start">
 				<span

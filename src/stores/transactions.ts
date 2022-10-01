@@ -26,7 +26,7 @@ export const useTransactionStore = defineStore({
 			const res = await TransactionService.fetchTransactions();
 
 			this.transactions = res.data.map(
-				(transaction) =>
+				(transaction: any) =>
 					({
 						id: transaction.id,
 						amount: transaction.amount,
@@ -56,7 +56,7 @@ export const useTransactionStore = defineStore({
 			const res = await TransactionService.fetchBankAccounts();
 
 			this.bankAccounts = res.data.map(
-				(account) =>
+				(account: any) =>
 					({
 						id: account.id,
 						name: account.account_name,
@@ -69,27 +69,27 @@ export const useTransactionStore = defineStore({
 			return res;
 		},
 
-		async requestOtp(_, purpose) {
+		async requestOtp(purpose: string) {
 			const res = await TransactionService.requestOtp(purpose);
 
 			return res;
 		},
-		async addBank(_, payload) {
+		async addBank(payload: any) {
 			const res = await TransactionService.addBank(payload);
 
 			return res;
 		},
-		async resolveBankAccount(_, payload) {
+		async resolveBankAccount(payload: any) {
 			const res = await TransactionService.resolveBankAccount(payload);
 
 			return res;
 		},
-		async topup(_, payload) {
+		async topup(payload: any) {
 			const res = await TransactionService.topup(payload);
 
 			return res;
 		},
-		async withdraw(_, payload) {
+		async withdraw(payload: any) {
 			const res = await TransactionService.withdraw(payload);
 
 			return res;

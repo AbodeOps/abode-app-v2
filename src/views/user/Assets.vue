@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="px-4 md:px-12">
 		<div class="mb-10 flex items-center justify-between">
 			<div class="flex items-start">
 				<span
@@ -30,17 +30,17 @@
 			<AssetList />
 		</div>
 		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-if="activeTab === 'subscriptions'">
-			<AssetCard subscribed v-for="i in 12" :key="i" />
+			<SubscriptionList />
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import AssetCard from '@/components/assets/AssetCard.vue';
 import { ref } from 'vue';
 import BaseMenu from '@/components/common/BaseMenu.vue';
 import { FilterIcon, SortIcon } from '@/components/icons/AllIcons';
 import AssetList from '@/components/assets/AssetList.vue';
+import SubscriptionList from '@/components/assets/SubscriptionList.vue';
 
 const tabs = ref([
 	{
