@@ -3,7 +3,9 @@
 		<div class="rounded-lg border border-gray-40 p-6 md:p-8">
 			<div class="mb-5 text-2xl">Profile</div>
 
-			<div class="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-4 border-black md:h-28 md:w-28">
+			<div
+				class="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-4 border-black bg-gray-40 md:h-28 md:w-28"
+			>
 				<ProfileAddIcon class="h-10 w-10 text-black md:h-16 md:w-16" />
 			</div>
 
