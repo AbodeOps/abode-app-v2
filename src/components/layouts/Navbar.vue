@@ -50,7 +50,7 @@
 											<MenuItems
 												class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 											>
-												<MenuItem v-slot="{ active }">
+												<MenuItem v-slot="{ active }" @click="goToProfile">
 													<button
 														href="#"
 														:class="[
@@ -63,7 +63,7 @@
 													</button>
 												</MenuItem>
 												<hr />
-												<MenuItem v-slot="{ active }" @click="logout()">
+												<MenuItem v-slot="{ active }" @click="logout">
 													<button
 														href="#"
 														:class="[
@@ -103,7 +103,7 @@
 											<MenuItems
 												class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 											>
-												<MenuItem v-slot="{ active }">
+												<MenuItem v-slot="{ active }" @click="goToProfile">
 													<button
 														href="#"
 														:class="[
@@ -116,7 +116,7 @@
 													</button>
 												</MenuItem>
 												<hr />
-												<MenuItem v-slot="{ active }" @click="logout()">
+												<MenuItem v-slot="{ active }" @click="logout">
 													<button
 														href="#"
 														:class="[
@@ -161,6 +161,10 @@ const user = computed<User | null>(() => authStore.currentUser);
 
 const goToLink = () => {
 	router.push('/');
+};
+
+const goToProfile = () => {
+	router.push({ name: ROUTES.USER_PROFILE });
 };
 
 const pageTitle = computed(() => {
