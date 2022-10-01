@@ -3,7 +3,7 @@
 		<div class="mb-10 flex items-center justify-between">
 			<div class="flex items-start">
 				<span
-					class="cursor-pointer rounded-full px-4 py-1 text-xs"
+					class="inline-flex cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
 					:class="{ 'bg-primary text-white': activeTab === tab.key }"
 					v-for="(tab, ix) in tabs"
 					:key="ix"
@@ -26,10 +26,10 @@
 				</BaseMenu>
 			</div>
 		</div>
-		<div class="grid grid-cols-3 gap-10" v-if="activeTab === 'available-offers'">
+		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-if="activeTab === 'available-offers'">
 			<AssetCard v-for="i in 12" :key="i" />
 		</div>
-		<div class="grid grid-cols-3 gap-10" v-if="activeTab === 'subscriptions'">
+		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-if="activeTab === 'subscriptions'">
 			<AssetCard subscribed v-for="i in 12" :key="i" />
 		</div>
 	</div>

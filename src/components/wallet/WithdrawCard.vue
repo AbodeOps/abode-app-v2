@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="flex h-full w-full">
 		<Pattern1Card @click="isOpen = true" class="cursor-pointer" bgColor="#FDEBE3" patternColor="#FAE9E2">
 			<div class="flex h-full w-full flex-col items-center justify-center text-xl text-black">
 				<WalletWithdrawIcon class="h-8 w-8" />

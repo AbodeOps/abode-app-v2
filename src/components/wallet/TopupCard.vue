@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<Pattern1Card class="cursor-pointer" @click="isOpen = true" bgColor="#FDEBE3" patternColor="#FAE9E2">
+	<div class="flex">
+		<Pattern1Card class="flex h-full w-full cursor-pointer" @click="isOpen = true" bgColor="#FDEBE3" patternColor="#FAE9E2">
 			<div class="flex h-full w-full flex-col items-center justify-center text-xl text-black">
 				<WalletTopupIcon class="h-8 w-8" />
 				<div class="text-md mt-5">Top Up</div>

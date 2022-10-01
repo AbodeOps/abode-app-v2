@@ -20,6 +20,7 @@ import InstagramIcon from '../icons/InstagramIcon.vue';
 import LogoNoText from '../icons/LogoNoText.vue';
 import LogoutIcon from '../icons/LogoutIcon.vue';
 import MoreIcon from '../icons/MoreIcon.vue';
+import MoreVerticalIcon from '../icons/MoreVerticalIcon.vue';
 import NotificationsIcon from '../icons/NotificationsIcon.vue';
 import PlusIcon from '../icons/PlusIcon.vue';
 import ProfileIcon from '../icons/ProfileIcon.vue';
@@ -56,6 +57,7 @@ export {
 	LogoNoText,
 	LogoutIcon,
 	MoreIcon,
+	MoreVerticalIcon,
 	NotificationsIcon,
 	PlusIcon,
 	ProfileIcon,

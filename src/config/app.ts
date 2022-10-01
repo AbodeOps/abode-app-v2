@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = import.meta.env.VITE_BASE_URL + '/api';
+export const BASE_URL = import.meta.env.VITE_APP_API_BASE;
 export const WEBSITE_URL = import.meta.env.VITE_WEBSITE_URL;
 
 export const helpSupportUrl = `${WEBSITE_URL}`;

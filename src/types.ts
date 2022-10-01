@@ -24,11 +24,13 @@ export type HTMLInputTypeAttribute =
 	| 'radio'
 	| 'range';
 
-export interface TabItem {
-	id: number;
-	label: string;
-	to: string;
-	current: boolean;
+export interface LoginForm {
+	loginId: string;
+	password: string;
+}
+
+export interface User {
+	name: string;
 }
 
 export interface OptionItem {

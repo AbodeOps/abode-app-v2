@@ -13,6 +13,11 @@ import { RouterView } from 'vue-router';
 </script>
 
 <style>
+::-webkit-scrollbar {
+	width: 0; /* Remove scrollbar space */
+	background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .mosha__toast {
 	/* padding: 0 !important; */
 	min-height: auto !important;

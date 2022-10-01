@@ -2,7 +2,11 @@
 	<div class="w-full">
 		<div class="relative mt-1 mb-5 border-b border-gray-300 focus-within:border-indigo-600">
 			<input
+				ref="baseInput"
+				:name="name"
+				:value="value"
 				class="block w-full rounded-tr-xl rounded-tl-xl border-0 border-b border-transparent bg-gray-25 py-4 px-5 text-xs outline-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
+				@input="changeInput($event)"
 				v-bind="$attrs"
 			/>
 		</div>
@@ -11,8 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import type { HTMLInputTypeAttribute } from '@/types.js';
-import { computed, type PropType, ref, toRef } from 'vue';
+import { ref, toRef } from 'vue';
 import { useField } from 'vee-validate';
 import HelpText from '@/components/common/HelpText.vue';
 // import BaseLabel from './BaseLabel.vue';
@@ -25,10 +28,6 @@ const showPicker = () => {
 };
 
 const props = defineProps({
-	type: {
-		type: String as PropType<HTMLInputTypeAttribute>,
-		default: 'text',
-	},
 	id: {
 		type: String,
 		default: '',
@@ -51,26 +50,11 @@ const props = defineProps({
 	},
 });
 
-const showPassword = ref(false);
-const inputType = computed(() => {
-	if (props.type == 'password') {
-		if (showPassword.value) {
-			return 'text';
-		} else {
-			return 'password';
-		}
-	}
-
-	return props.type;
-});
-
 const emit = defineEmits(['update:modelValue']);
 
-const changePageTitle = (ev: Event) => {
+const changeInput = (ev: Event) => {
 	if (ev.target instanceof HTMLInputElement) {
 		emit('update:modelValue', ev?.target?.value);
-	} else {
-		console.log('checking');
 	}
 };
 

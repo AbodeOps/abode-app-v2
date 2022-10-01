@@ -1,14 +1,16 @@
 <template>
-	<div class="grid h-full grid-cols-7 gap-10">
-		<div class="col-span-4">
-			<div class="flex">
-				<WalletCard class="h-[344px] w-[50%]" />
-				<TopupCard class="mx-3 h-[344px] w-[25%]" />
-				<WithdrawCard class="h-[344px] w-[25%]" />
+	<div class="grid grid-cols-1 gap-10 md:grid-cols-7">
+		<div class="col-span-1 md:col-span-4">
+			<div class="flex flex-col md:flex-row md:items-center">
+				<WalletCard class="w-full md:h-[18rem] md:w-[30rem]" />
+				<div class="mt-5 flex w-full md:mt-0">
+					<TopupCard class="mr-3 h-[10rem] w-1/2 md:mx-3 md:h-[12rem] md:w-full" />
+					<WithdrawCard class="h-[10rem] w-1/2 md:h-[12rem] md:w-full" />
+				</div>
 			</div>
 			<TransactionHistory />
 		</div>
-		<div class="col-span-3">
+		<div class="col-span-1 md:col-span-3">
 			<Insights />
 			<BankCard />
 		</div>

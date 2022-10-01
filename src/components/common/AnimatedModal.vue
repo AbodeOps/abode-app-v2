@@ -15,7 +15,7 @@
 
 			<div class="fixed inset-0 z-10 overflow-y-auto">
 				<div
-					class="flex min-h-full px-4 py-10 text-center sm:p-0"
+					class="flex min-h-full px-0 py-10 text-center sm:p-0 md:px-4"
 					:class="[
 						{
 							'items-start justify-end ': right,
@@ -23,6 +23,7 @@
 							'items-start justify-start': left,
 							'items-start justify-center': center,
 							'flex-col items-center justify-center': middleCenter,
+							'flex-col items-center justify-end py-0 md:justify-center': mdMiddleCenterSmBottom,
 						},
 					]"
 				>
@@ -35,7 +36,7 @@
 						leave-from="opacity-100 translate-y-0 sm:scale-100"
 						leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
 					>
-						<span>
+						<span class="w-full md:w-auto">
 							<slot></slot>
 						</span>
 					</TransitionChild>
@@ -72,6 +73,10 @@ defineProps({
 		default: false,
 	},
 	middleCenter: {
+		type: Boolean,
+		default: false,
+	},
+	mdMiddleCenterSmBottom: {
 		type: Boolean,
 		default: false,
 	},

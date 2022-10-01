@@ -63,6 +63,7 @@
 								>
 									<component
 										:is="item.icon"
+										:isActive="isCurrentRoute(item.routeName)"
 										:class="[
 											isCurrentRoute(item.routeName) ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
 											'mr-4 h-6 w-6 flex-shrink-0 text-gray-90',

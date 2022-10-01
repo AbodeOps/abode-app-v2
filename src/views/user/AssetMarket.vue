@@ -3,7 +3,7 @@
 		<div class="mb-10 flex items-center justify-between">
 			<div class="flex items-start">
 				<span
-					class="cursor-pointer rounded-full px-4 py-1 text-xs"
+					class="cursor-pointer whitespace-pre rounded-full px-4 py-1 text-xs"
 					:class="{ 'bg-primary text-white': activeTab === tab.key }"
 					v-for="(tab, ix) in tabs"
 					:key="ix"

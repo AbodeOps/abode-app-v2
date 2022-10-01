@@ -6,8 +6,9 @@
 		:class="[styles, outlined ? '' : 'border border-transparent']"
 	>
 		<slot></slot>
-		<span class="absolute inset-y-0 right-4 flex items-center" v-if="loading">
-			<!-- <SpinnerIcon class="w-5 h-5 animate-spin" :class="[textColor]" /> -->
+		<span class="flex items-center" v-if="loading">
+			...
+			<!-- <SpinnerIcon class="h-5 w-5 animate-spin" :class="[textColor]" /> -->
 		</span>
 	</button>
 </template>

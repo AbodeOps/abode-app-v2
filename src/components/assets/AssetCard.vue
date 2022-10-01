@@ -1,8 +1,6 @@
 <template>
-	<div @click="viewAsset" class="flex cursor-pointer flex-col rounded-lg border border-gray-20 p-8">
-		<div
-			class="min-h-40 aspect-w-1 aspect-h-1 lg:aspect-none w-full overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75 lg:h-40"
-		>
+	<div @click="viewAsset" class="relative flex cursor-pointer flex-col rounded-lg border border-gray-20 p-8">
+		<div class="h-[10rem] w-full overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75 md:h-40">
 			<img
 				:src="'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg'"
 				:alt="'product-15'"
@@ -48,12 +46,14 @@
 				<div class="mt-1 text-sm font-light text-gray-50">Shares bought</div>
 			</div>
 		</div>
-		<div class="mt-4 flex justify-between" v-if="!subscribed">
-			<div class="inline-flex w-1/2">
-				<div class="rounded-full bg-green py-1 px-4 text-xs text-white">Available</div>
-			</div>
-			<div class="inline-flex w-1/2">
-				<div class="rounded-full border border-gray-70 bg-white py-1 px-4 text-xs text-gray-70">Own to Earn</div>
+		<div class="absolute -top-3 left-0 flex justify-between" v-if="!subscribed">
+			<div class="flex">
+				<div class="mr-2 inline-flex">
+					<div class="rounded-full bg-red py-1 px-4 text-xs text-white">Sold Out</div>
+				</div>
+				<div class="inline-flex">
+					<div class="rounded-full border border-gray-70 bg-white py-1 px-4 text-xs text-gray-70">Own to Earn</div>
+				</div>
 			</div>
 		</div>
 	</div>

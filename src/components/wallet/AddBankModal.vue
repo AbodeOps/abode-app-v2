@@ -1,6 +1,6 @@
 <template>
-	<AnimatedModal :isOpen="isOpen" middleCenter>
-		<div class="z-50 w-[600px] rounded-lg bg-white pb-5">
+	<AnimatedModal :isOpen="isOpen" mdMiddleCenterSmBottom>
+		<div class="z-50 w-full rounded-lg bg-white pb-5 md:w-[600px]">
 			<BaseModalHeader title="Add Bank" @closed="$emit('closed')" />
 
 			<div class="mt-5 flex w-full flex-col items-center px-8">

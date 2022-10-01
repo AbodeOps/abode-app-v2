@@ -1,6 +1,6 @@
 <template>
-	<AnimatedModal :isOpen="isOpen" middleCenter>
-		<div class="z-50 w-[600px] rounded-lg bg-white pb-5">
+	<AnimatedModal :isOpen="isOpen" mdMiddleCenterSmBottom>
+		<div class="z-50 w-full rounded-lg bg-white pb-5 md:w-[600px]">
 			<BaseModalHeader title="Top up your wallet" @closed="$emit('closed')" />
 
 			<div class="mt-8 flex flex-col px-4">
@@ -8,7 +8,7 @@
 			</div>
 
 			<div class="mt-5 flex w-full flex-col items-center">
-				<div class="w-8/12">
+				<div class="w-11/12 md:w-8/12">
 					<PaymentMethodItem
 						:selected="selectedMethod === paymentMethod.key"
 						@click="selectedMethod = paymentMethod.key"
