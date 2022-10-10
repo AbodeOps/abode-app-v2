@@ -1,7 +1,7 @@
 <template>
 	<AnimatedModal :isOpen="isOpen" middleCenter>
 		<div v-if="!isBankTransferModalOpen" class="z-50 w-[600px] rounded-lg bg-white pb-5">
-			<BaseModalHeader title="Payment Method" @closed="$emit('closed')" />
+			<BaseModalHeader title="Payment Method" @closed="emit('closed')" />
 
 			<div class="mt-8 flex flex-col px-4">
 				<div class="text-sm text-black">Please select a method</div>
@@ -11,7 +11,7 @@
 				<div class="w-8/12">
 					<PaymentMethodItem
 						:selected="selectedMethod === paymentMethod.key"
-						@click="selectedMethod = paymentMethod.key"
+						@click="paymentMethod.disabled ? null : (selectedMethod = paymentMethod.key)"
 						:item="paymentMethod"
 						v-for="(paymentMethod, ix) in paymentMethods"
 						:key="ix"
@@ -21,35 +21,49 @@
 				<BaseButton :disabled="!selectedMethod" class="mt-5 bg-orange px-8 text-sm" @click="proceed">Continue</BaseButton>
 			</div>
 		</div>
-		<BankTransferModal v-if="isBankTransferModalOpen" @go-back="isBankTransferModalOpen = false" @click="$emit('closed')" />
+		<BankTransferModal v-if="isBankTransferModalOpen" @go-back="isBankTransferModalOpen = false" :isLoading="isLoading" @completed="submit" @click="$emit('closed')" />
 	</AnimatedModal>
 </template>
 
 <script lang="ts" setup>
-import { ref, shallowRef } from 'vue';
+import { ref, shallowRef, watch } from 'vue';
 import AnimatedModal from '@/components/common/AnimatedModal.vue';
 import { BankIcon, DebitCardIcon, DashboardWalletIcon } from '@/components/icons/AllIcons';
 import PaymentMethodItem from '@/components/wallet/PaymentMethodItem.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 import BaseModalHeader from '@/components/common/BaseModalHeader.vue';
-import type { PaymentMethod } from '@/types';
-import BankTransferModal from './BankTransferModal.vue';
+import { PaymentOption, type PaymentMethod, type TopUpForm } from '@/types';
+import BankTransferModal from "./BankTransferCard.vue";
+import { useTransactionStore } from '@/stores/transactions';
+import { storeToRefs } from 'pinia';
 
 defineProps<{
 	isOpen: boolean;
+	isLoading: boolean;
 }>();
+
+const transactionStore = useTransactionStore();
+const { formattedBalance } = storeToRefs(transactionStore)
 
 const paymentMethods = ref<PaymentMethod[]>([
 	{
-		key: 'wallet',
+		key: PaymentOption.WALLET,
 		label: 'Wallet',
-		description: 'Pay from your wallet balance <br> Available Balance N4,000,000',
+		disabled: false,
+		description: `Pay from your wallet balance <br> Available Balance ${formattedBalance.value}`,
 		icon: shallowRef(DashboardWalletIcon),
 	},
-	{ key: 'bank-transfer', label: 'Bank Transfer', description: 'Transfer to any of our bank accounts', icon: shallowRef(BankIcon) },
 	{
-		key: 'debit-card',
+		key: PaymentOption.BANK_TRANSFER,
+		disabled: false,
+		label: 'Bank Transfer',
+		description: 'Transfer to any of our bank accounts',
+		icon: shallowRef(BankIcon),
+	},
+	{
+		key: PaymentOption.CARD,
 		label: 'Debit Card',
+		disabled: true,
 		description: 'Make payment with your visa or mastercard card.',
 		icon: shallowRef(DebitCardIcon),
 	},
@@ -61,10 +75,14 @@ const isBankTransferModalOpen = ref(false);
 const emit = defineEmits(['proceed', 'closed']);
 
 const proceed = () => {
-	if (selectedMethod.value === 'bank-transfer') {
+	if (selectedMethod.value === PaymentOption.BANK_TRANSFER) {
 		isBankTransferModalOpen.value = true;
-	} else {
-		emit('proceed', selectedMethod.value);
+	} else if (selectedMethod.value === PaymentOption.WALLET) {
+		emit('proceed', {method: selectedMethod.value, data: {}});
 	}
-};
+}
+
+const submit = async (form: TopUpForm) => {
+	emit('proceed', {method: selectedMethod.value ,data: form});
+}
 </script>

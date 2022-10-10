@@ -1,7 +1,8 @@
 <template>
 	<div class="px-4 md:px-12">
 		<BaseGoBack />
-		<div class="grid grid-cols-1 gap-10 md:grid-cols-8">
+		<AbodeLoader v-if="isLoading" />
+		<div class="grid grid-cols-1 gap-10 md:grid-cols-8" v-else>
 			<div class="col-span-1 md:col-span-3">
 				<BaseCarousel :images="[{ src: `${subscription?.project?.image_url}`, alt: `Asset ${subscription?.project?.id}` }]" />
 
@@ -9,7 +10,7 @@
 			</div>
 			<div class="col-span-1 md:col-span-5" v-if="subscription && !isLoading">
 				<AssetDetailsCard subscribed :subcription="subscription" :asset="subscription.project" />
-				<SubscriptionDetailsCard class="my-10" :subcription="subscription" />
+				<SubscriptionDetailsCard class="my-10" :subscription="subscription" :asset="subscription.project" />
 				<AssetMoreDetailsCard class="mb-10" :asset="subscription.project" />
 				<AssetInsights />
 			</div>
@@ -29,6 +30,7 @@ import { useRoute } from 'vue-router';
 import { useAssetStore } from '@/stores/assets';
 import type { Subscription } from '@/types';
 import BaseShare from '../../components/common/BaseShare.vue';
+import AbodeLoader from '@/components/common/AbodeLoader.vue';
 
 const isLoading = ref(false);
 const route = useRoute();
@@ -44,7 +46,7 @@ const fetchSubscriptionById = async () => {
 
 		const res = await assetStore.fetchSubscriptionById(Number(subscriptionId));
 
-		subscription.value = { ...res.data, project: { ...res.data.project, totalUnits: res.data.expected_slots } };
+		subscription.value = { ...res.data, project: { ...res.data.project, totalUnits: res.data.project.expected_slots, potentialGrowth: res.data.project.potential_growth } };
 	} finally {
 		isLoading.value = false;
 	}

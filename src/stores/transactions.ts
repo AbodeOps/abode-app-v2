@@ -1,7 +1,7 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { TransactionService } from '@/services';
 import { formatMoney } from '@/utils/helpers';
-import type { BankAccount, Transaction } from '@/types';
+import type { BankAccount, Transaction, AddBankAccountForm } from '@/types';
 import { getBankName } from '@/utils/nigerianBanks';
 
 export const useTransactionStore = defineStore({
@@ -76,7 +76,7 @@ export const useTransactionStore = defineStore({
 
 			return res;
 		},
-		async addBank(payload: any) {
+		async addBank(payload: AddBankAccountForm) {
 			const res = await TransactionService.addBank(payload);
 
 			return res;

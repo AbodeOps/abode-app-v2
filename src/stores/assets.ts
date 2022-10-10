@@ -15,7 +15,13 @@ export const useAssetStore = defineStore({
 		async fetchAssets() {
 			const res = await ProjectService.fetchProjects();
 
-			this.assets = res.data;
+			this.assets = res.data.map((asset: any) => ({
+				...asset,
+				totalUnits: asset.expected_slots,
+				percentFunded: Number(asset.percent_funded),
+				potentialGrowth: asset.potential_growth,
+				})
+			);
 
 			return res;
 		},
@@ -29,7 +35,17 @@ export const useAssetStore = defineStore({
 		async fetchSubscriptions() {
 			const res = await ProjectService.fetchFundedProjects();
 
-			this.subscriptions = res.data;
+			this.subscriptions = res.data.map((subscription: any) => ({
+				...subscription,
+				userId: subscription.user_id,
+				project: {
+					...subscription.project,
+					totalUnits: subscription.project.expected_slots,
+					potentialGrowth: subscription.project.potential_growth,
+					percentFunded: Number(subscription.project.percent_funded),
+				}
+				})
+			);;
 
 			return res;
 		},
@@ -52,7 +68,7 @@ export const useAssetStore = defineStore({
 			return res;
 		},
 
-		async fundProject(payload: any) {
+		async buyAsset(payload: any) {
 			const res = await ProjectService.fundProject(payload);
 
 			return res;

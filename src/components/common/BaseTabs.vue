@@ -5,7 +5,7 @@
 			:class="{ 'bg-primary text-white': activeTab === tab.key }"
 			v-for="(tab, ix) in tabs"
 			:key="ix"
-			@click="$emit('change', tab.key)"
+			@click="selected = tab.key;$emit('change', tab.key)"
 		>
 			{{ tab.label }}
 		</span>
@@ -14,17 +14,26 @@
 
 <script lang="ts" setup>
 import type { TabItem } from '@/types';
-import { onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const emit = defineEmits(['change']);
 
-defineProps<{
+const props =defineProps<{
 	tabs: TabItem[];
 	activeTab: string;
 }>();
 
+const selected = ref(props.activeTab);
+
 const route = useRoute();
+const router = useRouter();
+
+watch([selected], () =>{
+	router.replace({query: {
+		tab: selected.value
+	}})
+})
 
 onMounted(() => {
 	if (route.query.tab) {

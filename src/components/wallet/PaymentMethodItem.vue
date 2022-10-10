@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="mb-5 flex min-h-[100px] w-full cursor-pointer items-center rounded-lg border border-gray-50 p-4"
-		:class="{ 'border border-orange': selected }"
+		:class="{ 'border border-orange': selected, 'opacity-30 cursor-not-allowed': item.disabled }"
 	>
 		<component class="h-12 w-12 text-orange" :is="item.icon" />
 
@@ -17,13 +17,10 @@
 </template>
 
 <script lang="ts" setup>
+import type { PaymentMethod } from '@/types';
 import { CheckboxMarkedCircleIcon } from '../icons/AllIcons';
 defineProps<{
-	item: {
-		label: string;
-		description: string;
-		icon: any;
-	};
+	item: PaymentMethod;
 	selected?: boolean;
 }>();
 </script>

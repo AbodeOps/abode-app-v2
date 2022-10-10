@@ -1,7 +1,8 @@
 <template>
 	<div class="px-4 md:px-12">
 		<BaseGoBack />
-		<div class="grid grid-cols-1 gap-4 md:grid-cols-8 md:gap-10">
+		<AbodeLoader v-if="isLoading" />
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-8 md:gap-10" v-else>
 			<div class="col-span-1 md:col-span-3">
 				<BaseCarousel :images="[{ src: `${asset?.image_url}`, alt: `Asset ${asset?.id}` }]" />
 
@@ -35,6 +36,8 @@ import { onBeforeMount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAssetStore } from '@/stores/assets';
 import type { Asset } from '@/types';
+import AbodeLoader from '@/components/common/AbodeLoader.vue';
+import { number } from 'yup/lib/locale';
 
 const isLoading = ref(false);
 const route = useRoute();
@@ -50,7 +53,7 @@ const fetchAssetById = async () => {
 
 		const res = await assetStore.fetchAssetById(Number(projectId));
 
-		asset.value = { ...res.data, totalUnits: res.data.expected_slots };
+		asset.value = { ...res.data, totalUnits: res.data.expected_slots, percentFunded: Number(res.data.percent_funded), potentialGrowth: res.data.potential_growth };
 	} finally {
 		isLoading.value = false;
 	}

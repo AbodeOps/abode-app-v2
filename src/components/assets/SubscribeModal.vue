@@ -23,31 +23,23 @@
 				</div>
 
 				<div class="mt-5 flex w-full flex-col items-center px-8">
-					<BaseInput type="number" placeholder="Number of Units" v-model="form.units" />
+					<BaseInput type="number" min="1" :max="asset.available_units" placeholder="Number of Units"
+						v-model="form.units" />
 					<BaseInput type="text" disabled placeholder="Amount" :value="totalAmount" />
 
-					<BaseButton class="mt-5 bg-orange px-8 text-sm" @click="proceed">Proceed</BaseButton>
+					<BaseButton class="mt-5 bg-orange px-8 text-sm" :disabled="isDisabled" @click="proceed">Proceed
+					</BaseButton>
 				</div>
 			</div>
-			<PaymentModal
-				:is-open="isPaymentMethodModalOpen"
-				@closed="
-					isPaymentMethodModalOpen = false;
-					isSubscriptionFormOpen = true;
-				"
-				@proceed="onSelectPayment"
-			/>
-			<SubscriptionConfirmationModal
-				:is-open="isWalletConfirmationOpen"
-				@closed="
-					isWalletConfirmationOpen = false;
-					$emit('closed');
-				"
-				@proceed="onSelectPayment"
-				:item="{ name: 'Lagos Apartment' }"
-				totalAmount="N400,000"
-				:numberOfUnits="5"
-			/>
+			<PaymentModal :isLoading="isPaying" :is-open="isPaymentMethodModalOpen" @closed="
+				isPaymentMethodModalOpen = false;
+				isSubscriptionFormOpen = true;
+			" @proceed="onSelectPayment" />
+			<SubscriptionConfirmationModal :is-open="isWalletConfirmationOpen" @closed="
+				isWalletConfirmationOpen = false;
+				isSubscriptionFormOpen = true;
+			" @proceed="makePayment" :item="{ name: asset.name }" :totalAmount="totalAmount"
+				:numberOfUnits="Number(form.units)" />
 		</div>
 	</AnimatedModal>
 </template>
@@ -60,10 +52,12 @@ import BaseInput from '@/components/common/BaseInput.vue';
 import PaymentModal from '@/components/common/PaymentModal.vue';
 import { computed, ref } from 'vue';
 import SubscriptionConfirmationModal from './SubscriptionConfirmationModal.vue';
-import type { Asset } from '@/types';
+import { PaymentOption, type Asset, type TopUpForm } from '@/types';
 import { useTransactionStore } from '@/stores/transactions';
 import { storeToRefs } from 'pinia';
 import { formatMoney } from '@/utils/helpers';
+import { useAssetStore } from '@/stores/assets';
+import toast from '@/helpers/toast';
 
 const props = defineProps<{
 	isOpen: boolean;
@@ -71,7 +65,13 @@ const props = defineProps<{
 }>();
 
 const form = ref({
+	amount: 0,
+	proof: null,
+	reference: "",
+	type: "",
+	bankCode: "",
 	units: '1',
+	agreed: false,
 });
 
 const totalAmount = computed(() => Number(form.value.units) * props.asset.unit_price);
@@ -79,20 +79,52 @@ const totalAmount = computed(() => Number(form.value.units) * props.asset.unit_p
 const isSubscriptionFormOpen = ref(true);
 const isWalletConfirmationOpen = ref(false);
 const isPaymentMethodModalOpen = ref(false);
+const isPaying = ref(false);
 
 const proceed = () => {
 	isSubscriptionFormOpen.value = false;
 	isPaymentMethodModalOpen.value = true;
 };
 
-const onSelectPayment = (method: string) => {
-	if (method === 'wallet') {
+const isDisabled = computed(() => {
+	if (Number(form.value.units) > 0 && balance > totalAmount)
+		return false;
+	return true;
+})
+
+const onSelectPayment = async (payload: { method: string; data: any }) => {
+	form.value.type = payload.method;
+	if (payload.method === PaymentOption.WALLET) {
 		isPaymentMethodModalOpen.value = false;
 		isWalletConfirmationOpen.value = true;
+
+		form.value.reference = new Date().toString();
+		form.value.proof = null;
+	} else if (payload.method === PaymentOption.BANK_TRANSFER) {
+		form.value.proof = payload.data.proof;
+		form.value.reference = payload.data.reference;
+		form.value.bankCode = payload.data.bankCode;
+
+		await makePayment();
 	}
 };
 
+const assetStore = useAssetStore();
+
+const makePayment = async () => {
+	isPaying.value = true;
+	await assetStore.buyAsset(form.value).then((res) => {
+		if (res.status) {
+			toast.success(res.message)
+		}
+		isPaying.value = false;
+
+	}).catch(() => {
+		isPaying.value = false;
+	})
+}
+
 const transactionStore = useTransactionStore();
 
-const { formattedBalance } = storeToRefs(transactionStore);
+const { formattedBalance, balance } = storeToRefs(transactionStore);
 </script>

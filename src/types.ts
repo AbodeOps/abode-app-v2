@@ -24,6 +24,28 @@ export type HTMLInputTypeAttribute =
 	| 'radio'
 	| 'range';
 
+export enum AssetFilters {
+	ALL = 'ALL',
+	AVAILABLE = 'AVAILABLE',
+	SOLD_OUT = 'SOLD_OUT',
+}
+
+export enum AssetSortOptions {
+	ASC = 'Ascending',
+	DESC = 'Descending',
+}
+
+export enum OTPOptions {
+	ADD_BANK_ACCOUNT = 'ADD_BANK',
+	WITHDRAW = 'WITHDRAW',
+}
+
+export enum PaymentOption {
+	BANK_TRANSFER = 'bank-transfer',
+	CARD = 'card',
+	WALLET = 'wallet',
+}
+
 export interface LoginForm {
 	loginId: string;
 	password: string;
@@ -47,6 +69,7 @@ export interface Client {
 
 export interface User {
 	name: string;
+	email: string;
 	username: string;
 	client: Client;
 }
@@ -71,6 +94,9 @@ export interface Asset {
 	max_duration: number;
 	status: boolean;
 	totalUnits: number;
+	percentFunded: number;
+	potentialGrowth: string;
+	funds: Subscription[]
 }
 
 export interface Subscription {
@@ -79,6 +105,7 @@ export interface Subscription {
 	amount: number;
 	sell_as_group: boolean;
 	units: number;
+	userId: number;
 }
 
 export interface BankAccount {
@@ -113,9 +140,26 @@ export interface PaymentMethod {
 	label: string;
 	description: string;
 	icon: any;
+	disabled?: boolean;
 }
 
 export interface WithdrawalForm {
 	amount: string;
-	bank: string;
+	bankId: string;
+	otp: string;
+}
+
+export interface TopUpForm {
+	amount: string;
+	reference: string;
+	bankCode: string;
+	proof: any;
+}
+
+export interface AddBankAccountForm {
+	accountName: string;
+	accountNumber: string;
+	bankCode: string;
+	otp: string;
+	bank?: {id: number; number: number;} | null
 }

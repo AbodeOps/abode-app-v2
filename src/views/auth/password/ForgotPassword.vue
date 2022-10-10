@@ -9,13 +9,19 @@
 		</template>
 		<template #form>
 			<div v-if="step === 1">
-				<BaseInput type="text" placeholder="Email or Username" />
+				<BaseInput type="text" placeholder="Email or Username" v-model="form.loginId" />
 
-				<BaseButton class="mt-5 w-full bg-orange" @click="step = 2">Submit</BaseButton>
+				<BaseButton class="mt-5 w-full bg-orange" @click="handleSubmit" :loading="isSendingOtp">Submit</BaseButton>
 			</div>
 			<div v-else>
-				<span class="text-sm">A reset password link has been sent to you email ogunkolagideon@gmail.com</span>
-				<BaseButton class="mt-5 w-full bg-orange" @click="goToLogin">Go Back to Login page</BaseButton>
+				<span class="text-sm">An OTP has been sent to the email for {{ form.loginId }}</span>
+
+				<BaseInput type="text" placeholder="OTP" v-model="form.otp" />
+				<BaseInput type="text" placeholder="New Password" v-model="form.password" />
+				<BaseInput type="text" placeholder="Confirm Password" v-model="form.confirmPassword" />
+
+				<BaseButton class="mt-5 w-full bg-orange" @click="handleReset" :loading="isLoading">Submit</BaseButton>
+
 			</div>
 		</template>
 	</AuthLayout>
@@ -29,9 +35,59 @@ import BaseLink from '@/components/common/BaseLink.vue';
 import { ROUTES } from '@/router/routes';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+import { AuthService } from '@/services';
+import toast from '@/helpers/toast';
 
 const step = ref(1);
+const isLoading = ref(false);
+const isSendingOtp = ref(false);
+const hasSentOtp = ref(false);
 const router = useRouter();
+
+const authStore = useAuthStore();
+
+const form = ref({
+	loginId: '',
+	otp: '',
+	password: '',
+	confirmPassword: '',
+});
+
+const handleSubmit = async () => {
+	hasSentOtp.value = false;
+
+	isSendingOtp.value = true;
+
+	const res = await AuthService.forgotPassword(form.value.loginId);
+
+	if (res.status) {
+		hasSentOtp.value = true;
+		step.value++;
+	}
+	isSendingOtp.value = false;
+
+};
+
+const handleReset = async () => {
+	isLoading.value = true;
+	hasSentOtp.value = false;
+
+	isSendingOtp.value = true;
+
+	const res = await AuthService.resetPassword({
+		otp: form.value.otp,
+		password: form.value.password,
+		email: form.value.loginId,
+	});
+
+	if (res.status) {
+		toast.success(res.message);
+		goToLogin();
+	}
+	isLoading.value = false;
+
+};
 
 const goToLogin = () => {
 	router.push({ name: ROUTES.AUTH_LOGIN });
