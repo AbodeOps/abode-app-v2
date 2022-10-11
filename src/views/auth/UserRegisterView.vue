@@ -8,18 +8,19 @@
 			</div>
 		</template>
 		<template #form>
-			<BaseInput type="text" placeholder="First Name" v-model="form.firstName" />
-			<BaseInput type="text" placeholder="Last Name" v-model="form.lastName" />
-			<BaseInput type="text" placeholder="Email Address" v-model="form.email" />
-			<BaseInput type="text" placeholder="Phone Number" v-model="form.phoneNumber" />
-			<BaseInput :type="isPasswordVisible ? 'ext' : 'password'" placeholder="Password" v-model="form.password" />
-			<BaseInput :type="isPasswordVisible ? 'ext' : 'password'" placeholder="Confirm Password" v-model="form.confirmPassword" />
+			<BaseInput type="text" placeholder="First Name" label="First Name" v-model="form.firstName" />
+			<BaseInput type="text" placeholder="Last Name" label="Last Name" v-model="form.lastName" />
+			<BaseInput type="text" placeholder="Email Address" label="Email Address" v-model="form.email" />
+			<BaseInput type="text" placeholder="Phone Number" label="Phone Number" v-model="form.phoneNumber" />
+			<BaseInput type="text" placeholder="Referrer" label="Referrer" v-model="form.referrer" />
+			<BaseInput :type="isPasswordVisible ? 'ext' : 'password'" placeholder="Password" label="Password" v-model="form.password" />
+			<BaseInput :type="isPasswordVisible ? 'ext' : 'password'" placeholder="Confirm Password" label="Confirm Password" v-model="form.confirmPassword" />
 			<div class="flex justify-between">
 				<BaseCheckbox label="Show Password" v-model="isPasswordVisible" />
 
 				<BaseLink textColor="text-primary" :route="ROUTES.AUTH_LOGIN">Login Instead</BaseLink>
 			</div>
-			<BaseButton :loading="isLoading" class="mt-5 w-full bg-orange" @click="signup">Sign Up</BaseButton>
+			<BaseButton :loading="isLoading" :disabled="isDisabled" class="mt-5 w-full bg-orange" @click="signup">Sign Up</BaseButton>
 		</template>
 	</AuthLayout>
 </template>
@@ -32,10 +33,10 @@ import BaseCheckbox from '@/components/common/BaseCheckbox.vue';
 import BaseLink from '@/components/common/BaseLink.vue';
 import { ROUTES } from '@/router/routes';
 import { useAuthStore } from '@/stores/auth';
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import type { SignUpForm } from '@/types';
 import toast from '@/helpers/toast';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 
@@ -49,9 +50,17 @@ const form = ref<SignUpForm>({
 	phoneNumber: '',
 	confirmPassword: '',
 	password: '',
+	referrer: '',
 });
 
+const route = useRoute();
 const router = useRouter();
+
+const isDisabled = computed(() => {
+	const { firstName, lastName, email, phoneNumber, password, confirmPassword} = form.value
+	if(!firstName || !lastName || !email|| !phoneNumber|| !password || !confirmPassword || password !== confirmPassword) return true;
+	return false;
+})
 
 const signup = async () => {
 	isLoading.value = true;
@@ -69,4 +78,12 @@ const signup = async () => {
 			isLoading.value = false;
 		});
 };
+
+onMounted(() => {
+	const { ref } = route.query;
+
+        if (ref) {
+            form.value.referrer = ref as string;
+        }
+})
 </script>

@@ -1,11 +1,12 @@
 <template>
 	<div class="w-full">
 		<div class="relative mt-1 mb-5 border-b border-gray-300 focus-within:border-indigo-600">
+	<div class="absolute top-2 mb-3 text-[0.55em] px-5 text-gray-60">{{ label }}</div>
 			<input
 				ref="baseInput"
 				:name="name"
 				:value="value"
-				class="block w-full rounded-tr-xl rounded-tl-xl border-0 border-b border-transparent bg-gray-25 py-4 px-5 text-xs outline-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
+				class="block w-full rounded-tr-xl rounded-tl-xl border-0 border-b border-transparent bg-gray-25 pt-6  pb-2 px-5 text-xs outline-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
 				@input="changeInput($event)"
 				v-bind="$attrs"
 			/>

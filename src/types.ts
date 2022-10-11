@@ -60,6 +60,7 @@ export interface SignUpForm {
 	phoneNumber: string;
 	password: string;
 	confirmPassword: string;
+	referrer: string;
 }
 
 export interface Client {

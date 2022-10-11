@@ -64,6 +64,7 @@ const handleSubmit = async () => {
 	if (res.status) {
 		hasSentOtp.value = true;
 		step.value++;
+		toast.success(res.message);
 	}
 	isSendingOtp.value = false;
 
