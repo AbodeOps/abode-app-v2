@@ -65,6 +65,7 @@ export const useAuthStore = defineStore({
 				client: {
 					...user.client,
 					firstName: user.client.first_name,
+					middleName: user.client.middle_name,
 					lastName: user.client.last_name,
 					phoneNumber: user.client.phone_number,
 					createdAt: user.client.created_at,

@@ -10,9 +10,9 @@
 		<div v-if="activeTab === 'next-of-kin'">
 			<NextOfKin />
 		</div>
-		<div v-if="activeTab === 'security'">
+		<!-- <div v-if="activeTab === 'security'">
 			<Security />
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -32,10 +32,10 @@ const tabs = ref([
 		label: 'Next Of Kin',
 		key: 'next-of-kin',
 	},
-	{
-		label: 'Security',
-		key: 'security',
-	},
+	// {
+	// 	label: 'Security',
+	// 	key: 'security',
+	// },
 ]);
 
 const activeTab = ref(tabs.value[0].key);

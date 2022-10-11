@@ -2,7 +2,7 @@
 	<div>
 		<AppSidebar :sidebarOpen="sidebarOpen" @sidebar-toggle="toggleSidebar($event)" />
 
-		<!-- <MoreNavsModal style="z-index: 99999999999999999999" :isOpen="isMoreOpen" @closed="isMoreOpen = false" /> -->
+		<MoreNavsModal class="block md:hidden" :isOpen="isMoreOpen" @closed="isMoreOpen = false" />
 
 		<div class="flex h-screen flex-1 flex-col md:pl-64">
 			<div class="sticky top-0 z-30 flex flex-shrink-0 bg-background">
@@ -17,7 +17,7 @@
 				</RouterView>
 			</main>
 
-			<MobileBottomBar class="block md:hidden" />
+			<MobileBottomBar class="block md:hidden"  @open-more="isMoreOpen = true"/>
 		</div>
 	</div>
 </template>
@@ -29,7 +29,7 @@ import { useRoute } from 'vue-router';
 import Navbar from '@/components/layouts/Navbar.vue';
 import AppSidebar from './AppSidebar.vue';
 import MobileBottomBar from './MobileBottomBar.vue';
-// import MoreNavsModal from './MoreNavsModal.vue';
+import MoreNavsModal from './MoreNavsModal.vue';
 // import TopupModal from '../wallet/TopupModal.vue';
 
 const route = useRoute();
@@ -40,6 +40,7 @@ watch(
 	() => route.path,
 	() => {
 		sidebarOpen.value = false;
+		isMoreOpen.value = false;
 	}
 );
 

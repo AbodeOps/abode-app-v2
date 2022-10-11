@@ -115,7 +115,7 @@
 				</nav>
 
 				<div class="space-y-6 px-4 pb-12">
-					<button class="text-caption group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-90">
+					<button @click="logout" class="text-caption group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-90">
 						<LogoutIcon class="mr-3 h-6 w-6 flex-shrink-0 text-gray-90" aria-hidden="true" />
 						Logout
 					</button>
@@ -131,8 +131,9 @@ import { XMarkIcon } from '@heroicons/vue/20/solid';
 import { LogoutIcon } from '@/components/icons/AllIcons';
 import LogoWithText from '@/components/logos/LogoWithText.vue';
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAppStore } from '@/stores/app';
+import { ROUTES } from '@/router/routes';
 
 const props = defineProps({
 	sidebarOpen: {
@@ -151,10 +152,16 @@ const toggleSidebar = (value: boolean) => {
 };
 
 const route = useRoute();
+const router = useRouter();
 const currentRoute = computed(() => {
 	return route.name;
 });
 const isCurrentRoute = (routeName: string) => {
 	return currentRoute.value === routeName;
+};
+
+const logout = () => {
+	localStorage.clear();
+	router.push({ name: ROUTES.AUTH_LOGIN });
 };
 </script>

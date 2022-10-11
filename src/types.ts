@@ -24,6 +24,8 @@ export type HTMLInputTypeAttribute =
 	| 'radio'
 	| 'range';
 
+export const AbodeAdminReferrer = 'abodeadmin';
+
 export enum AssetFilters {
 	ALL = 'ALL',
 	AVAILABLE = 'AVAILABLE',
@@ -62,9 +64,22 @@ export interface SignUpForm {
 
 export interface Client {
 	firstName: string;
+	middleName: string;
 	lastName: string;
 	phoneNumber: string;
 	createdAt: string;
+	country: string;
+	state: string;
+	gender: string;
+	referrer: User;
+	type_interests: string;
+	volume_interests: string;
+	purpose: string;
+	nextOfKinName: string;
+	nextOfKinAddress: string;
+	nextOfKinEmail: string;
+	nextOfKinPhoneNumber: string;
+	nextOfKinRelationship: string;
 }
 
 export interface User {

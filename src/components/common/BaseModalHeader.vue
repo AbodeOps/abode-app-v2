@@ -4,8 +4,10 @@
 		<div class="hidden w-2/6 justify-center md:flex">
 			<LogoNoText class="h-10 w-10" />
 		</div>
-
-		<div class="w-2/6 cursor-pointer text-right text-xl" @click="$emit('closed')">x</div>
+		<div class="w-2/6 flex justify-end">
+			<div class="h-7 w-7 flex items-center justify-center cursor-pointer text-right text-md bg-gray-40 rounded p-2"
+				@click="$emit('closed')">x</div>
+		</div>
 	</div>
 </template>
 
