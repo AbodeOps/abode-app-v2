@@ -13,7 +13,7 @@
 
 							<div class="ml-auto flex items-center md:ml-0">
 								<div class="flex">
-									<button
+									<!-- <button
 										type="button"
 										class="relative text-gray-90 hover:text-gray-80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-80"
 									>
@@ -22,7 +22,7 @@
 										<div class="text-caption absolute bottom-0 right-0 h-4 w-4 rounded-full bg-red text-xs text-white">
 											2
 										</div>
-									</button>
+									</button> -->
 
 									<Menu as="div" class="relative ml-3">
 										<div>
