@@ -19,9 +19,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import BaseTabs from '@/components/common/BaseTabs.vue';
-import Account from '../../components/profile/Account.vue';
-import NextOfKin from '../../components/profile/NextOfKin.vue';
-import Security from '../../components/profile/Security.vue';
+import Account from '@/components/profile/Account.vue';
+import NextOfKin from '@/components/profile/NextOfKin.vue';
+import Security from '@/components/profile/Security.vue';
 
 const tabs = ref([
 	{
