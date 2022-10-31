@@ -1,0 +1,6 @@
+{
+	"appId": "com.myabode.app",
+	"appName": "Abode",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

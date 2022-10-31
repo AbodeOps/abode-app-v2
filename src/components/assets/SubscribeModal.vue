@@ -23,23 +23,32 @@
 				</div>
 
 				<div class="mt-5 flex w-full flex-col items-center px-8">
-					<BaseInput type="number" min="1" :max="asset.available_units" placeholder="Number of Units"
-						v-model="form.units" />
+					<BaseInput type="number" min="1" :max="asset.available_units" placeholder="Number of Units" v-model="form.units" />
 					<BaseInput type="text" disabled placeholder="Amount" :value="totalAmount" />
 
-					<BaseButton class="mt-5 bg-orange px-8 text-sm" :disabled="isDisabled" @click="proceed">Proceed
-					</BaseButton>
+					<BaseButton class="mt-5 bg-orange px-8 text-sm" :disabled="isDisabled" @click="proceed">Proceed</BaseButton>
 				</div>
 			</div>
-			<PaymentModal :isLoading="isPaying" :is-open="isPaymentMethodModalOpen" @closed="
-				isPaymentMethodModalOpen = false;
-				isSubscriptionFormOpen = true;
-			" @proceed="onSelectPayment" />
-			<SubscriptionConfirmationModal :is-open="isWalletConfirmationOpen" @closed="
-				isWalletConfirmationOpen = false;
-				isSubscriptionFormOpen = true;
-			" @proceed="makePayment" :item="{ name: asset.name }" :totalAmount="totalAmount"
-				:numberOfUnits="Number(form.units)" />
+			<PaymentModal
+				:isLoading="isPaying"
+				:is-open="isPaymentMethodModalOpen"
+				@closed="
+					isPaymentMethodModalOpen = false;
+					isSubscriptionFormOpen = true;
+				"
+				@proceed="onSelectPayment"
+			/>
+			<SubscriptionConfirmationModal
+				:is-open="isWalletConfirmationOpen"
+				@closed="
+					isWalletConfirmationOpen = false;
+					isSubscriptionFormOpen = true;
+				"
+				@proceed="makePayment"
+				:item="{ name: asset.name }"
+				:totalAmount="totalAmount"
+				:numberOfUnits="Number(form.units)"
+			/>
 		</div>
 	</AnimatedModal>
 </template>
@@ -67,9 +76,9 @@ const props = defineProps<{
 const form = ref({
 	amount: 0,
 	proof: null,
-	reference: "",
-	type: "",
-	bankCode: "",
+	reference: '',
+	type: '',
+	bankCode: '',
 	units: '1',
 	agreed: false,
 });
@@ -87,10 +96,9 @@ const proceed = () => {
 };
 
 const isDisabled = computed(() => {
-	if (Number(form.value.units) > 0 && balance > totalAmount)
-		return false;
-	return true;
-})
+	if (Number(form.value.units) > 0 && balance > totalAmount) return true;
+	return false;
+});
 
 const onSelectPayment = async (payload: { method: string; data: any }) => {
 	form.value.type = payload.method;
@@ -113,16 +121,18 @@ const assetStore = useAssetStore();
 
 const makePayment = async () => {
 	isPaying.value = true;
-	await assetStore.buyAsset(form.value).then((res) => {
-		if (res.status) {
-			toast.success(res.message)
-		}
-		isPaying.value = false;
-
-	}).catch(() => {
-		isPaying.value = false;
-	})
-}
+	await assetStore
+		.buyAsset(form.value)
+		.then((res) => {
+			if (res.status) {
+				toast.success(res.message);
+			}
+			isPaying.value = false;
+		})
+		.catch(() => {
+			isPaying.value = false;
+		});
+};
 
 const transactionStore = useTransactionStore();
 

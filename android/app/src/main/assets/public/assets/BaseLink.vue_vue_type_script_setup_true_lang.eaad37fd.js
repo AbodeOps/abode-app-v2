@@ -1,0 +1,1 @@
+import{d as n,o as a,i as l,j as u,I as c,h as p}from"./index.34c5d693.js";const d=n({__name:"BaseLink",props:{textColor:null,route:null},setup(e){const t=e,s=p(),r=()=>{s.push({name:t.route})};return(o,m)=>(a(),l("span",c({onClick:r,class:["cursor-pointer text-sm underline",[e.textColor]]},o.$attrs),[u(o.$slots,"default")],16))}});export{d as _};

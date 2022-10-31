@@ -1,0 +1,1 @@
+import{d as o,o as a,i as r,b as t,j as s,ao as n}from"./index.34c5d693.js";const c={class:"relative z-20 h-full w-full p-8"},i=o({__name:"Pattern1Card",props:{bgColor:null,patternColor:null},setup(e){return(l,d)=>(a(),r("div",{class:"relative flex h-full w-full rounded-3xl",style:n({backgroundColor:e.bgColor})},[t("div",c,[s(l.$slots,"default")])],4))}});export{i as _};

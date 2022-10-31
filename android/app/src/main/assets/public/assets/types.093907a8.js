@@ -1,0 +1,1 @@
+const e="abodeadmin";var r=(A=>(A.ADD_BANK_ACCOUNT="ADD_BANK",A.WITHDRAW="WITHDRAW",A))(r||{}),a=(A=>(A.BANK_TRANSFER="bank-transfer",A.CARD="card",A.WALLET="wallet",A))(a||{});export{e as A,r as O,a as P};
