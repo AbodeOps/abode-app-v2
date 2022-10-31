@@ -13,6 +13,7 @@ export const nigerianBanks = {
     "030": "Heritage Bank",
     "301": "Jaiz Bank",
     "082": "Keystone Bank",
+    "611": "Kuda Microfinance Bank",
     "526": "Parallex Bank",
     "076": "Polaris Bank",
     "101": "Providus Bank",

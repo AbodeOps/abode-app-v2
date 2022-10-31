@@ -40,6 +40,7 @@
 			/>
 			<SubscriptionConfirmationModal
 				:is-open="isWalletConfirmationOpen"
+				:loading="isPaying"
 				@closed="
 					isWalletConfirmationOpen = false;
 					isSubscriptionFormOpen = true;
@@ -108,24 +109,31 @@ const onSelectPayment = async (payload: { method: string; data: any }) => {
 
 		form.value.reference = new Date().toString();
 		form.value.proof = null;
+		form.value.amount = totalAmount.value;
 	} else if (payload.method === PaymentOption.BANK_TRANSFER) {
 		form.value.proof = payload.data.proof;
 		form.value.reference = payload.data.reference;
 		form.value.bankCode = payload.data.bankCode;
+		form.value.amount = totalAmount.value;
 
 		await makePayment();
 	}
 };
+
+const emit = defineEmits(['completed']);
 
 const assetStore = useAssetStore();
 
 const makePayment = async () => {
 	isPaying.value = true;
 	await assetStore
-		.buyAsset(form.value)
-		.then((res) => {
+		.buyAsset({ ...form.value, projectId: props.asset.id })
+		.then((res: any) => {
 			if (res.status) {
 				toast.success(res.message);
+				isPaymentMethodModalOpen.value = false;
+				isWalletConfirmationOpen.value = false;
+				emit('completed');
 			}
 			isPaying.value = false;
 		})

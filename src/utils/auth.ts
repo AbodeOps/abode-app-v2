@@ -92,9 +92,9 @@ function resolveRequestError(err: any, throwAll = true, popToast = true) {
 	//     app.$store.commit("openSnackbar", text, { root: true });
 
 	// if (throwAll) throw data;
+	console.log(err);
 	toast.error(err.response.data.message);
 
-	console.log(err.response);
 }
 
 function isUserLoggedIn() {

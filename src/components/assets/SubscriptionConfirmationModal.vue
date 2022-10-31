@@ -3,9 +3,18 @@
 		<div class="z-50 w-[600px] rounded-lg bg-white pb-5">
 			<BaseModalHeader title="Confirmation" @closed="$emit('closed')" />
 			<div class="mt-8 flex flex-col items-center justify-center px-8 text-center">
-				<p>Are you sure you want to proceed to own <br> <span class="text-primary mr-1">{{ numberOfUnits }} Unit{{ numberOfUnits > 1 ? 's' : '' }}</span>of {{ item.name }} </p> 
+				<p>
+					Are you sure you want to proceed to own
+					<br />
+					<span class="mr-1 text-primary">{{ numberOfUnits }} Unit{{ numberOfUnits > 1 ? 's' : '' }}</span>
+					of {{ item.name }}
+				</p>
 
-				<p class="mt-12"> The total amount payable is <span class="text-primary">{{ formatMoney(totalAmount) }}</span> and it will be deducted from your wallet balance  </p>
+				<p class="mt-12">
+					The total amount payable is
+					<span class="text-primary">{{ formatMoney(totalAmount) }}</span>
+					and it will be deducted from your wallet balance
+				</p>
 			</div>
 
 			<div class="mt-5 flex w-full items-center justify-center px-8">
@@ -17,7 +26,7 @@
 				>
 					Cancel
 				</BaseButton>
-				<BaseButton class="mt-5 bg-orange px-8 text-sm" @click="proceed">Proceed</BaseButton>
+				<BaseButton type="button" class="mt-5 bg-orange px-8 text-sm" :loading="loading" @click="proceed">Proceed</BaseButton>
 			</div>
 		</div>
 	</AnimatedModal>
@@ -32,6 +41,7 @@ import { ref } from 'vue';
 
 defineProps<{
 	isOpen: boolean;
+	loading?: boolean;
 	numberOfUnits: number;
 	totalAmount: number;
 	item: {
@@ -41,9 +51,10 @@ defineProps<{
 
 const step = ref(1);
 
-const emit = defineEmits(['closed', 'proceed'])
+const emit = defineEmits(['closed', 'proceed']);
 const proceed = () => {
-	step.value += 1;
+	console.log('i am payinggg');
+	// step.value += 1;
 	emit('proceed');
 };
 </script>

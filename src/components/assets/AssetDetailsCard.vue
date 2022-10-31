@@ -29,7 +29,7 @@
 		<div class="mt-8" v-if="!subscribed">
 			<div class="mb-2 flex justify-between pl-2">
 				<div class="text-sm">Shares bought by others</div>
-				<div class="text-sm font-semibold">{{numberOfSharesBought}} of {{asset.totalUnits}} Units</div>
+				<div class="text-sm font-semibold">{{ numberOfSharesBought }} of {{ asset.totalUnits }} Units</div>
 			</div>
 			<BaseProgress :percentage="Number(asset.percentFunded)" color="primary" class="mx-2 mb-2 h-4" />
 		</div>
@@ -59,7 +59,7 @@
 			</BaseButton>
 		</div>
 
-		<SubscribeModal :asset="asset" :isOpen="isOpen" @closed="isOpen = false" />
+		<SubscribeModal :asset="asset" :isOpen="isOpen" @closed="isOpen = false" @completed="refreshWallet" />
 	</div>
 </template>
 
@@ -72,25 +72,39 @@ import { computed, ref } from 'vue';
 import AssetField from './AssetField.vue';
 import type { Asset, Subscription } from '@/types';
 import { formatMoney } from '@/utils/helpers';
+import { useTransactionStore } from '@/stores/transactions';
 
-const props = defineProps<{ subscribed?: boolean; asset: Asset, subscription?: Subscription }>();
+const props = defineProps<{ subscribed?: boolean; asset: Asset; subscription?: Subscription }>();
 
 const subscribe = () => {};
 const isOpen = ref(false);
 
 const currentSalesValue = computed(() => props.asset.unit_price * (props.subscription?.units || 0));
-const currentSalesValueGrowth = computed(() => (((props.subscription?.amount || 0) - (props.asset.unit_price * (props.subscription?.units || 0))) / (props.subscription?.amount || 1)) * 0.01);
+const currentSalesValueGrowth = computed(
+	() =>
+		(((props.subscription?.amount || 0) - props.asset.unit_price * (props.subscription?.units || 0)) /
+			(props.subscription?.amount || 1)) *
+		0.01
+);
 
-const numberOfSharesBought = computed(() => props.asset.funds.reduce((prev: number, curr: Subscription) => prev +  curr.units, 0));
+const numberOfSharesBought = computed(() => props.asset.funds.reduce((prev: number, curr: Subscription) => prev + curr.units, 0));
 
-const coOwnerCounter = computed(() => props.asset.funds.reduce((prev: any, curr: Subscription) => {
-	if (prev[curr.userId]) {
-		prev[curr.userId].count += 1;
-	} else {
-		prev[curr.userId] = { count: 1 };
-	}
-	return prev;
-}, {}));
+const coOwnerCounter = computed(() =>
+	props.asset.funds.reduce((prev: any, curr: Subscription) => {
+		if (prev[curr.userId]) {
+			prev[curr.userId].count += 1;
+		} else {
+			prev[curr.userId] = { count: 1 };
+		}
+		return prev;
+	}, {})
+);
 
-const numberOfCoOwners = computed(() => Object.keys(coOwnerCounter.value).reduce((acc, curr) => acc + coOwnerCounter.value[curr].count,0))
+const numberOfCoOwners = computed(() => Object.keys(coOwnerCounter.value).reduce((acc, curr) => acc + coOwnerCounter.value[curr].count, 0));
+
+const transactionStore = useTransactionStore();
+
+const refreshWallet = async () => {
+	await transactionStore.walletActionRefresh();
+};
 </script>

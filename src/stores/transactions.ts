@@ -29,14 +29,14 @@ export const useTransactionStore = defineStore({
 
 			this.transactions = res.data.map(
 				(transaction: any) =>
-					({
-						id: transaction.id,
-						amount: transaction.amount,
-						balance: transaction.balance,
-						description: transaction.description,
-						type: transaction.type,
-						createdAt: transaction.created_at,
-					} as Transaction)
+				({
+					id: transaction.id,
+					amount: transaction.amount,
+					balance: transaction.balance,
+					description: transaction.description,
+					type: transaction.type,
+					createdAt: transaction.created_at,
+				} as Transaction)
 			);
 			return res;
 		},
@@ -54,18 +54,23 @@ export const useTransactionStore = defineStore({
 			return res;
 		},
 
+		async walletActionRefresh() {
+			await this.fetchWallet();
+			await this.fetchTransactions();
+		},
+
 		async fetchBankAccounts() {
 			const res = await TransactionService.fetchBankAccounts();
 
 			this.bankAccounts = res.data.map(
 				(account: any) =>
-					({
-						id: account.id,
-						name: account.account_name,
-						number: account.account_number,
-						bankCode: account.bank_code,
-						bank: getBankName(account.bank_code),
-					} as BankAccount)
+				({
+					id: account.id,
+					name: account.account_name,
+					number: account.account_number,
+					bankCode: account.bank_code,
+					bank: getBankName(account.bank_code),
+				} as BankAccount)
 			);
 
 			return res;

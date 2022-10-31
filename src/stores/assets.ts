@@ -20,7 +20,7 @@ export const useAssetStore = defineStore({
 				totalUnits: asset.expected_slots,
 				percentFunded: Number(asset.percent_funded),
 				potentialGrowth: asset.potential_growth,
-				})
+			})
 			);
 
 			return res;
@@ -44,7 +44,7 @@ export const useAssetStore = defineStore({
 					potentialGrowth: subscription.project.potential_growth,
 					percentFunded: Number(subscription.project.percent_funded),
 				}
-				})
+			})
 			);;
 
 			return res;
@@ -70,7 +70,7 @@ export const useAssetStore = defineStore({
 
 		async buyAsset(payload: any) {
 			const res = await ProjectService.fundProject(payload);
-
+			console.log('buying', res);
 			return res;
 		},
 

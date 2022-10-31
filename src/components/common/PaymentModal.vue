@@ -21,7 +21,13 @@
 				<BaseButton :disabled="!selectedMethod" class="mt-5 bg-orange px-8 text-sm" @click="proceed">Continue</BaseButton>
 			</div>
 		</div>
-		<BankTransferModal v-if="isBankTransferModalOpen" @go-back="isBankTransferModalOpen = false" :isLoading="isLoading" @completed="submit" @click="$emit('closed')" />
+		<BankTransferModal
+			v-if="isBankTransferModalOpen"
+			@go-back="isBankTransferModalOpen = false"
+			:isLoading="isLoading"
+			@completed="submit"
+			@click="$emit('closed')"
+		/>
 	</AnimatedModal>
 </template>
 
@@ -33,7 +39,7 @@ import PaymentMethodItem from '@/components/wallet/PaymentMethodItem.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 import BaseModalHeader from '@/components/common/BaseModalHeader.vue';
 import { PaymentOption, type PaymentMethod, type TopUpForm } from '@/types';
-import BankTransferModal from "./BankTransferCard.vue";
+import BankTransferModal from './BankTransferCard.vue';
 import { useTransactionStore } from '@/stores/transactions';
 import { storeToRefs } from 'pinia';
 
@@ -43,7 +49,7 @@ defineProps<{
 }>();
 
 const transactionStore = useTransactionStore();
-const { formattedBalance } = storeToRefs(transactionStore)
+const { formattedBalance } = storeToRefs(transactionStore);
 
 const paymentMethods = ref<PaymentMethod[]>([
 	{
@@ -78,11 +84,11 @@ const proceed = () => {
 	if (selectedMethod.value === PaymentOption.BANK_TRANSFER) {
 		isBankTransferModalOpen.value = true;
 	} else if (selectedMethod.value === PaymentOption.WALLET) {
-		emit('proceed', {method: selectedMethod.value, data: {}});
+		emit('proceed', { method: selectedMethod.value, data: {} });
 	}
-}
+};
 
 const submit = async (form: TopUpForm) => {
-	emit('proceed', {method: selectedMethod.value ,data: form});
-}
+	emit('proceed', { method: selectedMethod.value, data: form });
+};
 </script>
