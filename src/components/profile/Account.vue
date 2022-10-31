@@ -10,20 +10,35 @@
 			</div>
 
 			<BaseFormTabItem label="Name" :value="user.name" @opened="isNameDialogOpen = true" />
-			<NameUpdateDialog :isOpen="isNameDialogOpen" @closed="isNameDialogOpen = false" />
+			<NameUpdateDialog
+				:isOpen="isNameDialogOpen"
+				@closed="
+					isNameDialogOpen = false;
+					fetchProfile();
+				"
+			/>
 			<BaseFormTabItem label="Phone Number" :value="user.client.phoneNumber" @opened="isPhoneNumberDialogOpen = true" />
-			<PhoneNumberUpdateDialog :isOpen="isPhoneNumberDialogOpen" @closed="isPhoneNumberDialogOpen = false" />
+			<PhoneNumberUpdateDialog
+				:isOpen="isPhoneNumberDialogOpen"
+				@closed="
+					isPhoneNumberDialogOpen = false;
+					fetchProfile();
+				"
+			/>
 			<BaseFormTabItem label="Username" :value="'@' + user.username" />
 			<BaseFormTabItem label="BVN" value="Nil" />
 			<BaseFormTabItem label="Country" :value="user.client.country" />
 			<BaseFormTabItem label="State" :value="user.client.state" />
-			<BaseFormTabItem label="Gender" :value="user.client.gender"  />
+			<BaseFormTabItem label="Gender" :value="user.client.gender" />
 		</div>
 
 		<div class="mt-10 rounded-lg border border-gray-40 p-6 md:p-8">
 			<div class="mb-5 text-2xl">Others</div>
 
-			<BaseFormTabItem label="Referrer" :value="user.client.referrer.username === AbodeAdminReferrer?'': user.client.referrer.username" />
+			<BaseFormTabItem
+				label="Referrer"
+				:value="user.client.referrer.username === AbodeAdminReferrer ? '' : user.client.referrer.username"
+			/>
 			<BaseFormTabItem label="Interest" capitalize :value="user.client.type_interests" />
 			<BaseFormTabItem label="Purpose" :value="user.client.purpose" />
 			<!-- <BaseFormTabItem label="Who are you?" value="Nigeria" /> -->
@@ -35,7 +50,7 @@
 <script lang="ts" setup>
 import BaseFormTabItem from '@/components/common/BaseFormTabItem.vue';
 import { useAuthStore } from '@/stores/auth';
-import {type User, AbodeAdminReferrer } from '@/types';
+import { type User, AbodeAdminReferrer } from '@/types';
 import { computed, ref } from 'vue';
 import { ProfileAddIcon } from '../icons/AllIcons';
 import NameUpdateDialog from './NameUpdateDialog.vue';
@@ -44,6 +59,10 @@ import PhoneNumberUpdateDialog from './PhoneNumberUpdateDialog.vue';
 const authStore = useAuthStore();
 
 const user = computed<User | null>(() => authStore.currentUser);
+
+const fetchProfile = async () => {
+	await authStore.fetchProfile();
+};
 
 const isNameDialogOpen = ref(false);
 const isPhoneNumberDialogOpen = ref(false);
