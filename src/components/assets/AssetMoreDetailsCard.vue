@@ -1,6 +1,15 @@
 <template>
 	<div class="w-full rounded-lg border border-gray-40 p-6 md:p-8">
 		<div class="text-2xl font-bold">Asset Details</div>
+		<div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
+			<AssetField :value="`${asset.totalUnits}`" label="Total Units" />
+			<AssetField :value="`${asset.available_units}`" label="Available Units" />
+			<AssetField value="June-24-2022" label="Collection Date" />
+			<AssetField value="15% (Every 3 years)" label="Rental Appreciation" />
+			<AssetField :value="`${asset.potentialGrowth}`" label="Potential Capital Appreciation" />
+
+			<AssetField value="September-24-2022" label="Start Date" />
+		</div>
 
 		<!-- <div class="mt-5 mb-4 flex text-lg">
 			<div>Title:</div>
@@ -8,14 +17,6 @@
 		</div> -->
 
 		<div class="my-4 text-sm" v-html="asset.description" />
-
-		<div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
-			<AssetField :value="`${asset.totalUnits}`" label="Total Units" />
-			<AssetField :value="`${asset.available_units}`" label="Available Units" />
-			<AssetField value="June-24-2022" label="Collection Date" />
-			<AssetField value="15% (Every 3 years)" label="Rental Appreciation" />
-			<AssetField value="September-24-2022" label="Start Date" />
-		</div>
 
 		<div class="mt-8">
 			<div class="text-lg font-bold">Features</div>
