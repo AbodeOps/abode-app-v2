@@ -3,15 +3,11 @@
 		<div class="z-50 w-full rounded-lg bg-white pb-5 md:w-[600px]">
 			<BaseModalHeader title="Name" @closed="emit('closed')" />
 
-			<div class="mt-5 flex w-full flex-col items-center px-8" >
-				<BaseInput type="text" placeholder="First Name" label="First Name"
-					v-model="form.firstName" />
-                    <BaseInput type="text" placeholder="Middle Name" label="Middle Name"
-					v-model="form.middleName" />
-                    <BaseInput type="text" placeholder="Last Name" label="Last Name"
-					v-model="form.lastName" />
-				<BaseButton class="mt-5 bg-orange px-8 text-sm" :loading="isLoading"
-					@click="proceed">Update</BaseButton>
+			<div class="mt-5 flex w-full flex-col items-center px-8">
+				<BaseInput type="text" placeholder="First Name" label="First Name" v-model="form.firstName" />
+				<BaseInput type="text" placeholder="Middle Name" label="Middle Name" v-model="form.middleName" />
+				<BaseInput type="text" placeholder="Last Name" label="Last Name" v-model="form.lastName" />
+				<BaseButton class="mt-5 bg-orange px-8 text-sm" :loading="isLoading" @click="proceed">Update</BaseButton>
 			</div>
 		</div>
 	</AnimatedModal>
@@ -48,14 +44,21 @@ const emit = defineEmits(['closed']);
 const proceed = async () => {
 	isLoading.value = true;
 
-	await authStore.editProfile(form.value).then((res: any) => {
-		if (res.status) {
-			toast.success(res.message);
-			emit('closed');
-		}
-		isLoading.value = false;
-	}).catch(() => {
-		isLoading.value = false;
-	})
+	await authStore
+		.editProfile({
+			first_name: form.value.firstName,
+			middle_name: form.value.middleName,
+			last_name: form.value.lastName,
+		})
+		.then((res: any) => {
+			if (res.status) {
+				toast.success(res.message);
+				emit('closed');
+			}
+			isLoading.value = false;
+		})
+		.catch(() => {
+			isLoading.value = false;
+		});
 };
 </script>
