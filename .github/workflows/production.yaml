@@ -15,7 +15,7 @@ jobs:
             VITE_APP_API_BASE: https://api.abode.ng/api
         strategy:
             matrix:
-                node-version: [12.x]
+                node-version: [14.x]
         steps:
             - uses: actions/checkout@master
             - name: Use Node.js ${{ matrix.node-version }}
