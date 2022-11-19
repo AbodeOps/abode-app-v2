@@ -18,7 +18,7 @@
 
 		<div class="my-4 text-sm" v-html="asset.description" />
 
-		<div class="mt-8">
+		<div class="mt-8" v-if="false">
 			<div class="text-lg font-bold">Features</div>
 			<div class="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
 				<ul class="list-inside list-disc">

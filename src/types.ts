@@ -43,8 +43,8 @@ export enum OTPOptions {
 }
 
 export enum PaymentOption {
-	BANK_TRANSFER = 'bank-transfer',
-	CARD = 'card',
+	BANK_TRANSFER = 'bank_transfer',
+	CARD = 'online_transfer',
 	WALLET = 'wallet',
 }
 
@@ -177,5 +177,5 @@ export interface AddBankAccountForm {
 	accountNumber: string;
 	bankCode: string;
 	otp: string;
-	bank?: {id: number; number: number;} | null
+	bank?: { id: number; number: number; } | null | string;
 }

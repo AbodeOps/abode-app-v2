@@ -1,6 +1,6 @@
 <template>
 	<AnimatedModal :isOpen="isOpen" mdMiddleCenterSmBottom>
-			<BankTransferCard :isLoading="isLoading" @completed="handleProceed" @goBack="emit('go-back')" @closed="emit('closed')" />
+		<BankTransferCard :isLoading="isLoading" @completed="handleProceed" @goBack="emit('go-back')" @closed="emit('closed')" />
 	</AnimatedModal>
 </template>
 
@@ -13,7 +13,7 @@ defineProps<{
 	isLoading: boolean;
 }>();
 
-const emit = defineEmits(['completed', 'closed', 'go-back'])
+const emit = defineEmits(['completed', 'closed', 'go-back']);
 
 const handleProceed = (form: any) => {
 	emit('completed', form);

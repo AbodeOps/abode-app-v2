@@ -12,7 +12,7 @@
 		</div>
 		<div class="col-span-1 md:col-span-3">
 			<Insights />
-			<BankCard />
+			<BankCard @refresh="fetchBankAccounts" />
 		</div>
 		<div class="col-span-1">
 			<TransactionHistory class="block md:hidden" />

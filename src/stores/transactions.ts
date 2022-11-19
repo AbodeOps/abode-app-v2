@@ -71,6 +71,12 @@ export const useTransactionStore = defineStore({
 			return res;
 		},
 
+		async refreshWallet() {
+			this.fetchWallet();
+			this.fetchTransactions();
+			this.fetchBankAccounts();
+		},
+
 		async requestOtp(purpose: string) {
 			const res = await TransactionService.requestOtp(purpose);
 

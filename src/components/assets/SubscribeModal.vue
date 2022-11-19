@@ -2,7 +2,7 @@
 	<AnimatedModal :isOpen="isOpen" mdMiddleCenterSmBottom>
 		<div class="z-50 w-full rounded-lg bg-white pb-5 md:w-[600px]">
 			<div v-if="isSubscriptionFormOpen">
-				<BaseModalHeader title="Subscribe to an asset" @closed="$emit('closed')" />
+				<BaseModalHeader title="Subscribe to an asset" @closed="emit('closed')" />
 				<div class="mt-8 grid grid-cols-2 gap-4 px-8 md:grid-cols-3">
 					<div class="text-left">
 						<div class="text-xl font-semibold text-primary">{{ asset.available_units }}</div>
@@ -31,6 +31,7 @@
 			</div>
 			<PaymentModal
 				:isLoading="isPaying"
+				:amount="totalAmount"
 				:is-open="isPaymentMethodModalOpen"
 				@closed="
 					isPaymentMethodModalOpen = false;
@@ -120,7 +121,7 @@ const onSelectPayment = async (payload: { method: string; data: any }) => {
 	}
 };
 
-const emit = defineEmits(['completed']);
+const emit = defineEmits(['completed', 'closed']);
 
 const assetStore = useAssetStore();
 

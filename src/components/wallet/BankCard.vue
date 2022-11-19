@@ -21,7 +21,7 @@
 					<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
 						<BaseTable :headers="headers" :items="bankAccounts">
 							<template #cell(actions)>
-								<DeleteIcon class="h-4 w-4 cursor-pointer text-black" />
+								<!-- <DeleteIcon class="h-4 w-4 cursor-pointer text-black" /> -->
 							</template>
 						</BaseTable>
 					</div>
@@ -29,7 +29,14 @@
 			</div>
 		</div>
 
-		<AddBankModal :isOpen="isOpen" @closed="isOpen = false" />
+		<AddBankModal
+			:isOpen="isOpen"
+			@closed="isOpen = false"
+			@success="
+				isOpen = false;
+				emit('refresh');
+			"
+		/>
 	</div>
 </template>
 
@@ -52,6 +59,8 @@ const headers = ref([
 ]);
 
 const transactionStore = useTransactionStore();
+
+const emit = defineEmits(['refresh']);
 
 const { bankAccounts } = storeToRefs(transactionStore);
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="z-50 h-[700px] w-full overflow-y-scroll rounded-lg bg-white pb-5 md:w-[600px]">
+		<div class="z-40 h-[700px] w-full overflow-y-scroll rounded-lg bg-white pb-5 md:w-[600px]">
 			<!-- TODO: Clicking form elements closes modal -->
 			<BaseModalHeader title="Bank Transfer" @closed="$emit('closed')" />
 			<div class="mt-8 flex flex-col items-start px-8">
@@ -25,7 +25,7 @@
 					<div class="mb-1 text-sm text-gray-600">Account Number</div>
 					<div class="mb-2 grid grid-cols-2 gap-1" v-for="(accountNumber, ix) in accountNumbers" :key="ix">
 						<div class="mr-1 text-sm font-semibold text-black">{{ accountNumber.label }}</div>
-						<CopyIcon :class="['h-5 w-5 cursor-pointer text-primary']" @click="copyNumber(accountNumber)" />
+						<CopyIcon :class="['h-5 w-5 cursor-pointer text-primary']" @click.stop.prevent="copyNumber(accountNumber)" />
 					</div>
 				</div>
 			</div>
@@ -39,12 +39,20 @@
 			<div class="mt-5 flex w-full flex-col items-center px-8">
 				<BaseInput type="text" placeholder="Amount" v-model="form.amount" />
 				<!-- <BaseInput type="text" placeholder="Account Name" v-model="form.accountName" /> -->
-				<BaseInput type="text" placeholder="Bank" v-model="form.bank" />
-				<BaseInput type="text" placeholder="Proof" v-model="form.proof" />
+				<BaseDropdown
+					label="Bank Account"
+					:items="banks"
+					item-key="name"
+					item-value="code"
+					type="text"
+					placeholder="Proof"
+					v-model="form.bank"
+				/>
+				<BaseFilePicker type="text" placeholder="Proof" v-model="form.proof" />
 				<BaseInput type="text" placeholder="Reference" v-model="form.reference" />
 
 				<div class="mt-5 flex justify-end">
-					<BaseButton :loading="isLoading" class="bg-orange px-8 text-sm" @click="proceed">Submit</BaseButton>
+					<BaseButton :loading="isLoading" class="bg-orange px-8 text-sm" @click.prevent="proceed">Submit</BaseButton>
 				</div>
 			</div>
 		</div>
@@ -59,6 +67,9 @@ import { ref } from 'vue';
 import BaseGoBack from './BaseGoBack.vue';
 import { CopyIcon } from '@/components/icons/AllIcons';
 import toast from '@/helpers/toast';
+import BaseDropdown from './BaseDropdown.vue';
+import { banks } from '@/utils/nigerianBanks';
+import BaseFilePicker from './BaseFilePicker.vue';
 
 defineProps<{
 	isLoading: boolean;
@@ -83,7 +94,7 @@ const form = ref({
 const emit = defineEmits(['completed', 'closed', 'go-back']);
 
 const proceed = () => {
-	emit('completed', form.value);
+	emit('completed', { ...form.value, bankCode: (form.value.bank as any).code });
 };
 
 const copyNumber = async (account: { label: string; value: string; isCopying: boolean }) => {

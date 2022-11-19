@@ -9,21 +9,33 @@
 			</div>
 
 			<div class="mt-5 flex w-full flex-col items-center px-8" v-if="step === 1">
-				<BaseInput type="number" placeholder="Amount" hint="You must specify a minimum of N2000 for withdrawal"
-					v-model="form.amount" />
-				<BaseInput type="text" placeholder="Select a Bank" v-model="form.bankId" />
+				<BaseInput
+					type="number"
+					placeholder="Amount"
+					hint="You must specify a minimum of N2000 for withdrawal"
+					v-model="form.amount"
+				/>
+				<BaseDropdown
+					label="Bank Account"
+					:items="bankAccounts"
+					item-key="name"
+					item-value="id"
+					type="text"
+					placeholder="Select Bank Account"
+					v-model="form.bankId"
+				/>
 
-				<BaseButton class="mt-5 bg-orange px-8 text-sm" :disabled="balance < 2000" :loading="isLoading"
-					@click="proceed">Withdraw to Bank</BaseButton>
+				<BaseButton class="mt-5 bg-orange px-8 text-sm" :disabled="balance < 2000" :loading="isLoading" @click="proceed">
+					Withdraw to Bank
+				</BaseButton>
 			</div>
 
 			<div class="mt-5 flex w-full flex-col items-center px-8" v-else>
-				<span class="text-sm mb-3">An OTP has been sent to the email for {{ user?.email }}</span>
+				<span class="mb-3 text-sm">An OTP has been sent to the email for {{ user?.email }}</span>
 
 				<BaseInput type="number" placeholder="OTP" v-model="form.otp" />
 
-				<BaseButton class="mt-5 bg-orange px-8 text-sm" :loading="isLoading" @click="proceed">Submit
-				</BaseButton>
+				<BaseButton class="mt-5 bg-orange px-8 text-sm" :loading="isLoading" @click="proceed">Submit</BaseButton>
 			</div>
 		</div>
 	</AnimatedModal>
@@ -40,6 +52,7 @@ import { ref } from 'vue';
 import { OTPOptions, type WithdrawalForm } from '@/types';
 import toast from '@/helpers/toast';
 import { useAuthStore } from '@/stores/auth';
+import BaseDropdown from '../common/BaseDropdown.vue';
 
 defineProps<{
 	isOpen: boolean;
@@ -57,8 +70,8 @@ const { formattedBalance, balance, bankAccounts } = storeToRefs(transactionStore
 
 const form = ref<WithdrawalForm>({
 	amount: '2000',
-	bankId: "1",
-	otp: ''
+	bankId: '1',
+	otp: '',
 });
 
 const emit = defineEmits(['closed']);
@@ -66,28 +79,34 @@ const emit = defineEmits(['closed']);
 const requestOTP = async () => {
 	isSendingOtp.value = true;
 
-	await transactionStore.requestOtp(OTPOptions.WITHDRAW).then((res: any) => {
-		if (res.status) {
-			toast.success(res.message);
-			step.value++;
-		}
-		isSendingOtp.value = false;
-	}).catch(() => {
-		isSendingOtp.value = false;
-	})
+	await transactionStore
+		.requestOtp(OTPOptions.WITHDRAW)
+		.then((res: any) => {
+			if (res.status) {
+				toast.success(res.message);
+				step.value++;
+			}
+			isSendingOtp.value = false;
+		})
+		.catch(() => {
+			isSendingOtp.value = false;
+		});
 };
 
 const proceed = async () => {
 	isLoading.value = true;
 
-	await transactionStore.withdraw(form.value).then((res: any) => {
-		if (res.status) {
-			toast.success(res.message);
-			emit('closed');
-		}
-		isLoading.value = false;
-	}).catch(() => {
-		isLoading.value = false;
-	})
+	await transactionStore
+		.withdraw(form.value)
+		.then((res: any) => {
+			if (res.status) {
+				toast.success(res.message);
+				emit('closed');
+			}
+			isLoading.value = false;
+		})
+		.catch(() => {
+			isLoading.value = false;
+		});
 };
 </script>

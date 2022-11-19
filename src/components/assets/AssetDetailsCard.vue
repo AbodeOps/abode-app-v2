@@ -38,7 +38,7 @@
 			<BaseButton v-if="!subscribed" :disabled="!asset.status" class="bg-orange px-10 text-sm" @click="isOpen = true">
 				Subscribe
 			</BaseButton>
-			<BaseButton v-if="subscribed" class="mr-0 bg-orange px-10 text-sm md:mr-5" @click="isOpen = true">Sell my shares</BaseButton>
+			<BaseButton v-if="false" class="mr-0 bg-orange px-10 text-sm md:mr-5" @click="isOpen = true">Sell my shares</BaseButton>
 			<BaseButton
 				v-if="subscribed"
 				bgColor="white"
@@ -53,13 +53,19 @@
 				bgColor="white"
 				outlined
 				class="mt-5 border border-gray-80 bg-white px-10 text-sm text-gray-80 md:mt-0"
-				@click="isOpen = true"
+				@click="isVoteToSellOpen = true"
 			>
 				Initiate Vote to Sell
 			</BaseButton>
 		</div>
 
 		<SubscribeModal :asset="asset" :isOpen="isOpen" @closed="isOpen = false" @completed="refreshWallet" />
+		<VoteToSellModal
+			:subscription="subscription"
+			:isOpen="isVoteToSellOpen"
+			@closed="isVoteToSellOpen = false"
+			@completed="emit('refresh')"
+		/>
 	</div>
 </template>
 
@@ -73,11 +79,13 @@ import AssetField from './AssetField.vue';
 import type { Asset, Subscription } from '@/types';
 import { formatMoney } from '@/utils/helpers';
 import { useTransactionStore } from '@/stores/transactions';
+import VoteToSellModal from './VoteToSellModal.vue';
 
 const props = defineProps<{ subscribed?: boolean; asset: Asset; subscription?: Subscription }>();
 
 const subscribe = () => {};
 const isOpen = ref(false);
+const isVoteToSellOpen = ref(false);
 
 const currentSalesValue = computed(() => props.asset.unit_price * (props.subscription?.units || 0));
 const currentSalesValueGrowth = computed(
@@ -104,7 +112,9 @@ const numberOfCoOwners = computed(() => Object.keys(coOwnerCounter.value).reduce
 
 const transactionStore = useTransactionStore();
 
+const emit = defineEmits(['refresh', 'refresh-wallet']);
+
 const refreshWallet = async () => {
-	await transactionStore.walletActionRefresh();
+	transactionStore.refreshWallet();
 };
 </script>

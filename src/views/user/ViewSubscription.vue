@@ -9,7 +9,7 @@
 				<BaseShare class="mt-10" />
 			</div>
 			<div class="col-span-1 md:col-span-5" v-if="subscription && !isLoading">
-				<AssetDetailsCard subscribed :subcription="subscription" :asset="subscription.project" />
+				<AssetDetailsCard subscribed :subcription="subscription" :asset="subscription.project" @refresh="fetchSubscriptionById" />
 				<SubscriptionDetailsCard class="my-10" :subscription="subscription" :asset="subscription.project" />
 				<AssetMoreDetailsCard class="mb-10" :asset="subscription.project" />
 				<AssetInsights />
@@ -46,7 +46,14 @@ const fetchSubscriptionById = async () => {
 
 		const res = await assetStore.fetchSubscriptionById(Number(subscriptionId));
 
-		subscription.value = { ...res.data, project: { ...res.data.project, totalUnits: res.data.project.expected_slots, potentialGrowth: res.data.project.potential_growth } };
+		subscription.value = {
+			...res.data,
+			project: {
+				...res.data.project,
+				totalUnits: res.data.project.expected_slots,
+				potentialGrowth: res.data.project.potential_growth,
+			},
+		};
 	} finally {
 		isLoading.value = false;
 	}

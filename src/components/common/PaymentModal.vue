@@ -21,42 +21,47 @@
 				<BaseButton :disabled="!selectedMethod" class="mt-5 bg-orange px-8 text-sm" @click="proceed">Continue</BaseButton>
 			</div>
 		</div>
-		<BankTransferModal
+		<BankTransferCard
 			v-if="isBankTransferModalOpen"
-			@go-back="isBankTransferModalOpen = false"
 			:isLoading="isLoading"
 			@completed="submit"
-			@click="$emit('closed')"
+			@go-back="isBankTransferModalOpen = false"
+			@closed="isBankTransferModalOpen = false"
 		/>
 	</AnimatedModal>
 </template>
 
 <script lang="ts" setup>
-import { ref, shallowRef, watch } from 'vue';
+import { computed, ref, shallowRef, watch } from 'vue';
 import AnimatedModal from '@/components/common/AnimatedModal.vue';
 import { BankIcon, DebitCardIcon, DashboardWalletIcon } from '@/components/icons/AllIcons';
 import PaymentMethodItem from '@/components/wallet/PaymentMethodItem.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 import BaseModalHeader from '@/components/common/BaseModalHeader.vue';
 import { PaymentOption, type PaymentMethod, type TopUpForm } from '@/types';
-import BankTransferModal from './BankTransferCard.vue';
+import BankTransferCard from './BankTransferCard.vue';
 import { useTransactionStore } from '@/stores/transactions';
 import { storeToRefs } from 'pinia';
 
-defineProps<{
+const props = defineProps<{
 	isOpen: boolean;
 	isLoading: boolean;
+	amount: string | number;
 }>();
 
 const transactionStore = useTransactionStore();
-const { formattedBalance } = storeToRefs(transactionStore);
+const { formattedBalance, balance } = storeToRefs(transactionStore);
+
+const insufficientBalance = computed(() => Number.parseFloat(props.amount as string) > Number.parseFloat(`${balance.value}`));
 
 const paymentMethods = ref<PaymentMethod[]>([
 	{
 		key: PaymentOption.WALLET,
 		label: 'Wallet',
-		disabled: false,
-		description: `Pay from your wallet balance <br> Available Balance ${formattedBalance.value}`,
+		disabled: insufficientBalance.value,
+		description: `Pay from your wallet balance <br> Available Balance ${formattedBalance.value} ${
+			insufficientBalance ? '(Insufficient Funds)' : ''
+		}`,
 		icon: shallowRef(DashboardWalletIcon),
 	},
 	{

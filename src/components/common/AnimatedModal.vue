@@ -48,6 +48,7 @@
 
 <script lang="ts" setup>
 import { Dialog, TransitionChild, TransitionRoot } from '@headlessui/vue';
+import { ref } from 'vue';
 
 defineEmits(['closed']);
 defineProps({
@@ -81,4 +82,6 @@ defineProps({
 		default: false,
 	},
 });
+
+const initialFocus = ref<HTMLElement | undefined>(undefined);
 </script>
