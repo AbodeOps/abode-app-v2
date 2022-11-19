@@ -9,7 +9,7 @@
 				<ProfileAddIcon class="h-10 w-10 text-black md:h-16 md:w-16" />
 			</div>
 
-			<BaseFormTabItem label="Name" :value="user.name" @opened="isNameDialogOpen = true" />
+			<BaseFormTabItem label="Name" :value="user.name" @opened="isNameDialogOpen = true" editable />
 			<NameUpdateDialog
 				:isOpen="isNameDialogOpen"
 				@closed="
@@ -17,7 +17,7 @@
 					fetchProfile();
 				"
 			/>
-			<BaseFormTabItem label="Phone Number" :value="user.client.phoneNumber" @opened="isPhoneNumberDialogOpen = true" />
+			<BaseFormTabItem label="Phone Number" :value="user.client.phoneNumber" @opened="isPhoneNumberDialogOpen = true" editable />
 			<PhoneNumberUpdateDialog
 				:isOpen="isPhoneNumberDialogOpen"
 				@closed="

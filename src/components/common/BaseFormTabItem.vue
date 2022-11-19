@@ -1,8 +1,11 @@
 <template>
-	<div class="grid grid-cols-2 gap-4 border border-l-0 border-r-0 border-b-0 border-t-gray-40 py-4 md:grid-cols-3 md:py-8 cursor-pointer"  @click="$emit('opened')">
+	<div
+		class="grid cursor-pointer grid-cols-2 gap-4 border border-l-0 border-r-0 border-b-0 border-t-gray-40 py-4 md:grid-cols-3 md:py-8"
+		@click="$emit('opened')"
+	>
 		<div class="col-span-2 text-sm font-bold md:col-span-1">{{ label }}</div>
-		<div :class="['text-sm', capitalize? 'capitalize': '']" >{{ value || 'Nil' }}</div>
-		<div class="flex justify-end">
+		<div :class="['text-sm', capitalize ? 'capitalize' : '']">{{ value || 'Nil' }}</div>
+		<div class="flex justify-end" v-if="editable">
 			<ArrowRightIcon class="h-5 w-5 text-black" />
 		</div>
 	</div>
@@ -14,6 +17,7 @@ import ArrowRightIcon from '../icons/ArrowRightIcon.vue';
 defineProps<{
 	label: string;
 	value?: string;
+	editable?: boolean;
 	capitalize?: boolean;
 }>();
 </script>

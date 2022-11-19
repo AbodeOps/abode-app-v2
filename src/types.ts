@@ -122,6 +122,9 @@ export interface Subscription {
 	sell_as_group: boolean;
 	units: number;
 	userId: number;
+	payment?: {
+		status: string;
+	};
 }
 
 export interface BankAccount {

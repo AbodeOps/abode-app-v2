@@ -7,9 +7,9 @@
 		<div v-if="activeTab === 'account'">
 			<Account />
 		</div>
-		<div v-if="activeTab === 'next-of-kin'">
+		<!-- <div v-if="activeTab === 'next-of-kin'">
 			<NextOfKin />
-		</div>
+		</div> -->
 		<!-- <div v-if="activeTab === 'security'">
 			<Security />
 		</div> -->
@@ -28,10 +28,10 @@ const tabs = ref([
 		label: 'Account',
 		key: 'account',
 	},
-	{
-		label: 'Next Of Kin',
-		key: 'next-of-kin',
-	},
+	// {
+	// 	label: 'Next Of Kin',
+	// 	key: 'next-of-kin',
+	// },
 	// {
 	// 	label: 'Security',
 	// 	key: 'security',

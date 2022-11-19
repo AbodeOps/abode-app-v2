@@ -53,7 +53,12 @@ const fetchAssetById = async () => {
 
 		const res = await assetStore.fetchAssetById(Number(projectId));
 
-		asset.value = { ...res.data, totalUnits: res.data.expected_slots, percentFunded: Number(res.data.percent_funded), potentialGrowth: res.data.potential_growth };
+		asset.value = {
+			...res.data,
+			totalUnits: res.data.expected_slots,
+			percentFunded: Number(res.data.percent_funded),
+			potentialGrowth: res.data.potential_growth,
+		};
 	} finally {
 		isLoading.value = false;
 	}

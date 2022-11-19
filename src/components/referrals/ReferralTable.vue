@@ -17,7 +17,7 @@
 			</div>
 		</div>
 	</div>
-	<BasePagination />
+	<BasePagination v-if="false" />
 </template>
 
 <script lang="ts" setup>
