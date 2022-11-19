@@ -6,7 +6,7 @@
 			<div class="overflow-x-auto">
 				<div class="inline-block min-w-full py-2 align-middle md:px-4 lg:px-4">
 					<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
-						<BaseTable :headers="headers" :items="transactions" show-pagination>
+						<BaseTable :headers="headers" :items="transactions" :show-pagination="transactions.length == 0">
 							<template #cell(createdAt)="item">
 								{{ formatDate(item.createdAt) }}
 							</template>

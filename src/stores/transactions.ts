@@ -37,7 +37,7 @@ export const useTransactionStore = defineStore({
 					type: transaction.type,
 					createdAt: transaction.created_at,
 				} as Transaction)
-			);
+			).sort((a: any, b: any) => { return Date.parse(b.created_at) - Date.parse(a.created_at) });
 			return res;
 		},
 
@@ -52,11 +52,6 @@ export const useTransactionStore = defineStore({
 			this.potentialNetWorth = res.data.potential_networth;
 
 			return res;
-		},
-
-		async walletActionRefresh() {
-			await this.fetchWallet();
-			await this.fetchTransactions();
 		},
 
 		async fetchBankAccounts() {

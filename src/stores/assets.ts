@@ -21,7 +21,7 @@ export const useAssetStore = defineStore({
 				percentFunded: Number(asset.percent_funded),
 				potentialGrowth: asset.potential_growth,
 			})
-			);
+			).sort((a: any, b: any) => b.status - a.status);
 
 			return res;
 		},

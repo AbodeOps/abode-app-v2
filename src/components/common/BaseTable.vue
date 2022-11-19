@@ -12,7 +12,10 @@
 				</th>
 			</tr>
 		</thead>
+
 		<tbody class="divide-y divide-gray-200 bg-white">
+			<div class="w-full p-5 text-center" v-if="items.length === 0">No items to display</div>
+
 			<tr v-for="(item, idx) in items" :key="idx">
 				<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" v-for="(header, ix) in headers" :key="ix">
 					<slot :name="`cell(${header.key})`" v-bind="item">
@@ -22,7 +25,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<BasePagination v-if="showPagination" />
+	<BasePagination v-if="false" />
 </template>
 
 <script lang="ts" setup>

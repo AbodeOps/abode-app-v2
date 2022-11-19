@@ -20,15 +20,15 @@
 				<p class="text-sm text-gray-700">
 					Showing
 					{{ ' ' }}
-					<span class="font-medium">1</span>
+					<span class="font-medium">{{ page * pageCount }}</span>
 					{{ ' ' }}
 					to
 					{{ ' ' }}
-					<span class="font-medium">10</span>
+					<span class="font-medium">{{ (page + 1) * pageCount }}</span>
 					{{ ' ' }}
 					of
 					{{ ' ' }}
-					<span class="font-medium">97</span>
+					<span class="font-medium">{{ total }}</span>
 					{{ ' ' }}
 					results
 				</p>
@@ -100,4 +100,19 @@
 
 <script lang="ts" setup>
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid';
+
+defineProps({
+	page: {
+		type: Number,
+		default: 1,
+	},
+	pageCount: {
+		type: Number,
+		default: 1,
+	},
+	total: {
+		type: Number,
+		default: 1,
+	},
+});
 </script>
