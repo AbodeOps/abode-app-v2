@@ -50,22 +50,25 @@ export default class AuthService {
 	}
 
 	static async collectInterests({
-		email,
 		expectations,
 		purpose,
 		interests,
+		who,
+		used
 	}: {
-		email: string;
 		expectations: string;
 		purpose: string;
 		interests: string[];
+		used: boolean;
+		who: string;
 	}) {
 		try {
 			const res = await api.post('clients/collect-interests', {
-				email,
 				type_interests: interests.toString(),
 				volume_interests: expectations,
 				purpose,
+				who,
+				used,
 			});
 
 			return res.data;

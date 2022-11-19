@@ -120,22 +120,32 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { ChevronDownIcon, CheckIcon } from '@heroicons/vue/20/solid';
 import { ref, watch } from 'vue';
 
-const props = defineProps<{
-	items: any[];
-	label?: string;
-	itemKey?: string;
-	itemValue?: string;
-	hideCaret?: boolean;
-	iconOnly?: boolean;
-	canSearch?: boolean;
-	shortenOnMobile?: boolean;
-	modelValue: any;
-}>();
+const props = withDefaults(
+	defineProps<{
+		items: any[];
+		label?: string;
+		itemKey?: string;
+		itemValue?: string;
+		hideCaret?: boolean;
+		iconOnly?: boolean;
+		canSearch?: boolean;
+		shortenOnMobile?: boolean;
+		returnObject?: boolean;
+		modelValue: any;
+	}>(),
+	{
+		returnObject: true,
+	}
+);
 
-const selectedItem = ref(props.modelValue);
+const selectedItem = ref(
+	props.itemValue ? props.items.find((item) => item[props.itemValue as string] === props.modelValue) || '' : props.modelValue
+);
 
 const selected = (item: any) => {
-	return selectedItem.value[props.itemValue as string] == item[props.itemValue as string];
+	return props.returnObject
+		? selectedItem.value[props.itemValue as string] == item[props.itemValue as string]
+		: selectedItem.value == item;
 };
 
 const emit = defineEmits(['update:modelValue']);
