@@ -21,7 +21,6 @@
 				<BaseInput type="text" placeholder="Confirm Password" v-model="form.confirmPassword" />
 
 				<BaseButton class="mt-5 w-full bg-orange" @click="handleReset" :loading="isLoading">Submit</BaseButton>
-
 			</div>
 		</template>
 	</AuthLayout>
@@ -55,39 +54,47 @@ const form = ref({
 });
 
 const handleSubmit = async () => {
-	hasSentOtp.value = false;
+	try {
+		hasSentOtp.value = false;
 
-	isSendingOtp.value = true;
+		isSendingOtp.value = true;
 
-	const res = await AuthService.forgotPassword(form.value.loginId);
+		const res = await AuthService.forgotPassword(form.value.loginId);
 
-	if (res.status) {
-		hasSentOtp.value = true;
-		step.value++;
-		toast.success(res.message);
+		console.log(res, 'handled');
+
+		if (res.status) {
+			hasSentOtp.value = true;
+			step.value++;
+			toast.success(res.message);
+		}
+		isSendingOtp.value = false;
+	} catch (error: any) {
+		toast.error('Something went wrong! Try again.');
 	}
-	isSendingOtp.value = false;
-
 };
 
 const handleReset = async () => {
-	isLoading.value = true;
-	hasSentOtp.value = false;
+	try {
+		isLoading.value = true;
+		hasSentOtp.value = false;
 
-	isSendingOtp.value = true;
+		isSendingOtp.value = true;
 
-	const res = await AuthService.resetPassword({
-		otp: form.value.otp,
-		password: form.value.password,
-		email: form.value.loginId,
-	});
+		const res = await AuthService.resetPassword({
+			otp: form.value.otp,
+			password: form.value.password,
+			email: form.value.loginId,
+		});
 
-	if (res.status) {
-		toast.success(res.message);
-		goToLogin();
+		if (res.status) {
+			toast.success(res.message);
+			goToLogin();
+		}
+		isLoading.value = false;
+	} catch (error: any) {
+		toast.error('Something went wrong! Try again.');
 	}
-	isLoading.value = false;
-
 };
 
 const goToLogin = () => {

@@ -11,10 +11,16 @@
 			<BaseInput type="text" placeholder="First Name" label="First Name" v-model="form.firstName" />
 			<BaseInput type="text" placeholder="Last Name" label="Last Name" v-model="form.lastName" />
 			<BaseInput type="text" placeholder="Email Address" label="Email Address" v-model="form.email" />
+			<BaseInput type="text" placeholder="Username" label="Username" v-model="form.username" />
 			<BaseInput type="text" placeholder="Phone Number" label="Phone Number" v-model="form.phoneNumber" />
 			<BaseInput type="text" placeholder="Referrer" label="Referrer" v-model="form.referrer" />
 			<BaseInput :type="isPasswordVisible ? 'ext' : 'password'" placeholder="Password" label="Password" v-model="form.password" />
-			<BaseInput :type="isPasswordVisible ? 'ext' : 'password'" placeholder="Confirm Password" label="Confirm Password" v-model="form.confirmPassword" />
+			<BaseInput
+				:type="isPasswordVisible ? 'ext' : 'password'"
+				placeholder="Confirm Password"
+				label="Confirm Password"
+				v-model="form.confirmPassword"
+			/>
 			<div class="flex justify-between">
 				<BaseCheckbox label="Show Password" v-model="isPasswordVisible" />
 
@@ -47,6 +53,7 @@ const form = ref<SignUpForm>({
 	firstName: '',
 	lastName: '',
 	email: '',
+	username: '',
 	phoneNumber: '',
 	confirmPassword: '',
 	password: '',
@@ -57,10 +64,10 @@ const route = useRoute();
 const router = useRouter();
 
 const isDisabled = computed(() => {
-	const { firstName, lastName, email, phoneNumber, password, confirmPassword} = form.value
-	if(!firstName || !lastName || !email|| !phoneNumber|| !password || !confirmPassword || password !== confirmPassword) return true;
+	const { firstName, lastName, email, phoneNumber, password, confirmPassword } = form.value;
+	if (!firstName || !lastName || !email || !phoneNumber || !password || !confirmPassword || password !== confirmPassword) return true;
 	return false;
-})
+});
 
 const signup = async () => {
 	isLoading.value = true;
@@ -74,7 +81,7 @@ const signup = async () => {
 			}
 			isLoading.value = false;
 		})
-		.catch(() => {
+		.catch((errors: any) => {
 			isLoading.value = false;
 		});
 };
@@ -82,8 +89,8 @@ const signup = async () => {
 onMounted(() => {
 	const { ref } = route.query;
 
-        if (ref) {
-            form.value.referrer = ref as string;
-        }
-})
+	if (ref) {
+		form.value.referrer = ref as string;
+	}
+});
 </script>

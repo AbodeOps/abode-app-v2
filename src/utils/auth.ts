@@ -93,7 +93,13 @@ function resolveRequestError(err: any, throwAll = true, popToast = true) {
 
 	// if (throwAll) throw data;
 	console.log(err);
-	toast.error(err.response.data.message);
+	if (err.response.data.errors) {
+		Object.keys(err.response.data.errors).forEach((item) => {
+			toast.error(err.response.data.errors[item][0]);
+		});
+	} else {
+		toast.error(err.response.data.message);
+	}
 
 }
 
