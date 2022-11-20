@@ -51,11 +51,14 @@ const login = async () => {
 	isLoading.value = true;
 	await authStore
 		.login(form.value)
-		.then((res) => {
+		.then((res: any) => {
 			if (res.status) {
-				toast.success(res.message);
-
-				router.push({ name: ROUTES.USER_DASHBOARD });
+				if (res.data.user.email_verified_at) {
+					toast.success(res.message);
+					router.push({ name: ROUTES.USER_DASHBOARD });
+				} else {
+					router.push({ name: ROUTES.AUTH_ACTIVATE_EMAIL, query: { id: form.value.loginId } });
+				}
 			}
 			isLoading.value = false;
 		})

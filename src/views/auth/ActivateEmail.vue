@@ -7,18 +7,29 @@
 			</div>
 		</template>
 		<template #form>
-			<div v-if="step === 1">
+			<!-- <div v-if="step === 1">
 				<BaseInput type="text" placeholder="Email or Username" v-model="form.loginId" />
 
 				<BaseButton class="mt-5 w-full bg-orange" @click="handleSubmit" :loading="isSendingOtp">Submit</BaseButton>
-			</div>
-			<div v-else>
-				<span class="text-sm">An OTP has been sent to the email for {{ form.loginId }}</span>
+			</div> -->
+			<div>
+				<span class="mb-5 text-sm">
+					An OTP has been sent to your email
+					<b>{{ form.email }}</b>
+				</span>
 
-				<BaseInput type="text" placeholder="OTP" v-model="form.otp" />
-
-				<BaseButton class="mt-5 w-full bg-orange" @click="handleVerify" :loading="isLoading">Submit</BaseButton>
-
+				<BaseInput class="mt-5" type="text" placeholder="OTP" v-model="form.otp" />
+				<div class="mt-5 flex w-full items-center pt-5">
+					<BaseButton
+						class="mr-5 w-full border border-black bg-white px-8 text-sm text-black"
+						textColor="black"
+						bgColor="white"
+						@click="goToDashboard"
+					>
+						Skip for now
+					</BaseButton>
+					<BaseButton class="w-full bg-orange" @click="handleVerify" :loading="isLoading">Submit</BaseButton>
+				</div>
 			</div>
 		</template>
 	</AuthLayout>
@@ -30,8 +41,8 @@ import BaseInput from '@/components/common/BaseInput.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 import BaseLink from '@/components/common/BaseLink.vue';
 import { ROUTES } from '@/router/routes';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { AuthService } from '@/services';
 import toast from '@/helpers/toast';
@@ -41,11 +52,13 @@ const isLoading = ref(false);
 const isSendingOtp = ref(false);
 const hasSentOtp = ref(false);
 const router = useRouter();
+const route = useRoute();
 
 const authStore = useAuthStore();
 
 const form = ref({
 	loginId: '',
+	email: '',
 	otp: '',
 	password: '',
 	confirmPassword: '',
@@ -64,7 +77,6 @@ const handleSubmit = async () => {
 		toast.success(res.message);
 	}
 	isSendingOtp.value = false;
-
 };
 
 const handleVerify = async () => {
@@ -80,13 +92,25 @@ const handleVerify = async () => {
 
 	if (res.status) {
 		toast.success(res.message);
-		goToLogin();
+		goToDashboard();
 	}
 	isLoading.value = false;
-
 };
 
 const goToLogin = () => {
 	router.push({ name: ROUTES.AUTH_LOGIN });
 };
+
+const goToDashboard = () => {
+	router.replace({ name: ROUTES.USER_DASHBOARD });
+};
+
+onMounted(() => {
+	const loginId = route.query.id;
+	if (loginId) {
+		form.value.email = loginId as string;
+		form.value.loginId = loginId as string;
+		handleSubmit();
+	}
+});
 </script>

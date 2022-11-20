@@ -52,16 +52,25 @@ export default [
 				path: 'signin',
 				name: ROUTES.AUTH_LOGIN,
 				component: () => import('../views/auth/LoginView.vue'),
+				meta: {
+					mustBeLoggedOut: true,
+				}
 			},
 			{
 				path: 'user/signup',
 				name: ROUTES.AUTH_USER_REGISTER,
 				component: () => import('../views/auth/UserRegisterView.vue'),
+				meta: {
+					mustBeLoggedOut: true,
+				}
 			},
 			{
 				path: 'vendor/signup',
 				name: ROUTES.AUTH_VENDOR_REGISTER,
 				component: () => import('../views/auth/VendorRegisterView.vue'),
+				meta: {
+					mustBeLoggedOut: true,
+				}
 			},
 			{
 				path: 'signup/activate-email',
@@ -73,6 +82,9 @@ export default [
 				path: 'reset-password/:token',
 				name: ROUTES.AUTH_PASSWORD_RESET,
 				component: () => import('../views/auth/password/ResetPassword.vue'),
+				meta: {
+					mustBeLoggedOut: true,
+				}
 			},
 			{
 				path: 'password',
@@ -81,6 +93,9 @@ export default [
 						path: 'forgot',
 						name: ROUTES.AUTH_PASSWORD_FORGOT,
 						component: () => import('../views/auth/password/ForgotPassword.vue'),
+						meta: {
+							mustBeLoggedOut: true,
+						}
 					},
 					// {
 					// 	path: 'reset/:token',
@@ -91,6 +106,9 @@ export default [
 						path: 'reset/done',
 						name: ROUTES.AUTH_PASSWORD_RESET_DONE,
 						component: () => import('../views/auth/password/ResetPasswordDone.vue'),
+						meta: {
+							mustBeLoggedOut: true,
+						}
 					},
 				],
 			},

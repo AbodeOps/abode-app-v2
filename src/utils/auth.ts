@@ -1,6 +1,8 @@
 /* eslint-disable */
 // import app from "@/main";
 import toast from '@/helpers/toast';
+import router from '@/router';
+import { ROUTES } from '@/router/routes';
 
 // function errorHandler(e: any) {
 //     let data: any = "Connection seems to be very slow";
@@ -92,7 +94,11 @@ function resolveRequestError(err: any, throwAll = true, popToast = true) {
 	//     app.$store.commit("openSnackbar", text, { root: true });
 
 	// if (throwAll) throw data;
-	console.log(err);
+	if (err.response.status === 401) {
+		localStorage.clear();
+		router.push({ name: ROUTES.AUTH_LOGIN });
+	}
+
 	if (err.response.data.errors) {
 		Object.keys(err.response.data.errors).forEach((item) => {
 			toast.error(err.response.data.errors[item][0]);
