@@ -12,7 +12,7 @@
 			<BaseInput type="text" placeholder="Last Name" label="Last Name" v-model="form.lastName" />
 			<BaseInput type="text" placeholder="Email Address" label="Email Address" v-model="form.email" />
 			<BaseInput type="text" placeholder="Username" label="Username" v-model="form.username" />
-			<BaseInput type="text" placeholder="Phone Number" label="Phone Number" v-model="form.phoneNumber" />
+			<BaseInput type="number" placeholder="Phone Number" label="Phone Number" v-model="form.phoneNumber" />
 			<BaseInput type="text" placeholder="Referrer" label="Referrer" v-model="form.referrer" />
 			<BaseInput :type="isPasswordVisible ? 'ext' : 'password'" placeholder="Password" label="Password" v-model="form.password" />
 			<BaseInput
@@ -26,7 +26,20 @@
 
 				<BaseLink textColor="text-primary" :route="ROUTES.AUTH_LOGIN">Login Instead</BaseLink>
 			</div>
+			<BaseCheckbox class="mt-4" v-model="form.agreed">
+				I hereby agree to the
+				<BaseLink @click="isTermsOpen = true">terms of use</BaseLink>
+			</BaseCheckbox>
+
 			<BaseButton :loading="isLoading" :disabled="isDisabled" class="mt-5 w-full bg-orange" @click="signup">Sign Up</BaseButton>
+			<TermsOfUse
+				:isOpen="isTermsOpen"
+				@completed="
+					isTermsOpen = false;
+					form.agreed = true;
+				"
+				@closed="isTermsOpen = false"
+			/>
 		</template>
 	</AuthLayout>
 </template>
@@ -43,11 +56,13 @@ import { computed, onMounted, ref } from 'vue';
 import type { SignUpForm } from '@/types';
 import toast from '@/helpers/toast';
 import { useRoute, useRouter } from 'vue-router';
+import TermsOfUse from '@/components/common/TermsOfUse.vue';
 
 const authStore = useAuthStore();
 
 const isPasswordVisible = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
+const isTermsOpen = ref<boolean>(false);
 
 const form = ref<SignUpForm>({
 	firstName: '',
@@ -58,14 +73,16 @@ const form = ref<SignUpForm>({
 	confirmPassword: '',
 	password: '',
 	referrer: '',
+	agreed: false,
 });
 
 const route = useRoute();
 const router = useRouter();
 
 const isDisabled = computed(() => {
-	const { firstName, lastName, email, phoneNumber, password, confirmPassword } = form.value;
-	if (!firstName || !lastName || !email || !phoneNumber || !password || !confirmPassword || password !== confirmPassword) return true;
+	const { firstName, lastName, email, phoneNumber, password, confirmPassword, agreed } = form.value;
+	if (!firstName || !lastName || !email || !phoneNumber || !password || !confirmPassword || password !== confirmPassword || !agreed)
+		return true;
 	return false;
 });
 

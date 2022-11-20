@@ -4,6 +4,7 @@
 		<div class="grid grid-cols-1 gap-10 md:grid-cols-3" v-else>
 			<AssetCard v-for="asset in assets" :asset="asset" :key="asset.id" />
 		</div>
+		<div v-if="assets.length === 0 && !isLoadingAssets">No assets available</div>
 	</div>
 </template>
 
@@ -22,11 +23,14 @@ const { assets } = storeToRefs(assetStore);
 
 const fetchAssets = async () => {
 	isLoadingAssets.value = true;
-	await assetStore.fetchAssets().then(() => {
-		isLoadingAssets.value = false;
-	}).catch(() => {
-		isLoadingAssets.value = false;
-	});
+	await assetStore
+		.fetchAssets()
+		.then(() => {
+			isLoadingAssets.value = false;
+		})
+		.catch(() => {
+			isLoadingAssets.value = false;
+		});
 };
 
 onMounted(() => {

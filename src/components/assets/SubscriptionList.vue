@@ -10,6 +10,7 @@
 				:key="subscription.id"
 			/>
 		</div>
+		<div v-if="subscriptions.length === 0 && !isLoadingAssets">No subscriptions available</div>
 	</div>
 </template>
 
@@ -28,11 +29,14 @@ const { subscriptions } = storeToRefs(assetStore);
 
 const fetchSubscriptions = async () => {
 	isLoadingAssets.value = true;
-	await assetStore.fetchSubscriptions().then(() => {
-		isLoadingAssets.value = false;
-	}).catch(() => {
-		isLoadingAssets.value = false;
-	});
+	await assetStore
+		.fetchSubscriptions()
+		.then(() => {
+			isLoadingAssets.value = false;
+		})
+		.catch(() => {
+			isLoadingAssets.value = false;
+		});
 };
 
 onMounted(() => {

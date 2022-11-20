@@ -62,6 +62,7 @@ export interface SignUpForm {
 	password: string;
 	confirmPassword: string;
 	referrer: string;
+	agreed?: boolean;
 }
 
 export interface Client {

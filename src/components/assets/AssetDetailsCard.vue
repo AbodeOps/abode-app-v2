@@ -35,7 +35,7 @@
 		</div>
 
 		<div class="mt-6 flex flex-col md:flex-row">
-			<BaseButton v-if="!subscribed" :disabled="!asset.status" class="bg-orange px-10 text-sm" @click="isOpen = true">
+			<BaseButton v-if="!subscribed" :disabled="!asset.status" class="bg-orange px-10 text-sm" @click="isTermsOpen = true">
 				Subscribe
 			</BaseButton>
 			<BaseButton v-if="false" class="mr-0 bg-orange px-10 text-sm md:mr-5" @click="isOpen = true">Sell my shares</BaseButton>
@@ -66,6 +66,14 @@
 			@closed="isVoteToSellOpen = false"
 			@completed="emit('refresh')"
 		/>
+		<Terms
+			:isOpen="isTermsOpen"
+			@completed="
+				isTermsOpen = false;
+				isOpen = true;
+			"
+			@closed="isTermsOpen = false"
+		/>
 	</div>
 </template>
 
@@ -80,11 +88,13 @@ import type { Asset, Subscription } from '@/types';
 import { formatMoney } from '@/utils/helpers';
 import { useTransactionStore } from '@/stores/transactions';
 import VoteToSellModal from './VoteToSellModal.vue';
+import Terms from '../common/Terms.vue';
 
 const props = defineProps<{ subscribed?: boolean; asset: Asset; subscription?: Subscription }>();
 
 const subscribe = () => {};
 const isOpen = ref(false);
+const isTermsOpen = ref(false);
 const isVoteToSellOpen = ref(false);
 
 const currentSalesValue = computed(() => props.asset.unit_price * (props.subscription?.units || 0));
