@@ -44,6 +44,18 @@ export default [
 		},
 	},
 	{
+		path: '/user/signup',
+		redirect: (to: RouteLocation) => {
+			return { name: ROUTES.AUTH_USER_REGISTER, query: to.query };
+		}
+	},
+	{
+		path: '/signup',
+		redirect: (to: RouteLocation) => {
+			return { name: ROUTES.AUTH_USER_REGISTER, query: to.query };
+		}
+	},
+	{
 		path: '/auth',
 		name: 'auth',
 		component: () => import('../views/AuthView.vue'),

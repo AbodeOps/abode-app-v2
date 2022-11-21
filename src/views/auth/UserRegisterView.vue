@@ -8,6 +8,9 @@
 			</div>
 		</template>
 		<template #form>
+			<div class="mb-3 rounded-md bg-green-300 px-4 py-2 text-sm text-black" v-if="resolvedReferrer.length > 0">
+				{{ resolvedReferrer }} referred you.
+			</div>
 			<BaseInput type="text" placeholder="First Name" label="First Name" v-model="form.firstName" />
 			<BaseInput type="text" placeholder="Last Name" label="Last Name" v-model="form.lastName" />
 			<BaseInput type="text" placeholder="Email Address" label="Email Address" v-model="form.email" />
@@ -79,6 +82,8 @@ const form = ref<SignUpForm>({
 const route = useRoute();
 const router = useRouter();
 
+const resolvedReferrer = ref('');
+
 const isDisabled = computed(() => {
 	const { firstName, lastName, email, phoneNumber, password, confirmPassword, agreed } = form.value;
 	if (!firstName || !lastName || !email || !phoneNumber || !password || !confirmPassword || password !== confirmPassword || !agreed)
@@ -103,11 +108,21 @@ const signup = async () => {
 		});
 };
 
+const resolveReferrer = async () => {
+	await authStore.resolveReferrer({ referrer: form.value.referrer }).then((res) => {
+		if (res.status) {
+			toast.success(res.message);
+			resolvedReferrer.value = res.data;
+		}
+	});
+};
+
 onMounted(() => {
 	const { ref } = route.query;
 
 	if (ref) {
 		form.value.referrer = ref as string;
+		resolveReferrer();
 	}
 });
 </script>
