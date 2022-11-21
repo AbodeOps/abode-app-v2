@@ -76,10 +76,10 @@ defineProps<{
 }>();
 
 const accountNumbers = ref([
-	{ label: '0668633069 (Naira - NGN)', value: '0668633069', isCopying: false },
-	{ label: '0668633076 (Dollar - USD)', value: '0668633076', isCopying: false },
-	{ label: '0668633083 (Pounds - GBP)', value: '0668633083', isCopying: false },
-	{ label: '0668633090 (Euros - EUR)', value: '0668633090', isCopying: false },
+	{ label: '0718611447 (Naira - NGN)', value: '0718611447', isCopying: false },
+	{ label: '0719732905 (Dollar - USD)', value: '0719732905', isCopying: false },
+	{ label: '0719732912 (Pounds - GBP)', value: '0719732912', isCopying: false },
+	{ label: '0719732929 (Euros - EUR)', value: '0719732929', isCopying: false },
 ]);
 
 const form = ref({
