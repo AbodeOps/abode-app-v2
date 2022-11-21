@@ -51,7 +51,7 @@ const copyLink = async () => {
 
 	try {
 		await navigator.clipboard.writeText(
-			`Join the largest community of young people multiplying wealth through Real Estate Assets \nClick ${baseUrl}/auth/user/signup?ref=${user.value?.username} to enjoy amazing deals`
+			`Join the largest community of young people multiplying wealth through Real Estate Assets \nClick ${baseUrl}/signup?ref=${user.value?.username} to enjoy amazing deals`
 		);
 		isCopied.value = true;
 
