@@ -25,7 +25,12 @@
 					v-model="form.bankId"
 				/>
 
-				<BaseButton class="mt-5 bg-orange px-8 text-sm" :disabled="balance < 2000" :loading="isLoading" @click="proceed">
+				<BaseButton
+					class="mt-5 bg-orange px-8 text-sm"
+					:disabled="balance < 2000 && !form.bankId"
+					:loading="isSendingOtp"
+					@click="requestOTP"
+				>
 					Withdraw to Bank
 				</BaseButton>
 			</div>
@@ -70,7 +75,7 @@ const { formattedBalance, balance, bankAccounts } = storeToRefs(transactionStore
 
 const form = ref<WithdrawalForm>({
 	amount: '2000',
-	bankId: '1',
+	bankId: '',
 	otp: '',
 });
 
@@ -97,7 +102,7 @@ const proceed = async () => {
 	isLoading.value = true;
 
 	await transactionStore
-		.withdraw(form.value)
+		.withdraw({ ...form.value, bankId: (form.value.bankId as any)?.id })
 		.then((res: any) => {
 			if (res.status) {
 				toast.success(res.message);
