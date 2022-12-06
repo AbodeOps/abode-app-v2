@@ -45,7 +45,7 @@
 				<div class="mt-1 text-sm font-light text-gray-50">Current Sales Value</div>
 			</div>
 			<div class="w-1/2 text-start" v-if="!subscribed">
-				<div>{{ asset.collection_period }}</div>
+				<div>{{ asset.collection_period ?? '-' }}</div>
 				<div class="mt-1 text-sm font-light text-gray-50">Collection Date</div>
 			</div>
 			<div class="w-1/2 text-start" v-if="subscribed && subscription">
