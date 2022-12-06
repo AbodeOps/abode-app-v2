@@ -43,6 +43,7 @@ export const useTransactionStore = defineStore({
 
 		async fetchWallet() {
 			const res = await TransactionService.fetchWallet();
+			console.log('oop', res.data);
 
 			this.balance = res.data.balance;
 			this.totalInflow = res.data.total_inflow;

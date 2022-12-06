@@ -114,6 +114,9 @@ export interface Asset {
 	totalUnits: number;
 	percentFunded: number;
 	potentialGrowth: string;
+	collection_period?: string;
+	started_at?: string;
+	closing_date?: string;
 	funds: Subscription[]
 }
 
