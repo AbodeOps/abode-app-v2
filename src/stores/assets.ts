@@ -20,8 +20,8 @@ export const useAssetStore = defineStore({
 				totalUnits: asset.expected_slots,
 				percentFunded: Number(asset.percent_funded),
 				potentialGrowth: asset.potential_growth,
-			})
-			).sort((a: any, b: any) => b.status - a.status);
+			})).filter((asset: any) => asset.visible)
+				.sort((a: any, b: any) => b.status - a.status);
 
 			return res;
 		},
