@@ -14,7 +14,7 @@
 			</div> -->
 			<div>
 				<span class="mb-5 text-sm">
-					An OTP has been sent to your email
+					An OTP has been sent to your email. If you don't see OTP in your primary email check your promotion or spam
 					<b>{{ form.email }}</b>
 				</span>
 

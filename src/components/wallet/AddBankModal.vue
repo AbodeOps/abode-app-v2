@@ -22,7 +22,10 @@
 					/>
 				</div>
 				<div class="w-full" v-else>
-					<span class="mb-3 text-sm">An OTP has been sent to the email for {{ user?.email }}</span>
+					<span class="mb-3 text-sm">
+						An OTP has been sent to the email for {{ user?.email }}. If you don't see OTP in your primary email check your
+						promotion or spam
+					</span>
 
 					<BaseInput type="number" placeholder="OTP" v-model="form.otp" />
 				</div>

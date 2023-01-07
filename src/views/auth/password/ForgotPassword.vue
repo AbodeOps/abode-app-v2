@@ -14,7 +14,10 @@
 				<BaseButton class="mt-5 w-full bg-orange" @click="handleSubmit" :loading="isSendingOtp">Submit</BaseButton>
 			</div>
 			<div v-else>
-				<span class="text-sm">An OTP has been sent to the email for {{ form.loginId }}</span>
+				<span class="text-sm">
+					An OTP has been sent to the email for {{ form.loginId }}. If you don't see OTP in your primary email check your
+					promotion or spam
+				</span>
 
 				<BaseInput type="text" placeholder="OTP" v-model="form.otp" />
 				<BaseInput type="text" placeholder="New Password" v-model="form.password" />
