@@ -46,9 +46,9 @@ const proceed = async () => {
 
 	await authStore
 		.editProfile({
-			first_name: form.value.firstName,
-			middle_name: form.value.middleName,
-			last_name: form.value.lastName,
+			first_name: form.value.firstName?.trim(),
+			middle_name: form.value.middleName?.trim(),
+			last_name: form.value.lastName?.trim(),
 		})
 		.then((res: any) => {
 			if (res.status) {

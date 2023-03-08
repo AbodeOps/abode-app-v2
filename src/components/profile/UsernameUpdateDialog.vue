@@ -1,10 +1,10 @@
 <template>
 	<AnimatedModal :isOpen="isOpen" mdMiddleCenterSmBottom>
 		<div class="z-50 w-full rounded-lg bg-white pb-5 md:w-[600px]">
-			<BaseModalHeader title="Phone Number" @closed="emit('closed')" />
+			<BaseModalHeader title="Username" @closed="emit('closed')" />
 
 			<div class="mt-5 flex w-full flex-col items-center px-8">
-				<BaseInput type="text" placeholder="Phone Number" label="Phone Number" v-model="form.phoneNumber" />
+				<BaseInput type="text" placeholder="Username" label="Username" v-model="form.username" />
 
 				<BaseButton class="mt-5 bg-orange px-8 text-sm" :loading="isLoading" @click="proceed">Update</BaseButton>
 			</div>
@@ -33,7 +33,7 @@ const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 
 const form = ref({
-	phoneNumber: user.value?.client.phoneNumber,
+	username: user.value?.username,
 });
 
 const emit = defineEmits(['closed']);
@@ -42,7 +42,7 @@ const proceed = async () => {
 	isLoading.value = true;
 
 	await authStore
-		.editProfile({ phone_number: form.value.phoneNumber?.trim() })
+		.editProfile({ username: form.value.username?.trim() })
 		.then((res: any) => {
 			if (res.status) {
 				toast.success(res.message);

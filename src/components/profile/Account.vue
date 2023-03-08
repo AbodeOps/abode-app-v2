@@ -25,7 +25,14 @@
 					fetchProfile();
 				"
 			/>
-			<BaseFormTabItem label="Username" :value="'@' + user.username" />
+			<BaseFormTabItem editable @opened="isUsernameDialogOpen = true" label="Username" :value="'@' + user.username" />
+			<UsernameUpdateDialog
+				:isOpen="isUsernameDialogOpen"
+				@closed="
+					isUsernameDialogOpen = false;
+					fetchProfile();
+				"
+			/>
 			<BaseFormTabItem label="BVN" value="Nil" />
 			<BaseFormTabItem label="Country" :value="user.client.country" />
 			<BaseFormTabItem label="State" :value="user.client.state" />
@@ -55,6 +62,7 @@ import { computed, ref } from 'vue';
 import { ProfileAddIcon } from '../icons/AllIcons';
 import NameUpdateDialog from './NameUpdateDialog.vue';
 import PhoneNumberUpdateDialog from './PhoneNumberUpdateDialog.vue';
+import UsernameUpdateDialog from './UsernameUpdateDialog.vue';
 
 const authStore = useAuthStore();
 
@@ -66,4 +74,5 @@ const fetchProfile = async () => {
 
 const isNameDialogOpen = ref(false);
 const isPhoneNumberDialogOpen = ref(false);
+const isUsernameDialogOpen = ref(false);
 </script>
