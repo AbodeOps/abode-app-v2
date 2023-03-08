@@ -21,13 +21,13 @@ export default class AuthService {
 	}) {
 		try {
 			const res = await api.post('/auth/register', {
-				first_name: firstName,
-				last_name: lastName,
-				email,
-				phone_number: phoneNumber,
+				first_name: firstName.trim(),
+				last_name: lastName.trim(),
+				email: email.trim(),
+				phone_number: phoneNumber.trim(),
 				password,
-				username,
-				referrer,
+				username: username.trim(),
+				referrer: referrer.trim(),
 			});
 
 			return res.data;
