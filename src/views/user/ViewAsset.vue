@@ -52,13 +52,18 @@ const fetchAssetById = async () => {
 		const projectId = route.params.id;
 
 		const res = await assetStore.fetchAssetById(Number(projectId));
-
+		
 		asset.value = {
 			...res.data,
 			totalUnits: res.data.expected_slots,
 			percentFunded: Number(res.data.percent_funded),
 			potentialGrowth: res.data.potential_growth,
+			checkAssetName: (res.data.name).includes("Car"),
 		};
+		console.log(res.data)
+	
+		console.log(String(res.data.name))
+		console.log((res.data.name).includes("Car"))
 	} finally {
 		isLoading.value = false;
 	}
@@ -66,5 +71,6 @@ const fetchAssetById = async () => {
 
 onBeforeMount(async () => {
 	await fetchAssetById();
+	
 });
 </script>
