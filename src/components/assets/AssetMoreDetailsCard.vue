@@ -6,7 +6,8 @@
 			<AssetField :value="`${asset.available_units}`" label="Available Units" />
 
 			<AssetField value="June-24-2022" label="Collection Date" />
-			<div v-if="`${asset.checkAssetName}`">
+			
+			<div v-if="asset.checkAssetName">
 				<AssetField value="15% (Every 3 years)" label="Rental Appreciation" />
 			</div>
 			<AssetField :value="`${asset.potentialGrowth}`" label="Potential Capital Appreciation" />
@@ -55,6 +56,6 @@ const features = ref([
 	'24 hours security',
 	'Fenced and gated',
 ]);
-//console.log(asset.checkAssetName)
+
 
 </script>

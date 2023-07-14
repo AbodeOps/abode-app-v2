@@ -64,6 +64,7 @@ const fetchAssetById = async () => {
 	
 		console.log(String(res.data.name))
 		console.log((res.data.name).includes("Car"))
+		console.log(asset.value?.checkAssetName)
 	} finally {
 		isLoading.value = false;
 	}
