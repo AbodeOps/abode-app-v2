@@ -111,6 +111,7 @@ export interface Asset {
 	unit_price: number;
 	max_duration: number;
 	status: boolean;
+	
 	totalUnits: number;
 	percentFunded: number;
 	potentialGrowth: string;
@@ -118,6 +119,7 @@ export interface Asset {
 	started_at?: string;
 	closing_date?: string;
 	funds: Subscription[]
+	checkAssetName:boolean;
 }
 
 export interface Subscription {
