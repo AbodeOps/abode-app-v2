@@ -42,7 +42,7 @@ export default class AuthService {
 				login_id: loginId,
 				password,
 			});
-
+			console.log(res.data)
 			return res.data;
 		} catch (error) {
 			resolveRequestError(error);
