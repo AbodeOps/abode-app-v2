@@ -5,7 +5,6 @@
 			<AssetField :value="`${asset.totalUnits}`" label="Total Units" />
 			<AssetField :value="`${asset.available_units}`" label="Available Units" />
 			<AssetField :value="`${asset.potentialGrowth}`" label="Potential Capital Appreciation" />
-
 		</div>
 
 		<!-- <div class="mt-5 mb-4 flex text-lg">
