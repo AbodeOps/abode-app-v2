@@ -60,7 +60,11 @@ const fetchAssetById = async () => {
 			potentialGrowth: res.data.potential_growth,
 			checkAssetName: (res.data.name).includes("Car"),
 		};
-
+		console.log(res.data)
+	
+		console.log(String(res.data.name))
+		console.log((res.data.name).includes("Car"))
+		console.log(asset.value?.checkAssetName)
 	} finally {
 		isLoading.value = false;
 	}
