@@ -4,7 +4,6 @@
 		<div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
 			<AssetField :value="`${asset.totalUnits}`" label="Total Units" />
 			<AssetField :value="`${asset.available_units}`" label="Available Units" />
-		
 			<AssetField :value="`${asset.potentialGrowth}`" label="Potential Capital Appreciation" />
 
 		</div>
