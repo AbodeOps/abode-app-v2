@@ -1,4 +1,5 @@
 <template>
+	<!--adjusted 3 years-->
 	<div class="w-full rounded-lg border border-gray-40 p-6 md:p-8">
 		<div class="text-2xl font-bold">Asset Details</div>
 		<div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
