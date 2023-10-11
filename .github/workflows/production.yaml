@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             AWS_S3_BUCKET_NAME: dashboard.myabode.app
-            AWS_CF_DISTRIBUTION_ID: ENPS9JB8R6YQ2
+            AWS_CF_DISTRIBUTION_ID: EC2RTPNG6NU4U
             VITE_APP_APP_BASE: https://dashboard.myabode.app
             VITE_APP_API_BASE: https://api.abode.ng/api
         strategy:
