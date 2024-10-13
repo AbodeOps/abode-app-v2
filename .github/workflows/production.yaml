@@ -44,7 +44,7 @@
 #                   AWS_REGION: 'us-east-1'
 #                   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 #                   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-name: Deploy Myabode Dashboard
+name: Production Deployment
 
 on:
   push:
@@ -52,66 +52,68 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: yarn install
-
-    - name: Build project with TypeScript errors ignored
-      run: yarn build
-
-    - name: Archive production artifacts
-      run: tar -czf dist.tar.gz dist
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: dist
-        path: dist.tar.gz
-
   deploy:
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
-    - name: Download artifact
-      uses: actions/download-artifact@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
       with:
-        name: dist
-        path: dist
+        php-version: '8.3'
+        extensions: mbstring, xml, intl
 
-    - name: Prepare SSH Key
+    - name: Get Composer Cache Directory
+      id: composer-cache
       run: |
-        echo "${{ secrets.DO_PRIVATE_SSH_KEY }}" | tr -d '\r' > private_key
-        chmod 600 private_key
+        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
-    - name: Copy files via scp
-      run: |
-        scp -i private_key -o StrictHostKeyChecking=no dist/dist.tar.gz ${{ secrets.DO_USERNAME }}@${{ secrets.DO_HOST }}:/var/www/dashboard.myabode.app/html
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
 
-    - name: Extract and Move files on server
+    - name: Install Composer dependencies
+      run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+    - name: Configure SSH
       run: |
-        ssh -i private_key -o StrictHostKeyChecking=no ${{ secrets.DO_USERNAME }}@${{ secrets.DO_HOST }} << 'EOF'
-          cd /var/www/dashboard.myabode.app/html
-          tar -xzvf dist.tar.gz
-          mv dist/* .
-          rm -rf dist dist.tar.gz
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.DO_PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.DO_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Install Composer on server
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.DO_USERNAME }}@${{ secrets.DO_HOST }} << 'EOF'
+          sudo apt update
+          sudo apt install -y curl php-cli php-mbstring unzip
+          curl -sS https://getcomposer.org/installer -o composer-setup.php
+          sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          rm composer-setup.php
         EOF
 
-    - name: Clean up
-      run: rm -f private_key dist.tar.gz
+    - name: Ensure ownership and permissions on target server
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.DO_USERNAME }}@${{ secrets.DO_HOST }} << 'EOF'
+          sudo chown -R www-data:www-data /var/www/api.abode.ng/html
+          sudo chmod -R 775 /var/www/api.abode.ng/html
+        EOF
 
-    env:
-      VITE_APP_APP_BASE: https://dashboard.myabode.app
-      VITE_APP_API_BASE: https://api.abode.ng/api
+    - name: Deploy to DigitalOcean
+      run: |
+        rsync -avz --exclude='.env' --exclude='.git/' --no-perms --no-times -e "ssh -i ~/.ssh/id_rsa" ./ ${{ secrets.DO_USERNAME }}@${{ secrets.DO_HOST }}:/var/www/api.abode.ng/html
+        ssh -i ~/.ssh/id_rsa ${{ secrets.DO_USERNAME }}@${{ secrets.DO_HOST }} << 'EOF'
+          cd /var/www/api.abode.ng/html
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          php artisan migrate --force
+          php artisan config:cache
+          php artisan route:cache
+        EOF
 
+    - name: Clear SSH key
+      run: rm ~/.ssh/id_rsa
